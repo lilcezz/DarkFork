@@ -193,7 +193,6 @@ class Pokemon(LatLongModel):
                     .select(Pokemon, Pokemon_Rarity.rarity)
                     .join(Pokemon_Rarity, 
                          on=(Pokemon.pokemon_id == Pokemon_Rarity.pokemon_id))
-                    .where(Pokemon.disappear_time > now_date)
                     .dicts())
 
         return list(query)
