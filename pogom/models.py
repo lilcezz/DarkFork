@@ -29,7 +29,7 @@ from pogom.pgscout import pgscout_encounter
 from .utils import (get_pokemon_name, get_pokemon_types,
                     get_args, cellid, in_radius, date_secs, clock_between,
                     get_move_name, get_move_damage, get_move_energy,
-                    get_move_type, calc_pokemon_level, peewee_attr_to_col, i8ln)
+                    get_move_type, calc_pokemon_level, peewee_attr_to_col)
 from .transform import transform_from_wgs_to_gcj, get_new_coords
 from .customLog import printPokemon
 
