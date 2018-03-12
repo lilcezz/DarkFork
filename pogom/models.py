@@ -29,7 +29,7 @@ from pogom.pgscout import pgscout_encounter
 from .utils import (get_pokemon_name, get_pokemon_types,
                     get_args, cellid, in_radius, date_secs, clock_between,
                     get_move_name, get_move_damage, get_move_energy,
-                    get_move_type, calc_pokemon_level, peewee_attr_to_col)
+                    get_move_type, calc_pokemon_level, peewee_attr_to_col, i8ln)
 from .transform import transform_from_wgs_to_gcj, get_new_coords
 from .customLog import printPokemon
 
@@ -46,8 +46,9 @@ args = get_args()
 flaskDb = FlaskDB()
 cache = TTLCache(maxsize=100, ttl=60 * 5)
 
-db_schema_version = 30
+db_schema_version = 29
 
+rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4}
 
 
 class MyRetryDB(RetryOperationalError, PooledMySQLDatabase):
@@ -189,11 +190,6 @@ class Pokemon(LatLongModel):
                               (Pokemon.latitude <= neLat) &
                               (Pokemon.longitude <= neLng))))
                      .dicts())
-        query = (query
-                    .select(Pokemon, Pokemon_Rarity.rarity)
-                    .join(Pokemon_Rarity, 
-                         on=(Pokemon.pokemon_id == Pokemon_Rarity.pokemon_id))
-                    .dicts())
 
         return list(query)
 
@@ -342,28 +338,32 @@ class Pokemon(LatLongModel):
         return list(itertools.chain(*query))
 
 class Pokemon_Rarity(BaseModel):
-    rarity_id = Utf8mb4CharField(primary_key=True, max_length=50)
-    pokemon_id = DoubleField()
-    rarity = Utf8mb4CharField()
+    pokemon_id = DoubleField(index=True)
+    rarity_txt = Utf8mb4CharField()
+    rarity_nr = SmallIntegerField()
+
 
     @staticmethod
+    @cached(cache)
     def update_pokemon_rarity_db(pokeid, pokerarity):
 
         delete = (Pokemon_Rarity
                   .delete()
                   .where(Pokemon_Rarity.pokemon_id==pokeid)).execute()
-        Pokemon_Rarity.create(pokemon_id=pokeid, rarity=pokerarity)
+        Pokemon_Rarity.create(pokemon_id=pokeid, rarity_txt=pokerarity, rarity_nr=rarity_list[pokerarity])
         return 
 
     @staticmethod
     def rarity_by_id(id):
             
+
         query = (Pokemon_Rarity
-                     .select(Pokemon_Rarity.rarity)
+                     .select(Pokemon_Rarity.rarity_nr, Pokemon_Rarity.rarity_txt)
                      .where(Pokemon_Rarity.pokemon_id == id)
                      .dicts())
         return query[0] if query else {
-                'rarity' : "Ultra Rare"            
+                'rarity_nr' : "4",
+                'rarity_txt' : "Ultra Rare"
                 }
 
 class Pokestop(LatLongModel):
@@ -2358,7 +2358,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         'ultra_catch': pokemon[p.encounter_id]['catch_prob_3'],
                         'atk_grade': pokemon[p.encounter_id]['rating_attack'],
                         'def_grade': pokemon[p.encounter_id]['rating_defense'],
-                        'rarity': pokemon_rarity_wh['rarity']
+                        'rarity_number': pokemon_rarity_wh['rarity_nr'],
+                        'rarity_text': pokemon_rarity_wh['rarity_txt'],
                     })
                     if wh_poke['cp_multiplier'] is not None:
                         wh_poke.update({
@@ -3163,7 +3164,7 @@ def create_tables(db):
     tables = [Pokemon, Pokestop, Gym, Raid, ScannedLocation, GymDetails,
               GymMember, GymPokemon, Trainer, MainWorker, WorkerStatus,
               SpawnPoint, ScanSpawnPoint, SpawnpointDetectionData,
-              Token, LocationAltitude, PlayerLocale, HashKeys, Weather]
+              Token, LocationAltitude, PlayerLocale, HashKeys, Weather, Pokemon_Rarity]
     with db.execution_context():
         for table in tables:
             if not table.table_exists():
@@ -3634,9 +3635,9 @@ def database_migrate(db, old_ver):
                        'ADD CONSTRAINT CONSTRAINT_4 CHECK ' +
                        '(`latest_seen` <= 3600);')   
 
-    if old_ver < 30:
-        # Create Table pokemon_rarity
-        db.execute_sql('create table pokemon_rarity (pokemon_id smallint(6), rarity text, INDEX pokemon_id (pokemon_id))')
+    #if old_ver < 30:
+    #    # Create Table pokemon_rarity
+    #    db.execute_sql('create table pokemon_rarity (pokemon_id smallint(6), rarity text, INDEX pokemon_id (pokemon_id))')
 
 
     # Always log that we're done.
