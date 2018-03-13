@@ -32,7 +32,7 @@ from pogom import dyn_img
 from pogom.pgpool import pgpool_request_accounts
 
 log = logging.getLogger(__name__)
-
+rarities = {}
 
 def parse_unicode(bytestring):
     decoded_string = bytestring.decode(sys.getfilesystemencoding())
@@ -1439,7 +1439,7 @@ def dynamic_rarity_refresher():
     # If we import at the top, pogom.models will import pogom.utils,
     # causing the cyclic import to make some things unavailable.
     from pogom.models import Pokemon
-    from pogom.models import Pokemon_Rarity
+    #from pogom.models import Pokemon_Rarity
 
     # Refresh every x hours.
     args = get_args()
@@ -1459,13 +1459,12 @@ def dynamic_rarity_refresher():
         pokemon = db_rarities['pokemon']
  
         # Store as an easy lookup table for front-end.
-        rarities = {}
+        global rarities
+        rarities.clear()
  
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
                                                                 poke['count'])
-            Pokemon_Rarity.update_pokemon_rarity_db(poke['pokemon_id'], get_pokemon_rarity(total,
-                                          poke['count']))
  
         # Save to file.
         with open(rarities_path, 'w') as outfile:
@@ -1480,6 +1479,20 @@ def dynamic_rarity_refresher():
         log.debug('Waiting %d minutes before next dynamic rarity update.',
                     refresh_time_sec / 60)
         time.sleep(refresh_time_sec)
+
+def rarity_by_id(id):
+
+        rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4}
+        global rarities
+       
+        if id not in rarities:
+           #Never seen this Pokemon = Ultra Rare
+            return 4
+        else:
+            # Return number of rarity
+            rarity = rarity_list[rarities[id]]
+            return rarity
+
 
 # Translate peewee model class attribute to database column name.
 def peewee_attr_to_col(cls, field):
