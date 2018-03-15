@@ -1439,7 +1439,6 @@ def dynamic_rarity_refresher():
     # If we import at the top, pogom.models will import pogom.utils,
     # causing the cyclic import to make some things unavailable.
     from pogom.models import Pokemon
-    #from pogom.models import Pokemon_Rarity
 
     # Refresh every x hours.
     args = get_args()
@@ -1460,7 +1459,6 @@ def dynamic_rarity_refresher():
  
         # Store as an easy lookup table for front-end.
         global rarities
-        rarities.clear()
  
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
@@ -1486,7 +1484,7 @@ def rarity_by_id(id):
         global rarities
        
         if id not in rarities:
-           #Never seen this Pokemon = Ultra Rare
+            #Never seen this Pokemon = Ultra Rare
             return 4
         else:
             # Return number of rarity
