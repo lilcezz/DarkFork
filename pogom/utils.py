@@ -1464,10 +1464,7 @@ def dynamic_rarity_refresher(db_updates_queue):
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
                                                                 poke['count'])
-            #Rarity.update_pokemon_rarity_db(poke['pokemon_id'], get_pokemon_rarity(total,
-            #                              poke['count']))
-            #Rarity[poke['pokemon_id']]=get_pokemon_rarity(total,
-            #                                                    poke['count'])
+
         Rarity.update_pokemon_rarity_db(rarities, db_updates_queue) 
 
         # Save to file.
