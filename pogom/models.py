@@ -367,7 +367,7 @@ class Rarity(BaseModel):
                      .where(Rarity.pokemon_id == id)
                      .dicts())
         return query[0] if query else {
-                'rarity' : "4"
+                'rarity' : "Ultra Rare"
                 }
 
 class Pokestop(LatLongModel):
@@ -2362,7 +2362,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         'ultra_catch': pokemon[p.encounter_id]['catch_prob_3'],
                         'atk_grade': pokemon[p.encounter_id]['rating_attack'],
                         'def_grade': pokemon[p.encounter_id]['rating_defense'],
-                        'rarity': pokemon_rarity_wh['rarity'],
+                        'rarity': rarity_list[pokemon_rarity_wh['rarity']],
                     })
                     if wh_poke['cp_multiplier'] is not None:
                         wh_poke.update({
