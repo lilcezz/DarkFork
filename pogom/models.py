@@ -358,6 +358,7 @@ class Rarity(BaseModel):
         return 
 
     @staticmethod
+    @cached(cache)
     def rarity_by_id(id):
             
 
