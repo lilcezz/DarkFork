@@ -485,8 +485,9 @@ def main():
     else:
         # Dynamic rarity.
         if args.rarity_update_frequency:
+            argset = (db_updates_queue, )
             t = Thread(target=dynamic_rarity_refresher,
-                       name='dynamic-rarity')
+                       name='dynamic-rarity', args=argset)
             t.daemon = True
             t.start()
             log.info('Dynamic rarity is enabled.')

@@ -338,19 +338,23 @@ class Pokemon(LatLongModel):
         return list(itertools.chain(*query))
 
 class Rarity(BaseModel):
-    pokemon_id = DoubleField(index=True)
-    rarity_txt = Utf8mb4CharField()
-    rarity_nr = SmallIntegerField()
+    pokemon_id = SmallIntegerField(index=True,primary_key=True)
+    rarity = CharField(null=True)
 
 
     @staticmethod
-    @cached(cache)
-    def update_pokemon_rarity_db(pokeid, pokerarity):
+    def update_pokemon_rarity_db(rarity, db_update_queue):
 
-        delete = (Rarity
-                  .delete()
-                  .where(Rarity.pokemon_id==pokeid)).execute()
-        Rarity.create(pokemon_id=pokeid, rarity_txt=pokerarity, rarity_nr=rarity_list[pokerarity])
+        rarities_details = {}
+
+        for key,val in rarity.items():
+            rarities_details[key] = {
+            'pokemon_id': key,
+            'rarity': val
+        }
+
+
+        db_update_queue.put((Rarity, rarities_details))
         return 
 
     @staticmethod
@@ -358,12 +362,11 @@ class Rarity(BaseModel):
             
 
         query = (Rarity
-                     .select(Rarity.rarity_nr, Rarity.rarity_txt)
+                     .select(Rarity.rarity)
                      .where(Rarity.pokemon_id == id)
                      .dicts())
         return query[0] if query else {
-                'rarity_nr' : "4",
-                'rarity_txt' : "Ultra Rare"
+                'rarity' : "4"
                 }
 
 class Pokestop(LatLongModel):
@@ -2358,7 +2361,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         'ultra_catch': pokemon[p.encounter_id]['catch_prob_3'],
                         'atk_grade': pokemon[p.encounter_id]['rating_attack'],
                         'def_grade': pokemon[p.encounter_id]['rating_defense'],
-                        'rarity': pokemon_rarity_wh['rarity_nr'],
+                        'rarity': pokemon_rarity_wh['rarity'],
                     })
                     if wh_poke['cp_multiplier'] is not None:
                         wh_poke.update({
@@ -3134,7 +3137,7 @@ def bulk_upsert(cls, data, db):
                     placeholders=', '.join(placeholders),
                     assignments=', '.join(assignments)
                 )
-
+                
                 cursor.executemany(formatted_query, batch)
 
                 db.execute_sql('SET FOREIGN_KEY_CHECKS=1;')

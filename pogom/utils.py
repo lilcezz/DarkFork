@@ -1435,7 +1435,7 @@ def get_pokemon_rarity(total_spawns_all, total_spawns_pokemon):
     return spawn_group
 
 
-def dynamic_rarity_refresher():
+def dynamic_rarity_refresher(db_updates_queue):
     # If we import at the top, pogom.models will import pogom.utils,
     # causing the cyclic import to make some things unavailable.
     from pogom.models import Pokemon
@@ -1464,9 +1464,12 @@ def dynamic_rarity_refresher():
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
                                                                 poke['count'])
-            Rarity.update_pokemon_rarity_db(poke['pokemon_id'], get_pokemon_rarity(total,
-                                          poke['count']))
- 
+            #Rarity.update_pokemon_rarity_db(poke['pokemon_id'], get_pokemon_rarity(total,
+            #                              poke['count']))
+            #Rarity[poke['pokemon_id']]=get_pokemon_rarity(total,
+            #                                                    poke['count'])
+        Rarity.update_pokemon_rarity_db(rarities, db_updates_queue) 
+
         # Save to file.
         with open(rarities_path, 'w') as outfile:
             json.dump(rarities, outfile)
