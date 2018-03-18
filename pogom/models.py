@@ -49,7 +49,7 @@ cache = TTLCache(maxsize=100, ttl=60 * 5)
 db_schema_version = 29
 
 rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4}
-
+rarity_cache = {}
 
 class MyRetryDB(RetryOperationalError, PooledMySQLDatabase):
     pass
@@ -346,7 +346,6 @@ class Rarity(BaseModel):
     def update_pokemon_rarity_db(rarity, db_update_queue):
 
         rarities_details = {}
-
         for key,val in rarity.items():
             rarities_details[key] = {
             'pokemon_id': key,
@@ -355,19 +354,17 @@ class Rarity(BaseModel):
 
 
         db_update_queue.put((Rarity, rarities_details))
+
         return 
 
     @staticmethod
-    @cached(TTLCache(maxsize=500, ttl=60 * args.rarity_cache_timer))
     def rarity_by_id(id):
-            
 
-        query = (Rarity
-                     .select(Rarity.rarity)
-                     .where(Rarity.pokemon_id == id)
-                     .dicts())
-        return query[0] if query else {
-                'rarity' : "Ultra Rare"
+        if id in rarity_cache:
+            return rarity_cache[id]
+        else:
+            return  {
+                "Ultra Rare"
                 }
 
 class Pokestop(LatLongModel):
@@ -2341,7 +2338,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         if weather and s2_cell_id in weather else None
                     
                     # Get Pokemon Rarity
-                    pokemon_rarity_wh =  Rarity.rarity_by_id(pokemon_id)
+                    pokemon_rarity_wh =  rarity_cache(pokemon_id)
 
                     wh_poke = pokemon[p.encounter_id].copy()
                     wh_poke.update({
@@ -2362,7 +2359,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         'ultra_catch': pokemon[p.encounter_id]['catch_prob_3'],
                         'atk_grade': pokemon[p.encounter_id]['rating_attack'],
                         'def_grade': pokemon[p.encounter_id]['rating_defense'],
-                        'rarity': rarity_list[pokemon_rarity_wh['rarity']],
+                        'rarity': rarity_list[pokemon_rarity_wh],
                     })
                     if wh_poke['cp_multiplier'] is not None:
                         wh_poke.update({
@@ -3162,6 +3159,27 @@ def bulk_upsert(cls, data, db):
 
             i += step
 
+def rarity_cache_update():
+
+    update_frequency_mins = args.rarity_cache_timer
+    refresh_time_sec = update_frequency_mins * 60
+
+    while True:
+        log.info('Updating dynamic rarity cache...')
+
+        query = (Rarity
+                     .select(Rarity.pokemon_id, Rarity.rarity)
+                     .dicts())
+
+        for poke in query:
+            rarity_cache[poke['pokemon_id']] = poke['rarity']
+
+        log.info('Updated dynamic rarity cache.')
+ 
+        # Wait x seconds before next refresh.
+        log.debug('Waiting %d minutes before next dynamic rarity cache update.',
+                    refresh_time_sec / 60)
+        time.sleep(refresh_time_sec)
 
 def create_tables(db):
     tables = [Pokemon, Pokestop, Gym, Raid, ScannedLocation, GymDetails,

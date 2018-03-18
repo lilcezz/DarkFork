@@ -140,7 +140,7 @@
 #encrypt-lib:                   # Path to encrypt lib to be used instead of the shipped ones.
 #display-in-console             # Display Found Pokemon in Console.
 #disable-blacklist              # Disable the global anti-scraper IP blacklist.
-
+#rarity-cache-timer             # How often (in minutes) the dynamic rarity cache should be updated. Only works if at least one instance use -Rf! (default=5)
 
 # Proxy settings
 ################
