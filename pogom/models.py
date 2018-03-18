@@ -358,6 +358,7 @@ class Rarity(BaseModel):
         return 
 
     @staticmethod
+    @cached(TTLCache(maxsize=500, ttl=60 * args.rarity_cache_timer))
     def rarity_by_id(id):
             
 

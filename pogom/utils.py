@@ -579,6 +579,13 @@ def get_args():
                               ' should be updated. Decimals allowed.' +
                               ' Default: 0. 0 to disable.'),
                         type=float, default=0)
+
+    parser.add_argument('-Rct', '--rarity-cache-timer',
+                        help=('How often (in minutes) the dynamic rarity cache' +
+                              ' should be updated. Only works if at least one instance use -Rf' +
+                              ' Default: 5.'),
+                        type=float, default=5)
+
     parser.set_defaults(DEBUG=False)
 
     args = parser.parse_args()
