@@ -2090,9 +2090,9 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
             'world_time': worldtime,
         }
         # Weather Information Log
-        log.info('Weather Info: Cloud Level: %s, Rain Level: %s, ' +
+        log.debug('Weather Info: Cloud Level: %s, Rain Level: %s, ' +
             'Wind Level: %s, Snow Level: %s, Fog Level: %s, ' +
-            'Wind Direction: %s Degreese.', display_weather.cloud_level,
+            'Wind Direction: %s°.', display_weather.cloud_level,
             display_weather.rain_level, display_weather.wind_level,
             display_weather.snow_level, display_weather.fog_level,
             display_weather.wind_direction)
@@ -2272,7 +2272,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                 'cp_multiplier': None,
                 'height': None,
                 'weight': None,
-                'gender': p.pokemon_data.pokemon_display.gender,
+                'gender': None,
                 'form': None,
                 'costume': p.pokemon_data.pokemon_display.costume,
                 'catch_prob_1': None,
@@ -2307,6 +2307,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                     'move_2': scout_result['move_2'],
                     'height': scout_result['height'],
                     'weight': scout_result['weight'],
+                    'gender': scout_result['gender'],
                     'cp': scout_result['cp'],
                     'cp_multiplier': scout_result['cp_multiplier'],
                     'catch_prob_1': scout_result['catch_prob_1'],
@@ -2326,6 +2327,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                     'move_2': pokemon_info.move_2,
                     'height': pokemon_info.height_m,
                     'weight': pokemon_info.weight_kg,
+                    'gender': pokemon_info.pokemon_display.gender,
                     'cp': pokemon_info.cp,
                     'cp_multiplier': pokemon_info.cp_multiplier
                 })
