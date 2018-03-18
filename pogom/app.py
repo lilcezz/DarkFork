@@ -490,12 +490,6 @@ class Pogom(Flask):
                                 oNeLng=oNeLng)))
 
 	    if request.args.get('prionotify') == 'false':
-	    	if request.args.get('eids'):
-                	# Exclude id's of pokemon that are hidden.
-                	eids = [int(x) for x in request.args.get('eids').split(',')]
-                	d['pokemons'] = [
-                    	x for x in d['pokemons'] if x['pokemon_id'] not in eids]
-
             if request.args.get('reids'):
                 reids = [int(x) for x in request.args.get('reids').split(',')]
                 d['pokemons'] = d['pokemons'] + (
