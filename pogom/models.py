@@ -2361,7 +2361,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         if weather and s2_cell_id in weather else None
                     
                     # Get Pokemon Rarity
-                    pokemon_rarity_wh =  rarity_cache(pokemon_id)
+                    pokemon_rarity_wh =  rarity_cache[pokemon_id]
 
                     wh_poke = pokemon[p.encounter_id].copy()
                     wh_poke.update({
