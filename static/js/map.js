@@ -3111,9 +3111,10 @@ $(function () {
         $selectExcludeRarity.val(Store.get('excludedRarity')).trigger('change')
     })
 
-    // run interval timers to regularly update map and timediffs
+    // run interval timers to regularly update map, rarity and timediffs
     window.setInterval(updateLabelDiffTime, 1000)
     window.setInterval(updateMap, 5000)
+    window.setInterval(updatePokemonRarities, 300000)
     window.setInterval(updateGeoLocation, 1000)
 
     createUpdateWorker()
