@@ -8,7 +8,7 @@ $(function () {
     const isLocationMarkerMovable = false // Let the user move the visitor marker around. Default: false.
 	
     const scaleByRarity = true // Enable scaling by rarity. Default: true.
-    const upscalePokemon = false // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
+    const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
 
     // Google Analytics property ID. Leave empty to disable.
