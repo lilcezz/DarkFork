@@ -11,13 +11,6 @@ $(function () {
     const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
     const map_style = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
-    const showRaids = true // Default: false.
-    const showActiveRaidsOnly = false // Default: false.
-    const showGyms = true // Default: false.
-    const showPokemon = true // Default: true.
-    const showPokestops = true // Default: true.
-    const showRanges = false // Default: false.
-	const showSpawnpoints = false
     const playSound = false // Default: false.
     const playCries = false // Default: false.
     const searchMarkerStyle = 'Hidden' //  default: 'pokesition'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
@@ -96,12 +89,6 @@ $(function () {
     Store.set('showLocationMarker', showLocationMarker)
     Store.set('isLocationMarkerMovable', isLocationMarkerMovable)
     Store.set('map_style', map_style)
-    Store.set('showRaids', showRaids)
-    Store.set('showActiveRaidsOnly', showActiveRaidsOnly)
-    Store.set('showGyms', showGyms)
-    Store.set('showPokemon', showPokemon)
-    Store.set('showPokestops', showPokestops)
-    Store.set('showRanges', showRanges)
     Store.set('playSound', playSound)
     Store.set('playCries', playCries)
     Store.set('searchMarkerStyle', searchMarkerStyle)
