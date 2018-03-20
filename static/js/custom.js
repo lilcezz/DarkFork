@@ -8,8 +8,25 @@ $(function () {
     const isLocationMarkerMovable = false // Let the user move the visitor marker around. Default: false.
 	
     const scaleByRarity = true // Enable scaling by rarity. Default: true.
-    const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
+    const upscalePokemon = false // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
+    const map_style = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
+    const remember_select_exclude = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3])
+    const remember_select_notify = [] //  Add Pokémon IDs separated by commas (e.g. [1, 2, 3])
+    const remember_select_rarity_notify = [] // Options - 'Common', 'Uncommon', 'Rare', 'Very Rare', 'Ultra Rare'
+    const showRaids = true // Default: false.
+    const showActiveRaidsOnly = false // Default: false.
+    const showGyms = true // Default: false.
+    const showPokemon = true // Default: true.
+    const showPokestops = true // Default: true.
+    const showRanges = false // Default: false.
+	const showSpawnpoints = false
+    const playSound = false // Default: false.
+    const playCries = false // Default: false.
+    const searchMarkerStyle = 'Hidden' //  default: 'pokesition'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
+    const locationMarkerStyle = 'Hidden' // default: 'mobile'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
+    const zoomLevel = 16 // default: 16.
+	const useGymSidebar = true
 
     // Google Analytics property ID. Leave empty to disable.
     // Looks like 'UA-XXXXX-Y'.
@@ -81,6 +98,22 @@ $(function () {
 	Store.set('isSearchMarkerMovable', isSearchMarkerMovable)
     Store.set('showLocationMarker', showLocationMarker)
     Store.set('isLocationMarkerMovable', isLocationMarkerMovable)
+    Store.set('map_style', map_style)
+    Store.set('remember_select_exclude', remember_select_exclude)
+    Store.set('remember_select_notify', remember_select_notify)
+    Store.set('remember_select_rarity_notify', remember_select_rarity_notify)
+    Store.set('showRaids', showRaids)
+    Store.set('showActiveRaidsOnly', showActiveRaidsOnly)
+    Store.set('showGyms', showGyms)
+    Store.set('showPokemon', showPokemon)
+    Store.set('showPokestops', showPokestops)
+    Store.set('showRanges', showRanges)
+    Store.set('playSound', playSound)
+    Store.set('playCries', playCries)
+    Store.set('searchMarkerStyle', searchMarkerStyle)
+    Store.set('locationMarkerStyle', locationMarkerStyle)
+    Store.set('zoomLevel', zoomLevel)
+    Store.set('useGymSidebar', useGymSidebar)
 	
     if (typeof window.orientation !== 'undefined' || isMobileDevice()) {
         Store.set('maxClusterZoomLevel', maxClusterZoomLevelMobile)
