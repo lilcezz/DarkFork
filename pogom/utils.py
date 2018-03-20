@@ -608,6 +608,11 @@ def get_args():
                               ' should be updated. Decimals allowed.' +
                               ' Default: 0. 0 to disable.'),
                         type=float, default=0)
+    parser.add_argument('-Rct', '--rarity-cache-timer',
+                        help=('How often (in minutes) the dynamic rarity cache' +
+                              ' should be updated. Only works if at least one instance use -Rf' +
+                              ' Default: 5.'),
+                        type=float, default=5)
     statusp = parser.add_argument_group('Status Page')
     statusp.add_argument('-SPp', '--status-page-password', default=None,
                          help='Set the status page password.')
@@ -615,6 +620,7 @@ def get_args():
                          help=('Filter worker status that are inactive for ' +
                                'X minutes. Default: 30, 0 to disable.'),
                          type=int, default=30)
+
     parser.set_defaults(DEBUG=False)
 
     args = parser.parse_args()
@@ -1471,10 +1477,11 @@ def get_pokemon_rarity(total_spawns_all, total_spawns_pokemon):
     return spawn_group
 
 
-def dynamic_rarity_refresher():
+def dynamic_rarity_refresher(db_updates_queue):
     # If we import at the top, pogom.models will import pogom.utils,
     # causing the cyclic import to make some things unavailable.
     from pogom.models import Pokemon
+    from pogom.models import Rarity
 
     # Refresh every x hours.
     args = get_args()
@@ -1499,6 +1506,9 @@ def dynamic_rarity_refresher():
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
                                                                 poke['count'])
+
+
+        Rarity.update_pokemon_rarity_db(rarities, db_updates_queue) 
 
         # Save to file.
         with open(rarities_path, 'w') as outfile:

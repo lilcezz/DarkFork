@@ -48,7 +48,8 @@ cache = TTLCache(maxsize=100, ttl=60 * 5)
 
 db_schema_version = 30
 
-
+rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4}
+rarity_cache = {}
 
 class MyRetryDB(RetryOperationalError, PooledMySQLDatabase):
     pass
@@ -192,6 +193,7 @@ class Pokemon(LatLongModel):
                               (Pokemon.latitude <= neLat) &
                               (Pokemon.longitude <= neLng))))
                      .dicts())
+
         return list(query)
 
     @staticmethod
@@ -338,6 +340,35 @@ class Pokemon(LatLongModel):
 
         return list(itertools.chain(*query))
 
+class Rarity(BaseModel):
+    pokemon_id = SmallIntegerField(index=True,primary_key=True)
+    rarity = CharField(null=True)
+
+
+    @staticmethod
+    def update_pokemon_rarity_db(rarity, db_update_queue):
+
+        rarities_details = {}
+        for key,val in rarity.items():
+            rarities_details[key] = {
+            'pokemon_id': key,
+            'rarity': val
+        }
+
+
+        db_update_queue.put((Rarity, rarities_details))
+
+        return 
+
+    @staticmethod
+    def rarity_by_id(id):
+
+        if id in rarity_cache:
+            return rarity_cache[id]
+        else:
+            return  {
+                "Ultra Rare"
+                }
 
 class Pokestop(LatLongModel):
     pokestop_id = Utf8mb4CharField(primary_key=True, max_length=50)
@@ -2013,6 +2044,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
     display_weather = {}
     gameplay_weather = {}
     weather = {}
+    rarity = {}
 
     # Consolidate the individual lists in each cell into two lists of Pokemon
     # and a list of forts.
@@ -2345,6 +2377,9 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
 
                     current_weather = weather[s2_cell_id]['gameplay_weather'] \
                         if weather and s2_cell_id in weather else None
+                    
+                    # Get Pokemon Rarity
+                    pokemon_rarity_wh =  rarity_cache(pokemon_id)
 
                     wh_poke = pokemon[p.encounter_id].copy()
                     wh_poke.update({
@@ -2364,7 +2399,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         'great_catch': pokemon[p.encounter_id]['catch_prob_2'],
                         'ultra_catch': pokemon[p.encounter_id]['catch_prob_3'],
                         'atk_grade': pokemon[p.encounter_id]['rating_attack'],
-                        'def_grade': pokemon[p.encounter_id]['rating_defense']
+                        'def_grade': pokemon[p.encounter_id]['rating_defense'],
+                        'rarity': rarity_list[pokemon_rarity_wh],
                     })
                     if wh_poke['cp_multiplier'] is not None:
                         wh_poke.update({
@@ -3374,7 +3410,7 @@ def bulk_upsert(cls, data, db):
                     placeholders=', '.join(placeholders),
                     assignments=', '.join(assignments)
                 )
-
+                
                 cursor.executemany(formatted_query, batch)
 
                 db.execute_sql('SET FOREIGN_KEY_CHECKS=1;')
@@ -3398,12 +3434,33 @@ def bulk_upsert(cls, data, db):
 
             i += step
 
+def rarity_cache_update():
+
+    update_frequency_mins = args.rarity_cache_timer
+    refresh_time_sec = update_frequency_mins * 60
+
+    while True:
+        log.info('Updating dynamic rarity cache...')
+
+        query = (Rarity
+                     .select(Rarity.pokemon_id, Rarity.rarity)
+                     .dicts())
+
+        for poke in query:
+            rarity_cache[poke['pokemon_id']] = poke['rarity']
+
+        log.info('Updated dynamic rarity cache.')
+ 
+        # Wait x seconds before next refresh.
+        log.debug('Waiting %d minutes before next dynamic rarity cache update.',
+                    refresh_time_sec / 60)
+        time.sleep(refresh_time_sec)
 
 def create_tables(db):
     tables = [Pokemon, Pokestop, Gym, Raid, ScannedLocation, GymDetails,
               GymMember, GymPokemon, Trainer, MainWorker, WorkerStatus,
               SpawnPoint, ScanSpawnPoint, SpawnpointDetectionData,
-              Token, LocationAltitude, PlayerLocale, HashKeys, Weather]
+              Token, LocationAltitude, PlayerLocale, HashKeys, Weather, Rarity]
     with db.execution_context():
         for table in tables:
             if not table.table_exists():
@@ -3878,6 +3935,8 @@ def database_migrate(db, old_ver):
         migrate(
         # Add `park` column to `gym`
             migrator.add_column('gym', 'park', BooleanField(default=False)))
+
+
 
     # Always log that we're done.
     log.info('Schema upgrade complete.')
