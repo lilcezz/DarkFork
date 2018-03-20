@@ -366,9 +366,7 @@ class Rarity(BaseModel):
         if id in rarity_cache:
             return rarity_cache[id]
         else:
-            return  {
-                "Ultra Rare"
-                }
+            return "Ultra Rare"
 
 class Pokestop(LatLongModel):
     pokestop_id = Utf8mb4CharField(primary_key=True, max_length=50)
@@ -2379,7 +2377,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         if weather and s2_cell_id in weather else None
                     
                     # Get Pokemon Rarity
-                    pokemon_rarity_wh =  rarity_cache(pokemon_id)
+                    pokemon_rarity_wh =  Rarity.rarity_by_id(pokemon_id)
 
                     wh_poke = pokemon[p.encounter_id].copy()
                     wh_poke.update({
