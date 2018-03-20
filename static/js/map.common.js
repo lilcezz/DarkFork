@@ -1180,7 +1180,7 @@ function getPokemonRarity(pokemonId) {
         return i8ln(pokemonRarities[pokemonId])
     }
 
-    return ''
+    return 'New Spawn'
 }
 
 function getGoogleSprite(index, sprite, displayHeight) {
@@ -1220,6 +1220,7 @@ function setupPokemonMarkerDetails(item, map, scaleByRarity = true, isNotifyPkmn
 
     if (scaleByRarity) {
         const rarityValues = {
+            'new spawn': 40,
             'very rare': 30,
             'ultra rare': 40,
             'legendary': 50
