@@ -9,7 +9,7 @@ from datetime import datetime
 from s2sphere import LatLng
 from bisect import bisect_left
 from flask import Flask, abort, jsonify, render_template, request, \
-    make_response, send_from_directory, send_file
+    make_response, send_from_directory, send_file, redirect, session
 from flask.json import JSONEncoder
 from flask_compress import Compress
 from pogom.dyn_img import get_gym_icon, get_pokemon_map_icon, get_pokemon_raw_icon
@@ -265,6 +265,13 @@ class Pogom(Flask):
             log.debug('Denied access to %s: blacklisted IP.', ip_addr)
             abort(403)
 
+        # Verify Authorization
+        if args.user_auth_service and request.endpoint != 'auth_callback':
+            return check_auth(get_args(), request.url_root, session, self.user_auth_code_cache)
+
+    def make_session_permanent(self):
+        session.permanent = True
+
     def _ip_is_blacklisted(self, ip):
         if not self.blacklist:
             return False
@@ -313,7 +320,13 @@ class Pogom(Flask):
         return self.get_search_control()
 
     def auth_callback(self, statusname=None):
-        return render_template('auth_callback.html')
+        code = request.args.get('code')
+        if code:
+            resp = make_response(redirect('/'))
+            session['userAuthCode'] = code
+            return resp
+        else:
+            abort(403)
 
 
     def fullmap(self, statusname=None):
@@ -380,9 +393,6 @@ class Pogom(Flask):
             self.control_flags['on_demand'].clear()
         d = {}
 
-        auth_redirect = check_auth(args, request, self.user_auth_code_cache)
-        if (auth_redirect):
-          return auth_redirect
         # Request time of this request.
         d['timestamp'] = datetime.utcnow()
 
@@ -451,10 +461,10 @@ class Pogom(Flask):
                 not args.no_pokemon):
 
             # Exclude ids of Pokemon that are hidden.
-            eids = []
-            request_eids = request.args.get('eids')
-            if request_eids:
-                eids = {int(i) for i in request_eids.split(',')}
+            eids = set([])
+            if request.args.get('eids'):
+                for x in request.args.get('eids').split(','):
+                    eids.add(int(x))
 
             if request.args.get('ids'):
                 request_ids = request.args.get('ids').split(',')
@@ -728,6 +738,7 @@ class Pogom(Flask):
         else:
             d['login'] = 'failed'
         return jsonify(d)
+
 
 
 class CustomJSONEncoder(JSONEncoder):

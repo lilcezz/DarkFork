@@ -583,6 +583,8 @@ def get_args():
                         help='Directory pointing to optional PogoAssets root directory.')
     parser.add_argument('-uas', '--user-auth-service', default=None,
                         help='Force end users to auth to an external service.')
+    parser.add_argument('-skey', '--secret-key', default='SECRET_KEY',
+                        help='Secret Key to encrypt session cookies. Use a secure string.')
     parser.add_argument('-uascid', '--uas-client-id', default=None,
                         help='Client ID for user external authentication.')
     parser.add_argument('-uascs', '--uas-client-secret', default=None,
