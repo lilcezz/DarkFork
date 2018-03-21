@@ -1264,7 +1264,7 @@ function isNotifyPerfectionPoke(poke) {
         hasHighAttributes = hasHighAttributes || shouldNotifyForLevel
     }
 
-    if (Store.get('showMedalMagikarp') && poke['pokemon_id']==129) {
+    if ((poke['cp_multiplier'] !== null && Store.get('showMedalMagikarp') && poke['pokemon_id']==129) {
 
         var baseHeight = 0.90
         var baseWeight = 10.00
@@ -1278,7 +1278,7 @@ function isNotifyPerfectionPoke(poke) {
         }
     }
 
-    if (Store.get('showMedalRattata') && poke['pokemon_id']==19) {
+    if ((poke['cp_multiplier'] !== null && Store.get('showMedalRattata') && poke['pokemon_id']==19) {
 
         var baseHeight = 0.30
         var baseWeight = 3.50
