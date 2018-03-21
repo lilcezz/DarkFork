@@ -48,7 +48,7 @@ cache = TTLCache(maxsize=100, ttl=60 * 5)
 
 db_schema_version = 30
 
-rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4}
+rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4, 'New Spawn': 5}
 rarity_cache = {}
 
 class MyRetryDB(RetryOperationalError, PooledMySQLDatabase):
