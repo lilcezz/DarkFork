@@ -1,20 +1,3 @@
-<!--
-
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-  ISSUES ARE NOT FOR SUPPORT!!!
-
-  Join discord (channel: #help) for support at this link: https://discord.gg/rocketmap
-  
-  Submit feature requests @ http://vote.devkat.org
-  
--->
-
 <!--- Provide a general summary of the issue in the Title above -->
 
 ## Expected Behavior
