@@ -10,7 +10,7 @@ Live visualization of all the Pokémon (with option to show gyms, raids and Pok�
 1. Cool navigation-bar filters like filtering/including/excluding per Pokémon type, generation and special tiers.
 2. Gen nr. in your Pokémon labels
 3. Get notified for Tiny Rats & Big Karps + the option to prio-notify Pokémon (Pokémon in notify filters will ALWAYS be visible)
-4. Depending on your -rh (rarity-hours) setting, Pokémon  will get assigned 'New Spawn' when your map hasn't seen this pokemon for <rh-setting> hours
+4. Depending on your -rh (rarity-hours) setting, Pokémon  will get assigned 'New Spawn' when your map hasn't seen this pokemon for `<rh-setting>` hours
 5. The option to import/export your customized map settings
 
 And more to be added!
