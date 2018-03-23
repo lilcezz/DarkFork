@@ -30,7 +30,7 @@ And more to be added!
 
 ## Installation
 
-For instructions on how to setup and run the tool, please refer to the project [documentation](https://rocketmap.readthedocs.io).
+For instructions on how to setup and run the tool, please refer to the project [documentation](https://darkfork.readthedocs.io).
 
 ## Contributions
 
