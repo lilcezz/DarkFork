@@ -3,7 +3,7 @@ Welcome to DarkFork's Documentation!
 
 DarkFork gives you a live visualization map of nearby Pokémon, Pokéstops, and gyms in a form of a web-app as well as native phone application
 
-.. image:: https://github.com/darkelement1987/DarkFork/blob/MIX_MEWTWO/static/Rocketmap.png
+.. image:: https://raw.githubusercontent.com/darkelement1987/DarkFork/MIX_MEWTWO/static/Rocketmap.png
     :align: center
 
 [ Wanting to install and run DarkFork for the first time? `Start here! <https://darkfork.readthedocs.io/en/develop/basic-install/index.html>`_ ]
