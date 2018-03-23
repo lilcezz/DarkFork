@@ -2,7 +2,7 @@
 
 Docker is a great way to run "containerized" applications easily and without installing tons of stuff into your computer.
 
-If you are not familiar or don't feel confortable with Python, pip or any of the other the other stuff involved in launching a RocketMap server, Docker is probably the easiest approach for you.
+If you are not familiar or don't feel confortable with Python, pip or any of the other the other stuff involved in launching a DarkFork server, Docker is probably the easiest approach for you.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ If you are not familiar or don't feel confortable with Python, pip or any of the
 
 ## Introduction
 
-The quickest way to get RocketMap up and running with docker is quite simple. However you need to setup an external mysql database to make it work so be sure to read the tutorial until the "Advanced Docker Setup"
+The quickest way to get DarkFork up and running with docker is quite simple. However you need to setup an external mysql database to make it work so be sure to read the tutorial until the "Advanced Docker Setup"
 
 ## Simple Docker Setup
 
@@ -89,7 +89,7 @@ Open that URL in your browser and you're ready to rock!
 
 ## Updating Versions
 
-In order to update your RocketMap docker image, you should stop/remove all the containers running with the current (outdated) version (refer to "Stopping the server"), pull the latest docker image version, and restart everything. To pull the latest image, use the following command:
+In order to update your DarkFork docker image, you should stop/remove all the containers running with the current (outdated) version (refer to "Stopping the server"), pull the latest docker image version, and restart everything. To pull the latest image, use the following command:
 
 ```
 docker pull frostthefox/rocketmap
@@ -99,7 +99,7 @@ If you are running a ngrok container, you've got to stop it as well. To start th
 
 ## Running on docker cloud
 
-If you want to run RocketMap on a service that doesn't support arguments like docker cloud or ECS, you'll need to pass settings via variables below is an example:
+If you want to run DarkFork on a service that doesn't support arguments like docker cloud or ECS, you'll need to pass settings via variables below is an example:
 
 ```bash
   docker run -d -P \
@@ -137,7 +137,7 @@ After the directory is created, we can lauch the MySQL container. Use the follow
 docker run --name db --net=pogonw -v /path/to/mysql/:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yourpassword  -d mysql:5.6.32
 ```
 
-The launched MySQL server will have a single user called `root` and its password will be `yourpassword`. However, there is no database/schema that we can use as the server will be empty on the first run, so we've gotta create one for RocketMap. This will be done by executing a MySQL command in the server. In order to connect to the server, execute this command:
+The launched MySQL server will have a single user called `root` and its password will be `yourpassword`. However, there is no database/schema that we can use as the server will be empty on the first run, so we've gotta create one for DarkFork. This will be done by executing a MySQL command in the server. In order to connect to the server, execute this command:
 
 ```
 docker exec -i db mysql -pyourpassword -e 'CREATE DATABASE pogodb'
@@ -153,9 +153,9 @@ docker exec -i db mysql -pyourpassword -e 'SHOW DATABASES'
 
 If the `db` container is not running, simply execute the same command that was used before to launch the container and the MySQL server will be up and running with all the previously stored data. You won't have to execute any MySQL command to create the database.
 
-### Launching the RocketMap server
+### Launching the DarkFork server
 
-Now that we have a persistent database up and running, we need to launch our RocketMap server. To do so, we are going to use a slightly modified version of the docker run command from the "Simple Docker Setup" session. This time we need to launch our server inside the created network and pass the necessary database infos to it. Here's an example:
+Now that we have a persistent database up and running, we need to launch our DarkFork server. To do so, we are going to use a slightly modified version of the docker run command from the "Simple Docker Setup" session. This time we need to launch our server inside the created network and pass the necessary database infos to it. Here's an example:
 
 ```
 docker run -d --name pogomap --net=pogonw -p 5000:5000 \
