@@ -832,6 +832,9 @@ function pokemonLabel(item) {
 				<div class='pokemon container content-left'>
 				  <div>
 					<img class='pokemon sprite' src='${pokemon_icon}'>
+                <div class='pokemon cp big'>
+				  GEN: <span class='pokemon encounter big'>${generation}</span>
+                </div>
 					<div class='pokemon links'>
 					  <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
 					</div>
