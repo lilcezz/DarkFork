@@ -67,6 +67,7 @@
                   <a href="javascript:showgen1();    ">Turn On Gen1</a>
                   <a href="javascript:showgen2();    ">Turn On Gen2</a>
                   <a href="javascript:showgen3();    ">Turn On Gen3</a>
+                  <a href="javascript:showevo();    ">Show Evolutions Only</a>
   </div>
 </div>
 
@@ -566,6 +567,21 @@ function showsnoep(){
     excludeall = excludeall.map(String)
     snoep = [129,320,333];
     $selectExclude.val(excludeall.diff(snoep.map(String))).trigger('change');
+    updatePokemon();
+
+    current = $selectExclude.val();
+    include = [];
+    $selectExclude.val(current.diff(include.map(String))).trigger('change');
+    updatePokemon();
+}
+
+function showevo(){
+
+    excludeall = gen1.concat(gen2)
+    excludeall = excludeall.concat(gen3)
+    excludeall = excludeall.map(String)
+    evo = [2,3,5,6,8,9,11,12,14,15,17,18,20,22,24,26,28,30,31,33,34,36,38,40,42,44,45,47,49,51,53,55,57,59,61,62,64,65,67,68,70,71,73,75,76,78,80,82,85,87,89,91,93,94,95,97,99,101,103,105,106,107,108,110,112,114,115,117,119,121,123,124,125,126,127,128,130,131,132,133,134,135,136,137,139,141,142,143,144,145,146,148,149,150,151,153,154,156,157,159,160,162,164,166,168,169,171,172,173,174,175,176,178,180,181,182,184,186,188,189,190,192,193,195,196,197,199,201,205,207,208,210,212,214,215,217,219,221,222,224,225,227,229,230,232,233,235,236,237,238,239,240,241,242,243,244,245,247,248,249,250,251,253,254,256,257,259,260,262,264,266,267,268,269,271,272,274,275,277,279,281,282,284,286,288,289,291,292,294,295,297,298,299,301,302,303,305,306,308,310,315,317,319,321,323,324,326,327,329,330,332,334,335,336,337,338,340,342,344,346,348,349,350,351,352,354,356,357,358,359,360,362,364,365,366,367,368,369,370,372,373,375,376,377,378,379,380,381,382,383,384,385,386];
+    $selectExclude.val(excludeall.diff(evo.map(String))).trigger('change');
     updatePokemon();
 
     current = $selectExclude.val();
