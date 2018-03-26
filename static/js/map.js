@@ -25,7 +25,7 @@ var $selectLocationIconMarker
 var $switchGymSidebar
 var $selectExcludeRarity
 var pokemonGen = ['?'];
-for (var i = 001; i <= 151; i++) {pokemonGen.push(1);}
+for (var i = 1; i <= 151; i++) {pokemonGen.push(1);}
 for (var i = 152; i <= 251; i++) {pokemonGen.push(2);}
 for (var i = 252; i <= 386; i++) {pokemonGen.push(3);}
 // for (var i = 387; i <= 493; i++) {pokemonGen.push(4);}
