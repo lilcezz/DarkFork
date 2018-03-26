@@ -24,13 +24,13 @@ var $selectSearchIconMarker
 var $selectLocationIconMarker
 var $switchGymSidebar
 var $selectExcludeRarity
-var pokemonGen = ['?'];
-for (var i = 1; i <= 151; i++) { pokemonGen.push(1); }
-for (var i = 152; i <= 251; i++) { pokemonGen.push(2); }
-for (var i = 252; i <= 386; i++) { pokemonGen.push(3); }
-// for (var i = 387; i <= 493; i++) { pokemonGen.push(4); }
-// for (var i = 494; i <= 649; i++) { pokemonGen.push(5); }
-// for (var i = 650; i <= 721; i++) { pokemonGen.push(6); }
+var pokemonGen = ['?']
+for (var i = 1; i <= 151; i++) { pokemonGen.push(1) }
+for (i = 152; i <= 251; i++) { pokemonGen.push(2) }
+for (i = 252; i <= 386; i++) { pokemonGen.push(3) }
+// for (var i = 387; i <= 493; i++) { pokemonGen.push(4) }
+// for (var i = 494; i <= 649; i++) { pokemonGen.push(5) }
+// for (var i = 650; i <= 721; i++) { pokemonGen.push(6) }
 
 const language = document.documentElement.lang === '' ? 'en' : document.documentElement.lang
 var idToPokemon = {}
@@ -1816,8 +1816,8 @@ function processPokemons(pokemon) {
 }
 
 function getPokemonGen(p) {
-        return pokemonGen[p] || '?'
-    }
+    return pokemonGen[p] || '?'
+}
 
 function processPokemonChunked(pokemon, chunkSize) {
     // Early skip if we have nothing to process.
