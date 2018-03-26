@@ -781,7 +781,6 @@ function pokemonLabel(item) {
                     <div>
                         <img class='pokemon sprite' src='${pokemonIcon}'>
                         <div class='pokemon cp big'>
-                          CP <span class='pokemon encounter big'>${cp}</span><br>
                           GEN: <span class='pokemon encounter big'>${pokemonGen}</span>
                         </div>
                         <div class='pokemon links'>
@@ -814,7 +813,6 @@ function pokemonLabel(item) {
                   <div>
                     <img class='pokemon sprite' src='${pokemonIcon}'>
                     <div class='pokemon cp big'>
-                      CP <span class='pokemon encounter big'>${cp}</span><br>
                       GEN: <span class='pokemon encounter big'>${pokemonGen}</span>
                     </div>
                     <div class='pokemon links'>
