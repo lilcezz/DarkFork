@@ -24,14 +24,14 @@ var $selectSearchIconMarker
 var $selectLocationIconMarker
 var $switchGymSidebar
 var $selectExcludeRarity
-var pokemonGen = new Array(807)
+var pokemonGen = new Array(808)
 pokemonGen.fill(1, 1, 152)
 pokemonGen.fill(2, 152, 252)
 pokemonGen.fill(3, 252, 387)
 pokemonGen.fill(4, 387, 494)
 pokemonGen.fill(5, 494, 650)
 pokemonGen.fill(6, 650, 722)
-pokemonGen.fill(7, 722, 807)
+pokemonGen.fill(7, 722, 808)
 
 const language = document.documentElement.lang === '' ? 'en' : document.documentElement.lang
 var idToPokemon = {}
