@@ -664,6 +664,7 @@ function pokemonLabel(item) {
     var ratingDefense = item['rating_defense']
     var encounterIdLong = encounterId
     var weatherBoostedCondition = item['weather_boosted_condition']
+    var gen = getPokemonGen(id)
 
     $.each(types, function (index, type) {
         typesDisplay += getTypeSpan(type)
@@ -733,7 +734,7 @@ function pokemonLabel(item) {
                 <img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
                   CP <span class='pokemon encounter big'>${cp}</span><br>
-                  GEN: <span class='pokemon encounter big'>${pokemonGen}</span>
+                  GEN: <span class='pokemon encounter big'>${gen}</span>
                 </div>
                 <div class='pokemon links'>
                   <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
@@ -781,7 +782,7 @@ function pokemonLabel(item) {
                     <div>
                         <img class='pokemon sprite' src='${pokemonIcon}'>
                         <div class='pokemon cp big'>
-                          GEN: <span class='pokemon encounter big'>${pokemonGen}</span>
+                          GEN: <span class='pokemon encounter big'>${gen}</span>
                         </div>
                         <div class='pokemon links'>
                           <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
@@ -813,7 +814,7 @@ function pokemonLabel(item) {
                   <div>
                     <img class='pokemon sprite' src='${pokemonIcon}'>
                     <div class='pokemon cp big'>
-                      GEN: <span class='pokemon encounter big'>${pokemonGen}</span>
+                      GEN: <span class='pokemon encounter big'>${gen}</span>
                     </div>
                     <div class='pokemon links'>
                       <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
