@@ -7,7 +7,7 @@ Live visualization of all the Pok√©mon (with option to show gyms, raids and Pok√
 
 ## Discord
 
-[<img src="http://www.tjielup.nl/join.png">](http://discord.gg/spU9p7v)
+[<img src="http://www.tjielup.nl/join2.png">](http://discord.gg/spU9p7v)
 
 ## What does DarkFork have that other RM forks don't:
 
