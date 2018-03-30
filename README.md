@@ -5,6 +5,10 @@ Live visualization of all the Pokémon (with option to show gyms, raids and Pok�
 
 ![Map](https://github.com/darkelement1987/DarkFork/blob/MIX_MEWTWO/static/Rocketmap.png)
 
+## Discord
+
+[<img src="http://www.tjielup.nl/join2.png">](http://discord.gg/spU9p7v)
+
 ## What does DarkFork have that other RM forks don't:
 
 1. Cool navigation-bar filters like filtering/including/excluding per Pokémon type, generation and special tiers.
@@ -12,6 +16,7 @@ Live visualization of all the Pokémon (with option to show gyms, raids and Pok�
 3. Get notified for Tiny Rats & Big Karps + the option to prio-notify Pokémon (Pokémon in notify filters will ALWAYS be visible)
 4. Depending on your -rh (rarity-hours) setting, Pokémon  will get assigned 'New Spawn' when your map hasn't seen this pokemon for `<rh-setting>` hours
 5. The option to import/export your customized map settings
+6. Keep a list of your favorite locations!
 
 And more to be added!
 
