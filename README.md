@@ -5,6 +5,10 @@ Live visualization of all the Pokémon (with option to show gyms, raids and Pok�
 
 ![Map](https://github.com/darkelement1987/DarkFork/blob/MIX_MEWTWO/static/Rocketmap.png)
 
+## Discord
+
+[<img src="http://www.tjielup.nl/join.png">](http://discord.gg/spU9p7v)
+
 ## What does DarkFork have that other RM forks don't:
 
 1. Cool navigation-bar filters like filtering/including/excluding per Pokémon type, generation and special tiers.
