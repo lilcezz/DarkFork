@@ -1101,6 +1101,10 @@ var StoreOptions = {
     'showMedalMagikarp': {
         default: false,
         type: StoreTypes.Boolean
+    },
+    'favoriteLocations': {
+        default: [],
+        type: StoreTypes.JSON
     }
 }
 
