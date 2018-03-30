@@ -3602,6 +3602,34 @@ $(function () {
         })
     }
 
+    // Favorite-location
+    // switch to display "Add this view"
+    $('#add-favorite-location-switch').change(function () {
+        var options = {
+            'duration': 500
+        }
+        var wrapper = $('#add-favorite-location-wrapper')
+        if (this.checked) {
+            wrapper.show(options)
+        } else {
+            wrapper.hide(options)
+        }
+    })
+
+    // Favorite-location
+    // switch to display "search location"
+    $('#search-favorite-location-switch').change(function () {
+        var options = {
+            'duration': 500
+        }
+        var wrapper = $('#search-favorite-location-wrapper')
+        if (this.checked) {
+            wrapper.show(options)
+        } else {
+            wrapper.hide(options)
+        }
+    })
+
     // Initialize dataTable in statistics sidebar
     //   - turn off sorting for the 'icon' column
     //   - initially sort 'name' column alphabetically
