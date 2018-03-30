@@ -3160,6 +3160,8 @@ $(function () {
         })
 
         $selectLocationIconMarker.val(Store.get('locationMarkerStyle')).trigger('change')
+
+        initFavoriteLocations()
     })
 })
 
