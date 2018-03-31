@@ -27,7 +27,7 @@ from requests.adapters import HTTPAdapter
 from cHaversine import haversine
 from pprint import pformat
 from time import strftime
-from timeit import default_timer	 from timeit import default_timer
+from timeit import default_timer
 
 from pogom import dyn_img
 from pogom.pgpool import pgpool_request_accounts
