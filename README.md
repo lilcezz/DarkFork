@@ -5,9 +5,11 @@ Live visualization of all the Pokémon (with option to show gyms, raids and Pok�
 
 ![Map](https://github.com/darkelement1987/DarkFork/blob/MIX_MEWTWO/static/Rocketmap.png)
 
+
 ## Discord
 
 [<img src="http://www.tjielup.nl/join2.png">](http://discord.gg/spU9p7v)
+
 
 ## What does DarkFork have that other RM forks don't:
 
@@ -33,9 +35,16 @@ And more to be added!
 * DB storage (mysql) of all found Pokémon
 * Incredibly fast, efficient searching algorithm (compared to everything else available)
 
+
+## Todo:
+
+* See [Milestones](https://github.com/darkelement1987/DarkFork/milestone/2)
+
+
 ## Installation
 
 For instructions on how to setup and run the tool, please refer to the project [documentation](https://darkfork.readthedocs.io).
+
 
 ## Contributions
 
