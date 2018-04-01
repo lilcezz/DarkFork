@@ -1437,13 +1437,10 @@ function isNotifyPerfectionPoke(poke) {
 
         var baseHeight = 0.90
         var baseWeight = 10.00
-
-        var MedalMagikarp = false
         var ratio = sizeRatio(poke['height'], poke['weight'], baseHeight, baseWeight)
 
         if (ratio > 2.5) {
-            MedalMagikarp = true
-            hasHighAttributes = hasHighAttributes || MedalMagikarp
+            hasHighAttributes = true
         }
     }
     }
@@ -1453,13 +1450,10 @@ function isNotifyPerfectionPoke(poke) {
 
         var baseHeight = 0.30
         var baseWeight = 3.50
-
-        var MedalRattata = false
         var ratio = sizeRatio(poke['height'], poke['weight'], baseHeight, baseWeight)
 
         if (ratio < 1.5) {
-            MedalRattata = true
-            hasHighAttributes = hasHighAttributes || MedalRattata
+            hasHighAttributes = true
         }
     }
     }
