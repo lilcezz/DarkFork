@@ -464,7 +464,7 @@ class Pogom(Flask):
 
             # Exclude ids of Pokemon that are hidden.
             eids = set([])
-            if request.args.get('eids'):
+            if request.args.get('eids') and not request.args.get('prionotify'):
                 for x in request.args.get('eids').split(','):
                     eids.add(int(x))
 
