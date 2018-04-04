@@ -1086,6 +1086,7 @@ var StoreOptions = {
     'favoriteLocations': {
         default: [],
         type: StoreTypes.JSON
+    },
     'showMedalRattata': {
         default: false,
         type: StoreTypes.Boolean
