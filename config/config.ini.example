@@ -104,6 +104,8 @@
 #pokestop-spinning              # Spin Pokestops with "50%" Chance (default=False)
 #account-max-spins:             # Maximum number of Pokestop spins per hour (default=20)
 #on-demand_timeout:             # Pause searching while web UI is inactive for this timeout (in seconds). (default=0)
+#ignorelist-file                # File containing a list of Pokemon IDs to ignore, one line per ID. Spawnpoints will be saved,
+                                # but ignored Pokemon won't be encountered, sent to webhooks or saved to the DB.
 
 
 # Account rotation
@@ -239,6 +241,7 @@
 #verbosity                      # Show debug messages from RocketMap and PGoApi. Values are 1,2,3 (default=0)
 #no-file-logs                   # Disables logging to files except for access.log. (default=False)
 #log-path:                      # Defines the path logs are saved at. (default=logs/)
+#log-filename:                  # Defines the log filename to be saved. The default generates yyyymmdd_HHMM_statusname.log. (default=%Y%m%d_%H%M_<SN>)
 #no-version-check               # Disable API version check. (default=False)
 #version-check-interval:        # Interval to check API version in seconds (Default: in range [60, 300]).
 #mock:                          # Mock mode - point to a fpgo endpoint instead of using the real PogoApi,
