@@ -3214,7 +3214,7 @@ var pokemonIcon
                 text: i8ln(value['name']) + ' - #' + key
             })
         if (generateImages) {
-            pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id':key})}'>`
+            pokemonIcon = `<img class='pokemon-select-icon' src='${get_pokemon_raw_icon_url({'pokemon_id':key})}'>`
         } else {
             pokemonIcon = `<i class="pokemon-sprite n${key}"></i>`
         }
