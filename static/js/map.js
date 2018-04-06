@@ -176,8 +176,8 @@ function excludePokemon(id, encounterId) { // eslint-disable-line no-unused-vars
 
 function notifyAboutPokemon(id, encounterId) { // eslint-disable-line no-unused-vars
     
-    $selectNotify.val(
-        $selectNotify.val().split(',').concat(id).join(',')
+    $selectPokemonNotify.val(
+        $selectPokemonNotify.val().split(',').concat(id).join(',')
     ).trigger('change')
     $('label[for="notify-pokemon"] .list .pokemon-icon-sprite[data-value="' + id + '"]').addClass('active')
     var pkm = mapData.pokemons[encounterId]
