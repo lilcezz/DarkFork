@@ -3069,12 +3069,12 @@ $(function () {
         })
 
 
-             loadDefaultImages()
+            loadDefaultImages()
 
         $('.select-all').on('click', function (e) {
-             e.preventDefault()
-             var parent = $(this).parent()
-             parent.find('.list .pokemon-icon-sprite').addClass('active')
+            e.preventDefault()
+            var parent = $(this).parent()
+            parent.find('.list .pokemon-icon-sprite').addClass('active')
                     parent.find('input[id$=pokemon]').val(Array.from(Array(numberOfPokemon + 1).keys()).slice(1).join(',')).trigger('change')
         })
         $('.hide-all').on('click', function (e) {
@@ -3086,10 +3086,10 @@ $(function () {
         $selectExclude.on('change', function (e) {
             buffer = excludedPokemon
             excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
-                return parseInt(a) - parseInt(b)
+                    return parseInt(a) - parseInt(b)
             })
             buffer = buffer.filter(function (e) {
-                return this.indexOf(e) < 0
+                    return this.indexOf(e) < 0
             }, excludedPokemon)
             reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
             clearStaleMarkers()
@@ -3105,7 +3105,7 @@ $(function () {
         $selectPokemonNotify.on('change', function (e) {
             buffer = notifiedPokemon
             notifiedPokemon = $selectPokemonNotify.val().split(',').map(Number).sort(function (a, b) {
-                return parseInt(a) - parseInt(b)
+                    return parseInt(a) - parseInt(b)
             })
             buffer = buffer.filter(function (e) {
                 return this.indexOf(e) < 0
