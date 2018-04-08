@@ -3061,8 +3061,8 @@ $(function () {
                 } else {
                     if (($(this).data('pkm').toLowerCase().indexOf(searchtext.toLowerCase()) !== -1) || ($(this).data('value').toString() === searchtext.toString())) {
                         $(this).show()
-                    } else {
-                    $(this).hide()
+                        } else {
+                        $(this).hide()
                 }
                 }
             })
@@ -3075,7 +3075,7 @@ $(function () {
             e.preventDefault()
             var parent = $(this).parent()
             parent.find('.list .pokemon-icon-sprite').addClass('active')
-        parent.find('input[id$=pokemon]').val(Array.from(Array(numberOfPokemon + 1).keys()).slice(1).join(',')).trigger('change')
+            parent.find('input[id$=pokemon]').val(Array.from(Array(numberOfPokemon + 1).keys()).slice(1).join(',')).trigger('change')
         })
         $('.hide-all').on('click', function (e) {
             e.preventDefault()
@@ -3083,18 +3083,18 @@ $(function () {
             parent.find('.list .pokemon-icon-sprite').removeClass('active')
             parent.find('input[id$=pokemon]').val('').trigger('change')
         })
-            $selectExclude.on('change', function (e) {
-            buffer = excludedPokemon
-            excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
+        $selectExclude.on('change', function (e) {
+                buffer = excludedPokemon
+                excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
                 return parseInt(a) - parseInt(b)
             })
-            buffer = buffer.filter(function (e) {
+                buffer = buffer.filter(function (e) {
                 return this.indexOf(e) < 0
             }, excludedPokemon)
-            reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
-            clearStaleMarkers()
-            Store.set('remember_select_exclude', excludedPokemon)
-        })
+                reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
+                clearStaleMarkers()
+                Store.set('remember_select_exclude', excludedPokemon)
+            })
         $selectExcludeRarity.on('change', function (e) {
             excludedRarity = $selectExcludeRarity.val()
             reincludedPokemon = reincludedPokemon.concat(excludedPokemonByRarity)
