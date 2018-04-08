@@ -54,6 +54,7 @@
         <div id="nav-accordion">
           <h3><i class="fa fa-map-marker fa-fw"></i>Marker Settings</h3>
           <div>
+
               {% if show.pokemons %}
             <div class="form-control switch-container">
               <h3>Pokémon</h3>
@@ -240,13 +241,15 @@
             </div>
               {% if show.pokemons %}
             <div class="form-control">
+            <h3>Hide Pokémon</h3>
               <label for="exclude-pokemon">
-              <h3>Hide Pokémon</h3>
-              <div style="max-height:165px;overflow-y:auto">
-                <select id="exclude-pokemon" multiple="multiple"></select>
+              <div class=pokemon-container>
+                <input id="exclude-pokemon" type="text" readonly="true" style="display:none;" >
+                <div class="list"></div>
               </div>
+              <a href="#" class="select-all">Hide all</a><a href="#" class="hide-all">Show all</a>
               </label>
-			  </div>
+            </div>
             <div class="form-control switch-container" id="exclude-rarity-wrapper">
               <h3>Exclude Rarity</h3>
               <select name="exclude-rarity" id="exclude-rarity">
@@ -387,11 +390,13 @@
           <h3><i class="fa fa-bullhorn fa-fw"></i>Notification Settings</h3>
           <div>
             <div class="form-control">
+            <h3>Notify of Pokémon</h3>
               <label for="notify-pokemon">
-                <h3>Notify of Pokémon</h3>
-                <div style="max-height:165px;overflow-y:auto">
-                  <select id="notify-pokemon" multiple="multiple"></select>
-                </div>
+              <div class=pokemon-container>
+                <input id="notify-pokemon" type="text" readonly="true" style="display:none;" >
+                <div class="list"></div>
+              </div>
+              <a href="#" class="select-all">Notify all</a><a href="#" class="hide-all">Notify none</a>
               </label>
             </div>
             <div class="form-control">
@@ -419,7 +424,7 @@
               </label>
             </div>
               {% endif %}
-            <div class="form-control switch-container">
+	    <div class="form-control switch-container">
                 <h3>Prio Notify</h3>
                 <div class="onoffswitch">
                   <input id="prio-notify-switch" type="checkbox" name="prio-notify-switch" class="onoffswitch-checkbox" checked>
@@ -429,29 +434,6 @@
                   </label>
                 </div>
               </div>
-              {% if show.medalpokemon %}
-              <div class="form-control switch-container" id="medal-rattata-wrapper">
-                <h3>Tiny Rattata</h3>
-                <div class="onoffswitch">
-                  <input id="medal-rattata-switch" type="checkbox" name="medal-rattata-switch" class="onoffswitch-checkbox" checked>
-                  <label class="onoffswitch-label" for="medal-rattata-switch">
-                  <span class="switch-label" data-on="On" data-off="Off"></span>
-                  <span class="switch-handle"></span>
-                  </label>
-                </div>
-              </div>
-              <div class="form-control switch-container" id="medal-magikarp-wrapper">
-                <h3>Big Magikarp</h3>
-                <div class="onoffswitch">
-                  <input id="medal-magikarp-switch" type="checkbox" name="medal-magikarp-switch" class="onoffswitch-checkbox" checked>
-                  <label class="onoffswitch-label" for="medal-magikarp-switch">
-                  <span class="switch-label" data-on="On" data-off="Off"></span>
-                  <span class="switch-handle"></span>
-                  </label>
-                </div>
-              </div>
-              {% endif %}
-
             <div class="form-control switch-container">
               <h3>Hide unnotified pokemon</h3>
               <div class="onoffswitch">
