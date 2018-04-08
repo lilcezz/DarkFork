@@ -171,13 +171,20 @@ function toggleSelectItem($select, id) {
 }
 
 function excludePokemon(id, encounterId) { // eslint-disable-line no-unused-vars
-    toggleSelectItem($selectExclude, id)
+    $selectExclude.val(
+        $selectExclude.val().split(',').concat(id).join(',')
+    ).trigger('change')
+    $('label[for="exclude-pokemon"] .list .pokemon-icon-sprite[data-value="' + id + '"]').addClass('active')
+
     var pkm = mapData.pokemons[encounterId]
     pkm.marker.infoWindow.setContent(pokemonLabel(pkm))
 }
 
 function notifyAboutPokemon(id, encounterId) { // eslint-disable-line no-unused-vars
-    toggleSelectItem($selectPokemonNotify, id)
+    $selectPokemonNotify.val(
+        $selectPokemonNotify.val().split(',').concat(id).join(',')
+    ).trigger('change')
+    $('label[for="notify-pokemon"] .list .pokemon-icon-sprite[data-value="' + id + '"]').addClass('active')
     var pkm = mapData.pokemons[encounterId]
     pkm.marker.infoWindow.setContent(pokemonLabel(pkm))
 }
@@ -224,6 +231,22 @@ function loadSettingsFile(file) { // eslint-disable-line no-unused-vars
     reader.readAsText(file.target.files[0])
     window.location.reload()
 }
+
+function loadDefaultImages() {
+    var ep = Store.get('remember_select_exclude')
+    var en = Store.get('remember_select_notify')
+    $('label[for="exclude-pokemon"] .list .pokemon-icon-sprite').each(function () {
+        if (ep.indexOf($(this).data('value')) !== -1) {
+            $(this).addClass('active')
+        }
+    })
+    $('label[for="notify-pokemon"] .list .pokemon-icon-sprite').each(function () {
+        if (en.indexOf($(this).data('value')) !== -1) {
+            $(this).addClass('active')
+        }
+    })
+}
+
 
 function initMap() { // eslint-disable-line no-unused-vars
     map = new google.maps.Map(document.getElementById('map'), {
@@ -560,9 +583,6 @@ function initSidebar() {
     $('#s2cells-switch').prop('checked', Store.get('showS2Cells'))
     $('#weather-alerts-switch').prop('checked', Store.get('showWeatherAlerts'))
     $('#prio-notify-switch').prop('checked', Store.get('prioNotify'))
-    $('#medal-rattata-switch').prop('checked', Store.get('showMedalRattata'))
-    $('#medal-magikarp-switch').prop('checked', Store.get('showMedalMagikarp'))
-
 
     // Only create the Autocomplete element if it's enabled in template.
     var elSearchBox = document.getElementById('next-location')
@@ -1278,12 +1298,10 @@ function playPokemonSound(pokemonID, cryFileTypes) {
     }
 }
 
+
 function isNotifyPerfectionPoke(poke) {
     var hasHighAttributes = false
     var hasHighIV = false
-    var baseHeight = 0
-    var baseWeight = 0
-    var ratio = 0
 
     // Notify for IV.
     if (poke['individual_attack'] != null) {
@@ -1303,32 +1321,7 @@ function isNotifyPerfectionPoke(poke) {
         hasHighAttributes = hasHighAttributes || shouldNotifyForLevel
     }
 
-    if (poke['cp_multiplier'] !== null) {
-        if (Store.get('showMedalMagikarp') && poke['pokemon_id'] === 129) {
-            baseHeight = 0.90
-            baseWeight = 10.00
-            ratio = sizeRatio(poke['height'], poke['weight'], baseHeight, baseWeight)
-            if (ratio > 2.5) {
-                hasHighAttributes = true
-            }
-        } else if (Store.get('showMedalRattata') && poke['pokemon_id'] === 19) {
-            baseHeight = 0.30
-            baseWeight = 3.50
-            ratio = sizeRatio(poke['height'], poke['weight'], baseHeight, baseWeight)
-            if (ratio < 1.5) {
-                hasHighAttributes = true
-            }
-        }
-    }
-
     return hasHighAttributes
-}
-
-function sizeRatio(height, weight, baseHeight, baseWeight) {
-    var heightRatio = height / baseHeight
-    var weightRatio = weight / baseWeight
-
-    return heightRatio + weightRatio
 }
 
 function isNotifyPoke(poke) {
@@ -2969,10 +2962,12 @@ $(function () {
         })
 
         $selectLocationIconMarker.val(Store.get('locationMarkerStyle')).trigger('change')
+        loadDefaultImages()
     })
 })
 
 $(function () {
+
     moment.locale(language)
     function formatState(state) {
         if (!state.id) {
@@ -3004,11 +2999,14 @@ $(function () {
     $selectRarityNotify = $('#notify-rarity')
     $textPerfectionNotify = $('#notify-perfection')
     $textLevelNotify = $('#notify-level')
-    var numberOfPokemon = 493
+    var numberOfPokemon = 384
+
+    $('.list').before('<input type="search" class="search" placeholder="Search for Pokemon or ID..">')
 
     // Load pokemon names and populate lists
     $.getJSON('static/dist/data/pokemon.min.json').done(function (data) {
         var pokeList = []
+        var pokemonIcon
 
         $.each(data, function (key, value) {
             if (key > numberOfPokemon) {
@@ -3019,6 +3017,12 @@ $(function () {
                 id: key,
                 text: i8ln(value['name']) + ' - #' + key
             })
+            if (generateImages) {
+                pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id':key})}'>`
+            } else {
+                pokemonIcon = `<i class="pokemon-sprite n${key}"></i>`
+            }
+            $('.list').append('<div class=pokemon-icon-sprite data-pkm=' + i8ln(value['name']) + '  data-value=' + key +'><div id=pkid_list>#' + key + '</div>' + pokemonIcon + '<div id=pkname_list>' + i8ln(value['name'])+ '</div></div>')
             value['name'] = i8ln(value['name'])
             value['rarity'] = i8ln(value['rarity'])
             $.each(value['types'], function (key, pokemonType) {
@@ -3031,31 +3035,67 @@ $(function () {
             idToPokemon[key] = value
         })
 
-        // setup the filter lists
-        $selectExclude.select2({
-            placeholder: i8ln('Select Pokémon'),
-            data: pokeList,
-            templateResult: formatState
-        })
-        $selectPokemonNotify.select2({
-            placeholder: i8ln('Select Pokémon'),
-            data: pokeList,
-            templateResult: formatState
-        })
         $selectRarityNotify.select2({
             placeholder: i8ln('Select Rarity'),
             data: [i8ln('Common'), i8ln('Uncommon'), i8ln('Rare'), i8ln('Very Rare'), i8ln('Ultra Rare'), i8ln('New Spawn')],
             templateResult: formatState
         })
 
-        // setup list change behavior now that we have the list to work from
+        $('.list').on('click', '.pokemon-icon-sprite', function() {
+           var img = $(this)
+           var select = $(this).parent().parent().find('input[id$=pokemon]')
+           var value = select.val().split(',')
+           var id = img.data('value').toString()
+           if (img.hasClass('active')) {
+               select.val(value.filter(function (elem) {
+               return elem !== id
+               }).join(',')).trigger('change')
+               img.removeClass('active')
+           } else {
+               select.val((value.concat(id).join(','))).trigger('change')
+               img.addClass('active')
+           }
+        })
+
+        $('.search').on('input', function() {
+            var searchtext = $(this).val().toString()
+            $(this).next('.list').find('.pokemon-icon-sprite').each(function () {
+            if (searchtext === "" ) {
+                $(this).show()
+            } else {
+                if (($(this).data('pkm').toLowerCase().indexOf(searchtext.toLowerCase()) !== -1) || ($(this).data('value').toString() === searchtext.toString())) {
+                    $(this).show()
+                } else {
+                    $(this).hide()
+                }
+            }
+            })
+        })
+
+
+             loadDefaultImages()
+
+        $('.select-all').on('click', function (e) {
+             e.preventDefault()
+             var parent = $(this).parent()
+             parent.find('.list .pokemon-icon-sprite').addClass('active')
+                    parent.find('input[id$=pokemon]').val(Array.from(Array(numberOfPokemon + 1).keys()).slice(1).join(',')).trigger('change')
+        })
+        $('.hide-all').on('click', function (e) {
+            e.preventDefault()
+            var parent = $(this).parent()
+            parent.find('.list .pokemon-icon-sprite').removeClass('active')
+            parent.find('input[id$=pokemon]').val('').trigger('change')
+        })
         $selectExclude.on('change', function (e) {
             buffer = excludedPokemon
-            excludedPokemon = $selectExclude.val().map(Number)
+            excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
+                return parseInt(a) - parseInt(b)
+            })
             buffer = buffer.filter(function (e) {
                 return this.indexOf(e) < 0
             }, excludedPokemon)
-            reincludedPokemon = reincludedPokemon.concat(buffer)
+            reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
             clearStaleMarkers()
             Store.set('remember_select_exclude', excludedPokemon)
         })
@@ -3067,7 +3107,15 @@ $(function () {
             Store.set('excludedRarity', excludedRarity)
         })
         $selectPokemonNotify.on('change', function (e) {
-            notifiedPokemon = $selectPokemonNotify.val().map(Number)
+            buffer = notifiedPokemon
+            notifiedPokemon = $selectPokemonNotify.val().split(',').map(Number).sort(function (a, b) {
+                return parseInt(a) - parseInt(b)
+            })
+            buffer = buffer.filter(function (e) {
+                return this.indexOf(e) < 0
+            }, notifiedPokemon)
+            reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
+            clearStaleMarkers()
             Store.set('remember_select_notify', notifiedPokemon)
         })
         $selectRarityNotify.on('change', function (e) {
@@ -3117,6 +3165,7 @@ $(function () {
     window.setInterval(updateGeoLocation, 1000)
 
     createUpdateWorker()
+
 
     // Wipe off/restore map icons when switches are toggled
     function buildSwitchChangeListener(data, dataType, storageKey) {
@@ -3200,6 +3249,8 @@ $(function () {
     }
 
     // Setup UI element interactions
+
+
     $('#gyms-switch').change(function () {
         var options = {
             'duration': 500
@@ -3335,17 +3386,6 @@ $(function () {
     $('#cries-switch').change(function () {
         Store.set('playCries', this.checked)
     })
-
-    $('#medal-rattata-switch').change(function () {
-        Store.set('showMedalRattata', this.checked)
-        updateMap()
-    })
-
-    $('#medal-magikarp-switch').change(function () {
-        Store.set('showMedalMagikarp', this.checked)
-        updateMap()
-    })
-
 
     $('#geoloc-switch').change(function () {
         $('#next-location').prop('disabled', this.checked)
