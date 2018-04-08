@@ -3086,11 +3086,11 @@ $(function () {
         $selectExclude.on('change', function (e) {
             buffer = excludedPokemon
             excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
-                    return parseInt(a) - parseInt(b)
-                })
+                return parseInt(a) - parseInt(b)
+            })
             buffer = buffer.filter(function (e) {
-                    return this.indexOf(e) < 0
-                }, excludedPokemon)
+                return this.indexOf(e) < 0
+            }, excludedPokemon)
             reincludedPokemon = reincludedPokemon.concat(buffer).map(String)
             clearStaleMarkers()
             Store.set('remember_select_exclude', excludedPokemon)
