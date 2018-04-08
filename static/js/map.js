@@ -3056,15 +3056,15 @@ $(function () {
         $('.search').on('input', function () {
             var searchtext = $(this).val().toString()
             $(this).next('.list').find('.pokemon-icon-sprite').each(function () {
-                if (searchtext === '' ){
-                $(this).show()
-            } else {
-                if (($(this).data('pkm').toLowerCase().indexOf(searchtext.toLowerCase()) !== -1) || ($(this).data('value').toString() === searchtext.toString())) {
+                if (searchtext === '') {
                     $(this).show()
                 } else {
+                    if (($(this).data('pkm').toLowerCase().indexOf(searchtext.toLowerCase()) !== -1) || ($(this).data('value').toString() === searchtext.toString())) {
+                        $(this).show()
+                    } else {
                     $(this).hide()
                 }
-            }
+                }
             })
         })
 
@@ -3083,7 +3083,7 @@ $(function () {
             parent.find('.list .pokemon-icon-sprite').removeClass('active')
             parent.find('input[id$=pokemon]').val('').trigger('change')
         })
-        $selectExclude.on('change', function (e) {
+            $selectExclude.on('change', function (e) {
             buffer = excludedPokemon
             excludedPokemon = $selectExclude.val().split(',').map(Number).sort(function (a, b) {
                 return parseInt(a) - parseInt(b)
