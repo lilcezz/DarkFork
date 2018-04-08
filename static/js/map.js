@@ -2965,9 +2965,7 @@ $(function () {
         loadDefaultImages()
     })
 })
-
 $(function () {
-
     moment.locale(language)
     function formatState(state) {
         if (!state.id) {
@@ -2984,11 +2982,9 @@ $(function () {
         )
         return $state
     }
-
     if (Store.get('startAtUserLocation') && getParameterByName('lat') == null && getParameterByName('lon') == null) {
         centerMapOnLocation()
     }
-
     $.getJSON('static/dist/data/moves.min.json').done(function (data) {
         moves = data
     })
@@ -3018,11 +3014,11 @@ $(function () {
                 text: i8ln(value['name']) + ' - #' + key
             })
             if (generateImages) {
-                pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id':key})}'>`
+                pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id': key})}'>`
             } else {
                 pokemonIcon = `<i class="pokemon-sprite n${key}"></i>`
             }
-            $('.list').append('<div class=pokemon-icon-sprite data-pkm=' + i8ln(value['name']) + '  data-value=' + key +'><div id=pkid_list>#' + key + '</div>' + pokemonIcon + '<div id=pkname_list>' + i8ln(value['name'])+ '</div></div>')
+            $('.list').append('<div class=pokemon-icon-sprite data-pkm=' + i8ln(value['name']) + ' data-value=' + key + '><div id=pkid_list>#' + key + '</div>' + pokemonIcon + '<div id=pkname_list>' + i8ln(value['name']) + '</div></div>')
             value['name'] = i8ln(value['name'])
             value['rarity'] = i8ln(value['rarity'])
             $.each(value['types'], function (key, pokemonType) {
