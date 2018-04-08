@@ -3038,19 +3038,19 @@ $(function () {
         })
 
         $('.list').on('click', '.pokemon-icon-sprite', function() {
-           var img = $(this)
-           var select = $(this).parent().parent().find('input[id$=pokemon]')
-           var value = select.val().split(',')
-           var id = img.data('value').toString()
-           if (img.hasClass('active')) {
-               select.val(value.filter(function (elem) {
-               return elem !== id
-               }).join(',')).trigger('change')
-               img.removeClass('active')
-           } else {
-               select.val((value.concat(id).join(','))).trigger('change')
-               img.addClass('active')
-           }
+            var img = $(this)
+            var select = $(this).parent().parent().find('input[id$=pokemon]')
+            var value = select.val().split(',')
+            var id = img.data('value').toString()
+            if (img.hasClass('active')) {
+                select.val(value.filter(function (elem) {
+                return elem !== id
+                }).join(',')).trigger('change')
+                img.removeClass('active')
+            } else {
+                select.val((value.concat(id).join(','))).trigger('change')
+                img.addClass('active')
+            }
         })
 
         $('.search').on('input', function() {
