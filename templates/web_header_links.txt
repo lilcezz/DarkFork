@@ -57,73 +57,73 @@
 <div class="dropdown">
   <button class="dropbtn"><i class="fa fa-filter" title="Filter Pokemon"></i></button>
   <div class="dropdown-content" style="left:0;min-width:225px;">
-                  <a href="javascript:hideall();     ">All Pokemon Off</a>
-                  <a href="javascript:showall();     ">All Pokemon On</a>
-				  <a href="javascript:onlyshiny();     ">Possible shinies</a>
-                  <a href="javascript:onlygen1();    ">Gen1 Only</a>
-                  <a href="javascript:onlygen2();    ">Gen2 Only</a>
-                  <a href="javascript:onlygen3();    ">Gen3 Only</a>
-                  <a href="javascript:hidegen1();    ">Turn Off Gen1</a>
-                  <a href="javascript:hidegen2();    ">Turn Off Gen2</a>
-                  <a href="javascript:hidegen3();    ">Turn Off Gen3</a>
-                  <a href="javascript:showgen1();    ">Turn On Gen1</a>
-                  <a href="javascript:showgen2();    ">Turn On Gen2</a>
-                  <a href="javascript:showgen3();    ">Turn On Gen3</a>
-                  <a href="javascript:showevo();    ">Show Evolutions Only</a>
+                  <a href="javascript:hideall();window.location.reload();">All Pokemon Off</a>
+                  <a href="javascript:showall();window.location.reload();">All Pokemon On</a>
+				  <a href="javascript:onlyshiny();window.location.reload();">Possible shinies</a>
+                  <a href="javascript:onlygen1();window.location.reload();">Gen1 Only</a>
+                  <a href="javascript:onlygen2();window.location.reload();">Gen2 Only</a>
+                  <a href="javascript:onlygen3();window.location.reload();">Gen3 Only</a>
+                  <a href="javascript:hidegen1();window.location.reload();">Turn Off Gen1</a>
+                  <a href="javascript:hidegen2();window.location.reload();">Turn Off Gen2</a>
+                  <a href="javascript:hidegen3();window.location.reload();">Turn Off Gen3</a>
+                  <a href="javascript:showgen1();window.location.reload();">Turn On Gen1</a>
+                  <a href="javascript:showgen2();window.location.reload();">Turn On Gen2</a>
+                  <a href="javascript:showgen3();window.location.reload();">Turn On Gen3</a>
+                  <a href="javascript:showevo();window.location.reload();">Show Evolutions Only</a>
   </div>
 </div>
 
 <div class="dropdown">
   <button class="dropbtn"><i class="fa fa-cloud" title="Filter by weather"></i></button>
   <div class="dropdown-content" style="left:-100px;min-width:325px;">
-                  <a href="javascript:hideall();      ">All Pokemon Off</a>
-                  <a href="javascript:showall();      ">All Pokemon On</a>
-                  <a href="javascript:weather(sunny); ">Weather Pokemon: Sunny</a>
-                  <a href="javascript:weather(partly);">Weather Pokemon: Partly Cloudy</a>
-                  <a href="javascript:weather(cloudy);">Weather Pokemon: Cloudy</a>
-                  <a href="javascript:weather(windy); ">Weather Pokemon: Windy</a>
-                  <a href="javascript:weather(rainy); ">Weather Pokemon: Rainy</a>
-                  <a href="javascript:weather(snow);  ">Weather Pokemon: Snow</a>
-                  <a href="javascript:weather(fog);   ">Weather Pokemon: Fog</a>
+                  <a href="javascript:hideall();window.location.reload();">All Pokemon Off</a>
+                  <a href="javascript:showall();window.location.reload();">All Pokemon On</a>
+                  <a href="javascript:weather(sunny);window.location.reload();">Weather Pokemon: Sunny</a>
+                  <a href="javascript:weather(partly);window.location.reload();">Weather Pokemon: Partly Cloudy</a>
+                  <a href="javascript:weather(cloudy);window.location.reload();">Weather Pokemon: Cloudy</a>
+                  <a href="javascript:weather(windy);window.location.reload();">Weather Pokemon: Windy</a>
+                  <a href="javascript:weather(rainy);window.location.reload();">Weather Pokemon: Rainy</a>
+                  <a href="javascript:weather(snow);window.location.reload();">Weather Pokemon: Snow</a>
+                  <a href="javascript:weather(fog);window.location.reload();">Weather Pokemon: Fog</a>
   </div>
 </div>
 
 <div class="dropdown">
   <button class="dropbtn"><i class="fa fa-leaf" title="Filter by type"></i></button>
   <div class="dropdown-content" style="left:-150px;min-width:225px;">
-                  <a href="javascript:hideall();      ">All Pokemon Off</a>
-                  <a href="javascript:showall();      ">All Pokemon On</a>
-                  <a href="javascript:showdragon(); ">Dragon types only</a>
-                  <a href="javascript:showwater(); ">Water types only</a>
-                  <a href="javascript:showsteel(); ">Steel types only</a>
-                  <a href="javascript:showfire(); ">Fire types only</a>
-                  <a href="javascript:showrock(); ">Rock types only</a>
-                  <a href="javascript:showdark(); ">Dark types only</a>
-                  <a href="javascript:showbug(); ">Bug types only</a>
-                  <a href="javascript:showground(); ">Ground types only</a>
-                  <a href="javascript:shownormal(); ">Normal types only</a>
-                  <a href="javascript:showfight(); ">Fighting types only</a>
-                  <a href="javascript:showghost(); ">Ghost types only</a>
-                  <a href="javascript:showpsychic(); ">Psychic types only</a>
-                  <a href="javascript:showflying(); ">Flying types only</a>
-                  <a href="javascript:showgrass(); ">Grass types only</a>
-                  <a href="javascript:showpoison(); ">Poison types only</a>
-                  <a href="javascript:showelectric(); ">Electric types only</a>
-                  <a href="javascript:showfairy(); ">Fairy types only</a>
-                  <a href="javascript:showice(); ">Ice types only</a>
+                  <a href="javascript:hideall();window.location.reload();">All Pokemon Off</a>
+                  <a href="javascript:showall();window.location.reload();">All Pokemon On</a>
+                  <a href="javascript:showdragon();window.location.reload();">Dragon types only</a>
+                  <a href="javascript:showwater();window.location.reload();">Water types only</a>
+                  <a href="javascript:showsteel();window.location.reload();">Steel types only</a>
+                  <a href="javascript:showfire();window.location.reload();">Fire types only</a>
+                  <a href="javascript:showrock();window.location.reload();">Rock types only</a>
+                  <a href="javascript:showdark();window.location.reload();">Dark types only</a>
+                  <a href="javascript:showbug();window.location.reload();">Bug types only</a>
+                  <a href="javascript:showground();window.location.reload();">Ground types only</a>
+                  <a href="javascript:shownormal();window.location.reload();">Normal types only</a>
+                  <a href="javascript:showfight();window.location.reload();">Fighting types only</a>
+                  <a href="javascript:showghost();window.location.reload();">Ghost types only</a>
+                  <a href="javascript:showpsychic();window.location.reload();">Psychic types only</a>
+                  <a href="javascript:showflying();window.location.reload();">Flying types only</a>
+                  <a href="javascript:showgrass();window.location.reload();">Grass types only</a>
+                  <a href="javascript:showpoison();window.location.reload();">Poison types only</a>
+                  <a href="javascript:showelectric();window.location.reload();">Electric types only</a>
+                  <a href="javascript:showfairy();window.location.reload();">Fairy types only</a>
+                  <a href="javascript:showice();window.location.reload();">Ice types only</a>
   </div>
 </div>
 
 <div class="dropdown">
   <button class="dropbtn"><i class="fa fa-shield" title="Filter by skill"></i></button>
   <div class="dropdown-content" style="left:-150px;min-width:225px;">
-                  <a href="javascript:hideall();      ">All Pokemon Off</a>
-                  <a href="javascript:showall();      ">All Pokemon On</a>
-                  <a href="javascript:showattack(); ">Best attackers</a>
-                  <a href="javascript:showdefense(); ">Best defenders</a>
-                  <a href="javascript:showstier(); ">S-Tier Only</a>
-                  <a href="javascript:showstart(); ">Starters Only</a>
-                  <a href="javascript:showsnoep(); ">400 Candy Only</a>
+                  <a href="javascript:hideall();window.location.reload();">All Pokemon Off</a>
+                  <a href="javascript:showall();window.location.reload();">All Pokemon On</a>
+                  <a href="javascript:showattack();window.location.reload();">Best attackers</a>
+                  <a href="javascript:showdefense();window.location.reload();">Best defenders</a>
+                  <a href="javascript:showstier();window.location.reload();">S-Tier Only</a>
+                  <a href="javascript:showstart();window.location.reload();">Starters Only</a>
+                  <a href="javascript:showsnoep();window.location.reload();">400 Candy Only</a>
   </div>
 </div>
 
