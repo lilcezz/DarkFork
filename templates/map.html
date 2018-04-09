@@ -44,9 +44,7 @@
       <!-- Header -->
       <header id="header">
         <a href="#nav"><span class="label">Options</span></a>
-        <h1><a href="./"><img class='rocket icon' src='static/images/rocket.png'></a></h1>
-        <a href="#stats" id="statsToggle" class="statsNav" style="float: right;"><span class="label">Stats</span></a>
-        <span id="weatherInfo" style="float: right; vertical-align: middle;"></span>
+		        {% include 'web_header_links.txt' %}
       </header>
       <!-- NAV -->
       <nav id="nav">
@@ -723,4 +721,4 @@
     <script defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_key }}&amp;callback=initMap&amp;libraries=places,geometry"></script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
   </body>
-</html>
+</html> 
