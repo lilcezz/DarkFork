@@ -712,12 +712,12 @@ class Pogom(Flask):
         }
 
         return render_template(
-                               'statistics.html',
-                               lat=self.current_location[0],
-                               lng=self.current_location[1],
-                               generateImages=str(args.generate_images).lower(),
-                               gmaps_key=args.gmaps_key,
-                               show=visibility_flags)
+            'statistics.html',
+            lat=self.current_location[0],
+            lng=self.current_location[1],
+            generateImages=str(args.generate_images).lower(),
+            gmaps_key=args.gmaps_key,
+            show=visibility_flags)
 
     def get_gymdata(self):
         gym_id = request.args.get('id')
