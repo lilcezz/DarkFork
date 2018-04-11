@@ -285,7 +285,7 @@ class Pogom(Flask):
 
         # Verify Authorization
         if args.user_auth_service and request.endpoint != 'auth_callback':
-            return check_auth(get_args(), request.url_root, session, 
+            return check_auth(get_args(), request.url_root, session,
                               self.user_auth_code_cache)
 
     def make_session_permanent(self):
@@ -385,16 +385,15 @@ class Pogom(Flask):
             map_lng = self.current_location[1]
 
         return render_template(
-                               'map.html',
-                               lat=map_lat,
-                               lng=map_lng,
-                               showAllZoomLevel=args.show_all_zoom_level,
-                               generateImages=str(args.generate_images).lower(),
-                               gmaps_key=args.gmaps_key,
-                               lang=args.locale,
-                               show=visibility_flags,
-                               rarityFileName=args.rarity_filename
-                               )
+            'map.html',
+            lat=map_lat,
+            lng=map_lng,
+            showAllZoomLevel=args.show_all_zoom_level,
+            generateImages=str(args.generate_images).lower(),
+            gmaps_key=args.gmaps_key,
+            lang=args.locale,
+            show=visibility_flags,
+            rarityFileName=args.rarity_filename)
 
     def raw_data(self):
         # Make sure fingerprint isn't blacklisted.
@@ -525,7 +524,7 @@ class Pogom(Flask):
                 reids = [int(x) for x in request.args.get('reids').split(',')]
                 d['pokemons'] = d['pokemons'] + (
                     convert_pokemon_list(
-                        Pokemon.get_active_by_id(reids, swLat, swLng, neLat, 
+                        Pokemon.get_active_by_id(reids, swLat, swLng, neLat,
                                                  neLng)))
                 d['reids'] = reids
 
@@ -718,8 +717,7 @@ class Pogom(Flask):
                                lng=self.current_location[1],
                                generateImages=str(args.generate_images).lower(),
                                gmaps_key=args.gmaps_key,
-                               show=visibility_flags
-                               )
+                               show=visibility_flags)
 
     def get_gymdata(self):
         gym_id = request.args.get('id')
