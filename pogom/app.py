@@ -758,7 +758,6 @@ class Pogom(Flask):
         return jsonify(d)
 
 
-
 class CustomJSONEncoder(JSONEncoder):
 
     def default(self, obj):
