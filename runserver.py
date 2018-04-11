@@ -29,7 +29,8 @@ from pogom.altitude import get_gmaps_altitude
 from pogom.osm import update_ex_gyms
 from pogom.models import (init_database, create_tables, drop_tables,
                           PlayerLocale, db_updater, clean_db_loop,
-                          verify_table_encoding, verify_database_schema, rarity_cache_update)
+                          verify_table_encoding, verify_database_schema, 
+                          rarity_cache_update)
 from pogom.webhook import wh_updater
 
 from pogom.proxy import initialize_proxies
