@@ -492,13 +492,12 @@ def main():
 
     if args.rarity_cache_timer:
         t = Thread(target=rarity_cache_update,
-                  name='rarity-cache')
+                   name='rarity-cache')
         t.daemon = True
         t.start()
         log.info('Dynamic rarity cache is enabled.')
     else:
         log.info('Dynamic rarity cache is disabled.')
-
 
     if args.no_server:
         # This loop allows for ctrl-c interupts to work since flask won't be
