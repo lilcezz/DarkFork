@@ -13,22 +13,21 @@ log = logging.getLogger(__name__)
 log.setLevel('INFO')
 
 
-def check_auth(args, url_root, session, user_auth_code_cache):
+def check_auth(args, request, user_auth_code_cache):
     if args.user_auth_service == "Discord":
         host = args.uas_host_override
-    if not host:
-        host = url_root
-    if not valid_client_auth(host, session, user_auth_code_cache, args):
-        return redirect_client_to_auth(host, args)
-    if args.uas_discord_required_guilds:
-        if not valid_discord_guild(session, user_auth_code_cache, args):
-                log.debug('User is not in guild, redirecting...')
-        return redirect_to_discord_guild_invite(args)
-                if args.uas_discord_required_roles and not valid_discord_guild_role(
-                    session, user_auth_code_cache, args):
-                    log.debug("User does not have required role, redirecting...")
-        return redirect_to_discord_guild_invite(args)
-  return None
+        if not host:
+            host = request.url_root
+        if not valid_client_auth(request, host, user_auth_code_cache, args):
+            return redirect_client_to_auth(host, args)
+        if args.uas_discord_required_guilds:
+            if not valid_discord_guild(request, user_auth_code_cache, args):
+                return redirect_to_discord_guild_invite(args)
+            if (args.uas_discord_required_roles
+                and not valid_discord_guild_role(
+                    request, user_auth_code_cache, args)):
+                return redirect_to_discord_guild_invite(args)
+    return False
 
 
 def redirect_client_to_auth(host, args):
