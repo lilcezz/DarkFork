@@ -22,11 +22,11 @@ def check_auth(args, url_root, session, user_auth_code_cache):
         return redirect_client_to_auth(host, args)
     if args.uas_discord_required_guilds:
         if not valid_discord_guild(session, user_auth_code_cache, args):
-            log.debug('User is not in guild, redirecting...')
+                log.debug('User is not in guild, redirecting...')
         return redirect_to_discord_guild_invite(args)
     if args.uas_discord_required_roles and not valid_discord_guild_role(
         session, user_auth_code_cache, args):
-            log.debug("User does not have required role, redirecting...")
+                log.debug("User does not have required role, redirecting...")
         return redirect_to_discord_guild_invite(args)
   return None
 
