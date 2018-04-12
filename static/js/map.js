@@ -370,8 +370,8 @@ function initMap() { // eslint-disable-line no-unused-vars
 
     const showSearchMarker = Store.get('showSearchMarker')
     const showLocationMarker = Store.get('showLocationMarker')
-	const isLocationMarkerMovable = Store.get('isLocationMarkerMovable')
-	
+    const isLocationMarkerMovable = Store.get('isLocationMarkerMovable')
+
     if (showSearchMarker) {
         // Whether marker is draggable or not is set in createSearchMarker().
         searchMarker = createSearchMarker()
@@ -459,7 +459,7 @@ function createLocationMarker() {
 
 function updateSearchMarker(style) {
     if (style in searchMarkerStyles) {
-		Store.set('searchMarkerStyle', style)
+        Store.set('searchMarkerStyle', style)
 
         // If it's disabled, stop.
         if (!searchMarker) {
@@ -481,7 +481,7 @@ function updateSearchMarker(style) {
 }
 
 function createSearchMarker() {
-	const isSearchMarkerMovable = Store.get('isSearchMarkerMovable')
+    const isSearchMarkerMovable = Store.get('isSearchMarkerMovable')
     var searchMarker = new google.maps.Marker({ // need to keep reference.
         position: {
             lat: centerLat,
@@ -555,7 +555,7 @@ function initSidebar() {
     $('#min-level-gyms-filter-switch').val(Store.get('minGymLevel'))
     $('#max-level-gyms-filter-switch').val(Store.get('maxGymLevel'))
     $('#last-update-gyms-switch').val(Store.get('showLastUpdatedGymsOnly'))
-	$('#pokemon-stats-switch').prop('checked', Store.get('showPokemonStats'))
+    $('#pokemon-stats-switch').prop('checked', Store.get('showPokemonStats'))
     $('#pokemon-switch').prop('checked', Store.get('showPokemon'))
     $('#pokestops-switch').prop('checked', Store.get('showPokestops'))
     $('#lured-pokestops-only-switch').val(Store.get('showLuredPokestopsOnly'))
@@ -569,7 +569,7 @@ function initSidebar() {
     $('#scanned-switch').prop('checked', Store.get('showScanned'))
     $('#spawnpoints-switch').prop('checked', Store.get('showSpawnpoints'))
     $('#ranges-switch').prop('checked', Store.get('showRanges'))
-	$('#notify-perfection-wrapper').toggle(Store.get('showPokemonStats'))
+    $('#notify-perfection-wrapper').toggle(Store.get('showPokemonStats'))
     $('#hideunnotified-switch').prop('checked', Store.get('hideNotNotified'))
     $('#popups-switch').prop('checked', Store.get('showPopups'))
     $('#bounce-switch').prop('checked', Store.get('isBounceDisabled'))
@@ -829,14 +829,14 @@ function pokemonLabel(item) {
     var form = item['form']
     var cp = item['cp']
     var cpMultiplier = item['cp_multiplier']
-	const showStats = Store.get('showPokemonStats')
+    const showStats = Store.get('showPokemonStats')
     var prob1 = item['catch_prob_1']
     var prob2 = item['catch_prob_2']
     var prob3 = item['catch_prob_3']
     var ratingAttack = item['rating_attack']
     var ratingDefense = item['rating_defense']
     var encounterIdLong = encounterId
-    var weather_boosted_condition = item['weather_boosted_condition']
+    var weatherBoostedCondition = item['weatherBoostedCondition']
 
     $.each(types, function (index, type) {
         typesDisplay += getTypeSpan(type)
@@ -857,9 +857,9 @@ function pokemonLabel(item) {
     </div>`
 
     var weatherBoost = ''
-    if (weather_boosted_condition) {
+    if (weatherBoostedCondition) {
         weatherBoost = `<div class='pokemon big'>Boosted by:
-            <img src='static/images/weather/${weatherImages[weather_boosted_condition]}' style="width: 24px; vertical-align: middle;">&nbsp;${weatherNames[weather_boosted_condition]}
+            <img src='static/images/weather/${weatherImages[weatherBoostedCondition]}' style="width: 24px; vertical-align: middle;">&nbsp;${weatherNames[weatherBoostedCondition]}
             </div>`
     }
 
@@ -884,8 +884,8 @@ function pokemonLabel(item) {
           </div>`
     }
 
-    var hideLabel = excludedPokemon.indexOf(id) < 0 ? "Hide" : "Unhide"
-    var notifyLabel = notifiedPokemon.indexOf(id) < 0 ? "Notify" : "Unnotify"
+    var hideLabel = excludedPokemon.indexOf(id) < 0 ? 'Hide' : 'Unhide'
+    var notifyLabel = notifiedPokemon.indexOf(id) < 0 ? 'Notify' : 'Unnotify'
 
     var pokemonIcon = getPokemonRawIconUrl(item)
 
@@ -947,8 +947,8 @@ function pokemonLabel(item) {
           </div>
         </div>
       </div>`
-    } else if (!showStats && cp !== null && cpMultiplier !== null){
-				contentstring += `
+    } else if (!showStats && cp !== null && cpMultiplier !== null) {
+        contentstring += `
 			  <div class='pokemon container'>
 				<div class='pokemon container content-left'>
 				  <div>
@@ -979,8 +979,8 @@ function pokemonLabel(item) {
 			  </div>
 			</div>
 		  </div>`
-		} else {
-			contentstring += `
+        } else {
+        contentstring += `
 			  <div class='pokemon container'>
 				<div class='pokemon container content-left'>
 				  <div>
@@ -1015,7 +1015,7 @@ function pokemonLabel(item) {
 			  </div>
 			</div>
 		</div>`
-		}
+    }
 
     contentstring += `
       ${details}`
@@ -1386,10 +1386,10 @@ function getNotifyText(item) {
     var find = ['<prc>', '<pkm>', '<atk>', '<def>', '<sta>', '<lvl>']
     iv = Math.round(iv)
     var pokemonlevel = (item['cp_multiplier'] !== null) ? getPokemonLevel(item['cp_multiplier']) : 0
-    var replace = [((iv) ? iv : ''), item['pokemon_name'], item['individual_attack'],
+    var replace = [(iv || ''), item['pokemon_name'], item['individual_attack'],
         item['individual_defense'], item['individual_stamina'], pokemonlevel]
-	const showStats = Store.get('showPokemonStats')
-	var ntitle = repArray(((showStats && iv) ? notifyIvTitle : notifyNoIvTitle), find, replace)
+    const showStats = Store.get('showPokemonStats')
+    var ntitle = repArray(((showStats && iv) ? notifyIvTitle : notifyNoIvTitle), find, replace)
     var dist = moment(item['disappear_time']).format('HH:mm:ss')
     var until = getTimeUntil(item['disappear_time'])
     var udist = (until.hour > 0) ? until.hour + ':' : ''
@@ -1506,7 +1506,7 @@ function getNotifyPerfectionPokemons(pokemonList) {
     })
 
     return notifyPerfectionPkmn
-  }
+}
 
 function customizePokemonMarker(marker, item, skipNotification) {
     var notifyText = getNotifyText(item)
@@ -1809,20 +1809,20 @@ function clearStaleMarkers() {
     const oldPokeMarkers = []
 
     $.each(mapData.pokemons, function (key, pokemon) {
-		const pokemonId = pokemon['pokemon_id']
-		const isPokeExpired = pokemon['disappear_time'] < Date.now()
-		const isPokeExcluded = getExcludedPokemon().indexOf(pokemonId) !== -1
-		// Limit choice to our options [0, 5].
-		const excludedRarityOption = Math.min(Math.max(Store.get('excludedRarity'), 0), 5)
+        const pokemonId = pokemon['pokemon_id']
+        const isPokeExpired = pokemon['disappear_time'] < Date.now()
+        const isPokeExcluded = getExcludedPokemon().indexOf(pokemonId) !== -1
+        // Limit choice to our options [0, 5].
+        const excludedRarityOption = Math.min(Math.max(Store.get('excludedRarity'), 0), 5)
         const excludedRarity = excludedRaritiesList[excludedRarityOption]
-		const pokemonRarity = getPokemonRarity(pokemon['pokemon_id'])
+        const pokemonRarity = getPokemonRarity(pokemon['pokemon_id'])
         const isRarityExcluded = excludedRarity.indexOf(pokemonRarity) !== -1
-	const isNotifyPkmn = isNotifyPoke(pokemon)
+        const isNotifyPkmn = isNotifyPoke(pokemon)
 
-        if (isPokeExpired || (isPokeExcluded && !isNotifyPkmn) || (isRarityExcluded && !isNotifyPkmn)) {		
+        if (isPokeExpired || (isPokeExcluded && !isNotifyPkmn) || (isRarityExcluded && !isNotifyPkmn)) {
             const oldMarker = pokemon.marker
-			const isPokeExcludedByRarity = excludedPokemonByRarity.indexOf(pokemonId) !== -1
-			
+            const isPokeExcludedByRarity = excludedPokemonByRarity.indexOf(pokemonId) !== -1
+
 			if (isRarityExcluded && !isPokeExcludedByRarity) {
 				excludedPokemonByRarity.push(pokemonId)
 			}
@@ -1877,11 +1877,11 @@ function showInBoundsMarkers(markers, type) {
                 if (map.getBounds().contains(marker.getPosition())) {
                     show = true
                 }
-            } else if(type == 's2cell'){
-                 if (map.getBounds().intersects(getS2CellBounds(item))) {
+            } else if (type == 's2cell'){
+                if (map.getBounds().intersects(getS2CellBounds(item))) {
                      show = true
-                 }
-             }
+                }
+            }
         }
 
         // Marker has an associated range.
@@ -1920,7 +1920,7 @@ function showInBoundsMarkers(markers, type) {
 }
 
 function loadRawData() {
-    var userAuthCode = localStorage.getItem("userAuthCode");
+    var userAuthCode = localStorage.getItem('userAuthCode');
     var loadPokemon = Store.get('showPokemon')
     var loadGyms = (Store.get('showGyms') || Store.get('showRaids'))
     var loadPokestops = Store.get('showPokestops')
@@ -1968,7 +1968,7 @@ function loadRawData() {
             'oSwLng': oSwLng,
             'oNeLat': oNeLat,
             'oNeLng': oNeLng,
-            'reids': String(isShowAllZoom() ? excludedPokemon :  reincludedPokemon),
+            'reids': String(isShowAllZoom() ? excludedPokemon : reincludedPokemon),
             'eids': String(getExcludedPokemon()),
             'prionotify': prionotifyactiv
         },
