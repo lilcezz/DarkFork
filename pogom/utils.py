@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import urllib
-import urlparse
 from threading import Thread
 
 import configargparse
@@ -14,7 +12,6 @@ import random
 import time
 import socket
 import struct
-import hashlib
 import psutil
 import subprocess
 import requests
@@ -102,7 +99,8 @@ def get_args():
                               'Defaults to the number of accounts specified.'))
     parser.add_argument('-hw', '--highlvl-workers', type=int,
                         default=0,
-                        help=('Load this many high level workers from PGPool. ' +
+                        help=('Load this many high level ' +
+                              'workers from PGPool. ' +
                               'This requires --pgpool-url to be set.'))
     parser.add_argument('-asi', '--account-search-interval', type=int,
                         default=0,
@@ -432,7 +430,8 @@ def get_args():
                              'Default: 720, 0 to disable.'),
                        type=int, default=720)
     group.add_argument('-DCf', '--db-cleanup-forts',
-                       help=('Clear gyms and pokestops from database X hours ' +
+                       help=('Clear gyms and pokestops ' +
+                             'from database X hours ' +
                              'after last valid scan. ' +
                              'Default: 0, 0 to disable.'),
                        type=int, default=0)
@@ -468,12 +467,12 @@ def get_args():
                               'data on failure.'),
                         type=int, default=3)
     parser.add_argument('-whct', '--wh-connect-timeout',
-                         help=('Connect timeout (in seconds) for webhook' +
-						 ' requests.'),
+                        help=('Connect timeout (in seconds) for webhook' +
+                              'requests.'),
                         type=float, default=1.0)
     parser.add_argument('-whrt', '--wh-read-timeout',
                         help=('Read timeout (in seconds) for webhook' +
-						'requests.'),
+                              'requests.'),
                         type=float, default=1.0)
     parser.add_argument('-whbf', '--wh-backoff-factor',
                         help=('Factor (in seconds) by which the delay ' +
@@ -581,18 +580,21 @@ def get_args():
                         help='Do various things to let map accounts gain XP.',
                         action='store_true', default=False)
     parser.add_argument('-gen', '--generate-images',
-                        help='Use ImageMagick to generate dynamic icons on demand.',
+                        help='Use ImageMagick to generate dynamic' +
+                        'icons on demand.',
                         action='store_true', default=False)
     parser.add_argument('-pgsu', '--pgscout-url', default=None,
                         help='URL to query PGScout for Pokemon IV/CP.')
     parser.add_argument('-lurl', '--lure-url', default=None,
                         help='URL to query lure.')
     parser.add_argument('-pa', '--pogo-assets', default=None,
-                        help='Directory pointing to optional PogoAssets root directory.')
+                        help='Directory pointing to optional ' +
+                        'PogoAssets root directory.')
     parser.add_argument('-uas', '--user-auth-service', default=None,
                         help='Force end users to auth to an external service.')
     parser.add_argument('-skey', '--secret-key', default='SECRET_KEY',
-                        help='Secret Key to encrypt session cookies. Use a secure string.')
+                        help='Secret Key to encrypt session cookies. ' +
+                        'Use a secure string.')
     parser.add_argument('-uascid', '--uas-client-id', default=None,
                         help='Client ID for user external authentication.')
     parser.add_argument('-uascs', '--uas-client-secret', default=None,
@@ -600,11 +602,13 @@ def get_args():
     parser.add_argument('-uasho', '--uas-host-override', default=None,
                         help='Host override for user external authentication.')
     parser.add_argument('-uasdrg', '--uas-discord-required-guilds', default=None,
-                        help='Required Discord Guild(s) for user external authentication.')
+                        help='Required Discord Guild(s) for user '+
+                        'external authentication.')
     parser.add_argument('-uasdgi', '--uas-discord-guild-invite', default=None,
                         help='Link for users not in required guild.')
     parser.add_argument('-uasdrr', '--uas-discord-required-roles', default=None,
-                        help='Required Discord Guild Role(s) for user external authentication.')
+                        help='Required Discord Guild Role(s) for user ' +
+                        'external authentication.')
     parser.add_argument('-uasdbt', '--uas-discord-bot-token', default=None,
                         help='Discord Bot Token for user external authentication.')
     rarity = parser.add_argument_group('Dynamic Rarity')
