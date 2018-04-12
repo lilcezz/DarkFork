@@ -953,8 +953,8 @@ def init_dynamic_images(args):
         if executable:
             dyn_img.generate_images = True
             dyn_img.imagemagick_executable = executable
-            log.info("Generating icons using ImageMagick ' +
-                     'executable '{}'.".format(executable))
+            log.info("Generating icons using ImageMagick " +
+                     "executable '{}'.".format(executable))
 
             if args.pogo_assets:
                 decr_assets_dir = os.path.join(args.pogo_assets,
