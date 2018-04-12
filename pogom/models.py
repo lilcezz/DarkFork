@@ -3057,11 +3057,11 @@ def clean_db_loop(args):
                 if args.db_cleanup_forts > 0:
                     db_clean_forts(args.db_cleanup_forts)
 
-                #clean weather... only changes at full hours anyway...
+                # clean weather... only changes at full hours anyway...
                 query = (Weather
-                    .delete()
-                    .where((Weather.last_updated <
-                    (datetime.utcnow() - timedelta(minutes=15)))))
+                         .delete()
+                         .where((Weather.last_updated <
+                                 (datetime.utcnow() - timedelta(minutes=15)))))
                 query.execute()
 
                 log.info('Full database cleanup completed.')
@@ -3070,6 +3070,7 @@ def clean_db_loop(args):
             time.sleep(regular_cleanup_secs)
         except Exception as e:
             log.exception('Database cleanup failed: %s.', e)
+
 
 def db_cleanup_regular():
     log.debug('Regular database cleanup started.')
@@ -3115,19 +3116,19 @@ def db_cleanup_worker_status(age_minutes):
                  .delete()
                  .where(MainWorker.last_modified < worker_status_timeout))
         query.execute()
-        #OPTIMIZE TABLE locks the table...
-        #queryOptimize = MainWorker.raw('OPTIMIZE TABLE mainworker')
-        #queryOptimize.execute()
-        #log.debug('Finished %s.', queryOptimize)
+        # OPTIMIZE TABLE locks the table...
+        # queryOptimize = MainWorker.raw('OPTIMIZE TABLE mainworker')
+        # queryOptimize.execute()
+        # log.debug('Finished %s.', queryOptimize)
 
         # Remove worker status information that are inactive.
         query = (WorkerStatus
                  .delete()
                  .where(MainWorker.last_modified < worker_status_timeout))
         query.execute()
-        #queryOptimize = WorkerStatus.raw('OPTIMIZE TABLE workerstatus')
-        #queryOptimize.execute()
-        #log.debug('Finished %s.', queryOptimize)
+        # queryOptimize = WorkerStatus.raw('OPTIMIZE TABLE workerstatus')
+        # queryOptimize.execute()
+        # log.debug('Finished %s.', queryOptimize)
 
     time_diff = default_timer() - start_timer
     log.debug('Completed cleanup of old worker status in %.6f seconds.',
@@ -3318,6 +3319,7 @@ def db_clean_forts(age_hours):
     log.debug('Completed cleanup of old forts in %.6f seconds.',
               time_diff)
 
+
 def bulk_upsert(cls, data, db):
     rows = data.values()
     num_rows = len(rows)
@@ -3437,7 +3439,7 @@ def bulk_upsert(cls, data, db):
                     placeholders=', '.join(placeholders),
                     assignments=', '.join(assignments)
                 )
-                
+
                 cursor.executemany(formatted_query, batch)
 
                 db.execute_sql('SET FOREIGN_KEY_CHECKS=1;')
@@ -3461,8 +3463,8 @@ def bulk_upsert(cls, data, db):
 
             i += step
 
-def rarity_cache_update():
 
+def rarity_cache_update():
     update_frequency_mins = args.rarity_cache_timer
     refresh_time_sec = update_frequency_mins * 60
 
@@ -3470,18 +3472,19 @@ def rarity_cache_update():
         log.info('Updating dynamic rarity cache...')
 
         query = (Rarity
-                     .select(Rarity.pokemon_id, Rarity.rarity)
-                     .dicts())
+                 .select(Rarity.pokemon_id, Rarity.rarity)
+                 .dicts())
 
         for poke in query:
             rarity_cache[poke['pokemon_id']] = poke['rarity']
 
         log.info('Updated dynamic rarity cache.')
- 
+
         # Wait x seconds before next refresh.
-        log.debug('Waiting %d minutes before next dynamic rarity cache update.',
-                    refresh_time_sec / 60)
+        log.debug('Waiting %d minutes before nextdynamic rarity cache update.',
+                  refresh_time_sec / 60)
         time.sleep(refresh_time_sec)
+
 
 def create_tables(db):
     tables = [Pokemon, Pokestop, Gym, Raid, ScannedLocation, GymDetails,
@@ -3879,7 +3882,8 @@ def database_migrate(db, old_ver):
             'pokemon_id, latitude, longitude, disappear_time, ' +
             'individual_attack, individual_defense, individual_stamina, ' +
             'move_1, move_2, cp, cp_multiplier, weight, height, gender, ' +
-            'form, costume, catch_prob_1, catch_prob_2, catch_prob_3, rating_attack, '
+            'form, costume, catch_prob_1, catch_prob_2, +
+            'catch_prob_3, rating_attack, ' +
             'rating_defense, weather_boosted_condition ,last_modified ' +
             'FROM `pokemon_old`;')
         db.execute_sql(
