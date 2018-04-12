@@ -39,7 +39,6 @@ def redirect_client_to_auth(host, args):
         args.uas_client_id + '&redirect_uri=' +
         urllib.quote(host + 'auth_callback') +
         '&response_type=code&scope=identify%20guilds')
-    return jsonify(d)
 
 
 def valid_client_auth(host, session, user_auth_code_cache, args):
