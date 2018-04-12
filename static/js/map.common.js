@@ -875,7 +875,7 @@ var StoreOptions = {
         type: StoreTypes.Number
     },
     'excludedRarity': {
-	    default: 0, // 0: none, 1: <=Common, 2: <=Uncommon, 3: <=Rare, 4: <=Very Rare, 5: <=Ultra Rare
+        default: 0, // 0: none, 1: <=Common, 2: <=Uncommon, 3: <=Rare, 4: <=Very Rare, 5: <=Ultra Rare
         type: StoreTypes.Number
     },
     'showParkRaidsOnly': {
@@ -938,7 +938,7 @@ var StoreOptions = {
         default: true,
         type: StoreTypes.Boolean
     },
-	'showPokemonStats': {
+    'showPokemonStats': {
         default: true,
         type: StoreTypes.Boolean
     },
@@ -1233,11 +1233,9 @@ function setupPokemonMarkerDetails(item, map, scaleByRarity = true, isNotifyPkmn
             'ultra rare': 40,
             'legendary': 50
         }
-
         const pokemonRarity = getPokemonRarity(item['pokemon_id']).toLowerCase()
         if (rarityValues.hasOwnProperty(pokemonRarity)) {
-            rarityValue = rarityValues[pokemonRarity] 
-            
+            rarityValue = rarityValues[pokemonRarity]
         }
     }
 
@@ -1303,32 +1301,32 @@ function isMobileDevice() {
     return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 }
 
-function cssPercentageCircle(text, value, perfect_val, good_val, ok_val, meh_val) {
+function cssPercentageCircle(text, value, perfectVal, goodVal, okVal, mehVal) {
     // Ring color
-    var ring_color
-    if (value == perfect_val) {
-        ring_color = 'lime'
-    } else if (value >= good_val) {
-        ring_color = 'green'
-    } else if (value >= ok_val) {
-        ring_color = 'olive'
-    } else if (value >= meh_val) {
-        ring_color = 'orange'
+    var ringColor
+    if (value == perfectVal) {
+        ringColor = 'lime'
+    } else if (value >= goodVal) {
+        ringColor = 'green'
+    } else if (value >= okVal) {
+        ringColor = 'olive'
+    } else if (value >= mehVal) {
+        ringColor = 'orange'
     } else {
-        ring_color = 'red'
+        ringColor = 'red'
     }
 
     // CSS styles
-    var percentage = value * 100 / perfect_val
+    var percentage = value * 100 / perfectVal
     var deg = 360 * percentage / 100
     var circle_styles
     if (deg <= 180) {
-        circle_styles = `background-color: ${ring_color};
+        circle_styles = `background-color: ${ringColor};
             background-image: linear-gradient(${90+deg}deg, transparent 50%, Gainsboro 50%),
                               linear-gradient(90deg, Gainsboro 50%, transparent 50%)');`
     } else {
-        circle_styles = `background-color: ${ring_color};
-            background-image: linear-gradient(${deg-90}deg, transparent 50%, ${ring_color} 50%),
+        circle_styles = `background-color: ${ringColor};
+            background-image: linear-gradient(${deg-90}deg, transparent 50%, ${ringColor} 50%),
                               linear-gradient(90deg, Gainsboro 50%, transparent 50%)');`
     }
 
