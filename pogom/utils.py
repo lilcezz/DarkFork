@@ -601,19 +601,19 @@ def get_args():
                         help='Client Secret for user external authentication.')
     parser.add_argument('-uasho', '--uas-host-override', default=None,
                         help='Host override for user external authentication.')
-    parser.add_argument('-uasdrg', '--uas-discord-required-guilds', ' +
-                        'default=None,
-                        help='Required Discord Guild(s) for user ' +
-                        'external authentication.')
+    parser.add_argument('-uasdrg', '--uas-discord-required-guilds',
+                        default=None,
+                        help=('Required Discord Guild(s) for user ' +
+                              'external authentication.'))
     parser.add_argument('-uasdgi', '--uas-discord-guild-invite', default=None,
                         help='Link for users not in required guild.')
-    parser.add_argument('-uasdrr', '--uas-discord-required-roles', ' +
-                        'default=None,
-                        help='Required Discord Guild Role(s) for user ' +
-                        'external authentication.')
+    parser.add_argument('-uasdrr', '--uas-discord-required-roles',
+                        default=None,
+                        help=('Required Discord Guild Role(s) ' +
+                              'for user external authentication.'))
     parser.add_argument('-uasdbt', '--uas-discord-bot-token', default=None,
-                        help='Discord Bot Token for user external ' +
-                        'authentication.')
+                        help=('Discord Bot Token for user ' +
+                              'external authentication.'))
     rarity = parser.add_argument_group('Dynamic Rarity')
     rarity.add_argument('-Rh', '--rarity-hours',
                         help=('Number of hours of Pokemon data to use' +
