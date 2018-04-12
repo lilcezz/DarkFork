@@ -1,3 +1,5 @@
+/*global showAllZoomLevel cssPercentageCircle getS2CellBounds processWeather processS2Cell processWeatherAlerts updateMainCellWeather getPokemonRawIconUrl*/
+/* eslint no-unused-vars: "off" */
 //
 // Global map.js variables
 //
@@ -108,7 +110,7 @@ const weatherNames = {
 
 const alertTexts = {
     1: 'Moderate',
-    2: 'Extreme',
+    2: 'Extreme'
 }
 
 const excludedRaritiesList = [
