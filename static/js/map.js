@@ -1824,8 +1824,8 @@ function clearStaleMarkers() {
             const isPokeExcludedByRarity = excludedPokemonByRarity.indexOf(pokemonId) !== -1
 
             if (isRarityExcluded && !isPokeExcludedByRarity) {
-    excludedPokemonByRarity.push(pokemonId)
-}
+                excludedPokemonByRarity.push(pokemonId)
+            }
 
             if (oldMarker.rangeCircle) {
                 oldMarker.rangeCircle.setMap(null)
@@ -2004,8 +2004,8 @@ function loadRawData() {
         },
         success: function (data) {
             if (data.auth_redirect) {
-              window.location = data.auth_redirect
-          }
+            window.location = data.auth_redirect
+            }
         },
         complete: function () {
             rawDataIsLoading = false
@@ -2117,7 +2117,7 @@ function processPokemon(item) {
             oldMarker = item.marker
         }
     } else if (isRarityExcluded && !isPokeExcludedByRarity) {
-    excludedPokemonByRarity.push(item['pokemon_id'])
+        excludedPokemonByRarity.push(item['pokemon_id'])
 	}
 
     return [newMarker, oldMarker]
@@ -2248,14 +2248,14 @@ function processGym(i, item) {
     }
 
     if (Store.get('showRaidPokemon') > 0 && raidPokemon !== Store.get('showRaidPokemon')) {
-            removeGymFromMap(item['gym_id'])
-            return true
-        }
+        removeGymFromMap(item['gym_id'])
+        return true
+    }
 
     if (raidLevel > Store.get('showRaidMaxLevel') || raidLevel < Store.get('showRaidMinLevel')) {
-            removeGymFromMap(item['gym_id'])
-            return true
-        }
+        removeGymFromMap(item['gym_id'])
+        return true
+    }
 
     if (Store.get('showTeamGymsOnly') && Store.get('showTeamGymsOnly') !== item.team_id) {
         removeGymFromMap(item['gym_id'])
@@ -2556,9 +2556,9 @@ function centerMapOnLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-			if (locationMarker) {
-				locationMarker.setPosition(latlng)
-			}
+            if (locationMarker) {
+    locationMarker.setPosition(latlng)
+}
             map.setCenter(latlng)
             Store.set('followMyLocationPosition', {
                 lat: position.coords.latitude,
@@ -2577,8 +2577,8 @@ function changeLocation(lat, lng) {
     var loc = new google.maps.LatLng(lat, lng)
     changeSearchLocation(lat, lng).done(function () {
         map.setCenter(loc)
-		if (searchMarker) {
-			searchMarker.setPosition(loc)
+        if (searchMarker) {
+searchMarker.setPosition(loc)
 		}
     })
 }
@@ -2750,30 +2750,30 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
 function getSidebarGymMember(pokemon) {
     var perfectPercent = getIv(pokemon.iv_attack, pokemon.iv_defense, pokemon.iv_stamina)
     var moveEnergy = Math.round(100 / pokemon.move_2_energy)
-	const motivationZone = ['Good', 'Average', 'Bad']
-	const motivationPercentage = (pokemon.cp_decayed / pokemon.pokemon_cp) * 100
-	var colorIdx = 0
-	if (motivationPercentage <= 46.66) {
-		colorIdx = 2
-	} else if ((motivationPercentage > 46.66) && (motivationPercentage < 73.33)) {
-		colorIdx = 1
-	}
+    const motivationZone = ['Good', 'Average', 'Bad']
+    const motivationPercentage = (pokemon.cp_decayed / pokemon.pokemon_cp) * 100
+    var colorIdx = 0
+    if (motivationPercentage <= 46.66) {
+    colorIdx = 2
+} else if ((motivationPercentage > 46.66) && (motivationPercentage < 73.33)) {
+    colorIdx = 1
+}
 	// Skip getDateStr() so we can re-use the moment.js object.
-	var relativeTime = 'Unknown'
-	var absoluteTime = ''
+    var relativeTime = 'Unknown'
+    var absoluteTime = ''
 	
-	if (pokemon.deployment_time) {
-		let deploymentTime = moment(pokemon.deployment_time)
-		relativeTime = deploymentTime.fromNow()
-		// Append as string so we show nothing when the time is Unknown.
-		absoluteTime = '<div class="gym pokemon">(' + deploymentTime.format('Do MMM HH:mm') + ')</div>'
-	}
-	
-   var pokemon_image = getPokemonRawIconUrl(pokemon)
+    if (pokemon.deployment_time) {
+    let deploymentTime = moment(pokemon.deployment_time)
+    relativeTime = deploymentTime.fromNow()
+    // Append as string so we show nothing when the time is Unknown.
+    absoluteTime = '<div class="gym pokemon">(' + deploymentTime.format('Do MMM HH:mm') + ')</div>'
+    }
+
+    var pokemonImage = getPokemonRawIconUrl(pokemon)
     return `
                     <tr onclick=toggleGymPokemonDetails(this)>
                         <td width="30px">
-                            <img class="gym pokemon sprite" src="${pokemon_image}">
+                            <img class="gym pokemon sprite" src="${pokemonImage}">
                         </td>
                         <td>
                             <div class="gym pokemon"><span class="gym pokemon name">${pokemon.pokemon_name}</span></div>
@@ -2972,7 +2972,7 @@ $(function () {
         lastgyms = false
         updateMap()
     })
-    
+
     $switchParkGymsOnly = $('#park-gyms-only-switch')
 
     $switchParkGymsOnly.on('change', function () {
@@ -3119,7 +3119,7 @@ $(function () {
         updateMap()
     })
 
-	$selectExcludeRarity = $('#exclude-rarity')
+    $selectExcludeRarity = $('#exclude-rarity')
 
     $selectExcludeRarity.select2({
         placeholder: 'None',
@@ -3130,7 +3130,7 @@ $(function () {
         Store.set('excludedRarity', this.value)
         updateMap()
     })
-	
+
     $selectSearchIconMarker = $('#iconmarker-style')
     $selectLocationIconMarker = $('#locationmarker-style')
 
@@ -3178,8 +3178,7 @@ $(function () {
     })
 })
 
-$(function () {
-    
+    $(function () {
     moment.locale(language)
     function formatState(state) {
         if (!state.id) {
@@ -3196,14 +3195,11 @@ $(function () {
         )
         return $state
     }
-
     if (Store.get('startAtUserLocation') && getParameterByName('lat') == null && getParameterByName('lon') == null) {
         centerMapOnLocation()
     }
-
     $.getJSON('static/dist/data/moves.min.json').done(function (data) {
         moves = data
-        
     })
 
     $selectExclude = $('#exclude-pokemon')
