@@ -979,7 +979,7 @@ function pokemonLabel(item) {
 			  </div>
 			</div>
 		  </div>`
-        } else {
+    } else {
         contentstring += `
 			  <div class='pokemon container'>
 				<div class='pokemon container content-left'>
@@ -1823,9 +1823,9 @@ function clearStaleMarkers() {
             const oldMarker = pokemon.marker
             const isPokeExcludedByRarity = excludedPokemonByRarity.indexOf(pokemonId) !== -1
 
-			if (isRarityExcluded && !isPokeExcludedByRarity) {
-				excludedPokemonByRarity.push(pokemonId)
-			}
+            if (isRarityExcluded && !isPokeExcludedByRarity) {
+    excludedPokemonByRarity.push(pokemonId)
+}
 
             if (oldMarker.rangeCircle) {
                 oldMarker.rangeCircle.setMap(null)
@@ -1877,9 +1877,9 @@ function showInBoundsMarkers(markers, type) {
                 if (map.getBounds().contains(marker.getPosition())) {
                     show = true
                 }
-            } else if (type == 's2cell'){
+            } else if (type === 's2cell') {
                 if (map.getBounds().intersects(getS2CellBounds(item))) {
-                     show = true
+                    show = true
                 }
             }
         }
@@ -1920,7 +1920,7 @@ function showInBoundsMarkers(markers, type) {
 }
 
 function loadRawData() {
-    var userAuthCode = localStorage.getItem('userAuthCode');
+    var userAuthCode = localStorage.getItem('userAuthCode')
     var loadPokemon = Store.get('showPokemon')
     var loadGyms = (Store.get('showGyms') || Store.get('showRaids'))
     var loadPokestops = Store.get('showPokestops')
@@ -2002,9 +2002,9 @@ function loadRawData() {
                 'hideMethod': 'fadeOut'
             }
         },
-        success: function(data) {
-          if (data.auth_redirect) {
-            window.location = data.auth_redirect;
+        success: function (data) {
+            if (data.auth_redirect) {
+              window.location = data.auth_redirect
           }
         },
         complete: function () {
@@ -2097,7 +2097,7 @@ function processPokemon(item) {
     var newMarker = null
 
     if ((!(item['encounter_id'] in mapData.pokemons) &&
-         !isPokeExcluded && !isRarityExcluded  && isPokeAlive) || (!(item['encounter_id'] in mapData.pokemons) && isNotifyPkmn && prionotifyactiv)) {
+         !isPokeExcluded && !isRarityExcluded && isPokeAlive) || (!(item['encounter_id'] in mapData.pokemons) && isNotifyPkmn && prionotifyactiv)) {
     // Add marker to map and item to dict.
         const isNotifyPkmn = isNotifyPoke(item)
         if (!item.hidden && (!Store.get('hideNotNotified') || isNotifyPkmn)) {
@@ -2117,7 +2117,7 @@ function processPokemon(item) {
             oldMarker = item.marker
         }
     } else if (isRarityExcluded && !isPokeExcludedByRarity) {
-		excludedPokemonByRarity.push(item['pokemon_id'])
+    excludedPokemonByRarity.push(item['pokemon_id'])
 	}
 
     return [newMarker, oldMarker]
@@ -2231,7 +2231,7 @@ function processGym(i, item) {
             removeGymFromMap(item['gym_id'])
             return true
         }
-	}
+    }
 
     if (Store.get('showParkRaidsOnly')) {
         if (!item.park) {
@@ -2247,15 +2247,15 @@ function processGym(i, item) {
         }
     }
 
-        if (Store.get('showRaidPokemon') > 0 && raidPokemon !== Store.get('showRaidPokemon')) {
+    if (Store.get('showRaidPokemon') > 0 && raidPokemon !== Store.get('showRaidPokemon')) {
             removeGymFromMap(item['gym_id'])
             return true
         }
 
-        if (raidLevel > Store.get('showRaidMaxLevel') || raidLevel < Store.get('showRaidMinLevel')) {
+    if (raidLevel > Store.get('showRaidMaxLevel') || raidLevel < Store.get('showRaidMinLevel')) {
             removeGymFromMap(item['gym_id'])
             return true
-    }
+        }
 
     if (Store.get('showTeamGymsOnly') && Store.get('showTeamGymsOnly') !== item.team_id) {
         removeGymFromMap(item['gym_id'])
