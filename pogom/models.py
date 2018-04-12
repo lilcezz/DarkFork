@@ -1956,7 +1956,8 @@ class Weather(BaseModel):
                                             lat_delta) &
                                            (Weather.longitude <= float(neLng) +
                                             lng_delta) &
-                                           (Weather.severity.is_null(False))).dicts()
+                                           (Weather.severity.is_null
+                                            (False))).dicts()
         weathers = []
         for w in query:
             weathers.append(w)
@@ -2024,8 +2025,8 @@ def perform_pgscout(p):
     pkm.spawnpoint_id = int(p.spawn_point_id, 16)
     pkm.latitude = p.latitude
     pkm.longitude = p.longitude
-    pkm.weather_boosted_condition =
-    p.pokemon_data.pokemon_display.weather_boosted_condition
+    pokemon_display = p.pokemon_data.pokemon_display
+    pkm.weather_boosted_condition= pokemon_display.weather_boosted_condition
     scout_result = pgscout_encounter(pkm)
     if scout_result['success']:
         log.info(
@@ -2157,8 +2158,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                   display_weather.wind_direction)
 
         log.info('GamePlay Conditions: %s - %s Bonus.',
-                    GetMapObjectsResponse.TimeOfDay.Name(worldtime),
-                    GameplayWeather.WeatherCondition.Name(gameplayweather))
+                 GetMapObjectsResponse.TimeOfDay.Name(worldtime),
+                 GameplayWeather.WeatherCondition.Name(gameplayweather))
 
     log.debug(weather)
     log.info('Upserted %d weather details.',
@@ -2295,8 +2296,9 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
             # Catch pokemon to check for Ditto if --gain-xp enabled
             # Original code by voxx!
             have_balls = pgacc.inventory_balls > 0
-            if args.gain_xp and not pgacc.get_stats(
-                'level') >= 30 and pokemon_id in DITTO_CANDIDATES_IDS and have_balls:
+            if ((args.gain_xp and not pgacc.get_stats('level') >= 30
+                 and pokemon_id in DITTO_CANDIDATES_IDS
+                 and have_balls)):
                 if is_ditto(args, pgacc, p):
                     pokemon_id = 132
 
@@ -2338,19 +2340,22 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                 'catch_prob_3': None,
                 'rating_attack': None,
                 'rating_defense': None,
-                'weather_boosted_condition' : None
+                'weather_boosted_condition': None
             }
 
             # Weather Pokemon Bonus
-            weather_boosted_condition = p.pokemon_data.pokemon_display.weather_boosted_condition
+            weather_boosted_condition = (p.pokemon_data
+                                         .pokemon_display
+                                         .weather_boosted_condition)
             if weather_boosted_condition:
-                pokemon[p.encounter_id]['weather_boosted_condition'] = weather_boosted_condition
+                boosted = weather_boosted_condition
+                pokemon[p.encounter_id]['weather_boosted_condition'] = boosted
 
             # Check for Unown's alphabetic character.
             if pokemon_id == 201:
                 pokemon[p.encounter_id]['form'] = (p.pokemon_data
                                                     .pokemon_display.form)
-            #Check for costform skin
+            #Check for Castform skin
             if pokemon_id == 351:
                 pokemon[p.encounter_id]['form'] = (p.pokemon_data
                                                     .pokemon_display.form)
