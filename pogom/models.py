@@ -33,8 +33,10 @@ from .utils import (get_pokemon_name, get_pokemon_types,
 from .transform import transform_from_wgs_to_gcj, get_new_coords
 from .customLog import printPokemon
 
-from .account import pokestop_spinnable, spin_pokestop, incubate_eggs, setup_mrmime_account, \
-    encounter_pokemon_request, clear_pokemon
+from .account import (pokestop_spinnable, spin_pokestop,
+                      incubate_eggs, setup_mrmime_account,
+                      encounter_pokemon_request, clear_pokemon
+                     )
 from .proxy import get_new_proxy
 from pgoapi.protos.pogoprotos.map.weather.gameplay_weather_pb2 import (
     GameplayWeather)
