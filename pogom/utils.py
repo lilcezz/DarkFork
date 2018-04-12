@@ -601,7 +601,7 @@ def get_args():
                         help='Client Secret for user external authentication.')
     parser.add_argument('-uasho', '--uas-host-override', default=None,
                         help='Host override for user external authentication.')
-    parser.add_argument('-uasdrg', '--uas-discord-required-guilds', ' + 
+    parser.add_argument('-uasdrg', '--uas-discord-required-guilds', ' +
                         'default=None,
                         help='Required Discord Guild(s) for user ' +
                         'external authentication.')
@@ -626,7 +626,7 @@ def get_args():
                               ' Default: 0. 0 to disable.'),
                         type=float, default=0)
     parser.add_argument('-Rct', '--rarity-cache-timer',
-                        help=('How often (in minutes) the dynamic ' + 
+                        help=('How often (in minutes) the dynamic ' +
                               'rarity cache should be updated. ' +
                               'Only works if at least one instance use -Rf' +
                               ' Default: 5.'),
@@ -806,7 +806,8 @@ def get_args():
                 if num_auths > 1 and num_usernames != num_auths:
                     errors.append((
                         'The number of provided auth ({}) must match the ' +
-                        'username count ({}).').format(num_auths, num_usernames))
+                        'username count ({}).').format(num_auths,
+                                                       num_usernames))
         elif args.workers is None:
             errors.append(
                 'Missing `workers` either as -w/--workers or in config. ' +
@@ -902,11 +903,11 @@ def get_args():
         if args.pgpool_url is None:
             if len(args.accounts) == 0:
                 print(sys.argv[0] +
-                      ": Error: no accounts specified. Use -a' +
-                      ', -u, and -p or " +
-                      "--accountcsv to add accounts. Or use ' +
-                      '-pgpu/--pgpool-url to " +
-                      "specify the URL of PGPool.")
+                      ': Error: no accounts specified. Use -a, ' +
+                      '-u, and -p or ' +
+                      '--accountcsv to add accounts. Or use ' +
+                      '-pgpu/--pgpool-url to ' +
+                      'specify the URL of PGPool.')
                 sys.exit(1)
 
         # create an empty set
