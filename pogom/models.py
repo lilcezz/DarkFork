@@ -3919,8 +3919,8 @@ def database_migrate(db, old_ver):
             'cp,trainer_name, ' +
             'num_upgrades ,move_1, move_2, height, weight, stamina, ' +
             'stamina_max, ' +
-            'cp_multiplier, additional_cp_multiplier, iv_defense, iv_stamina, ' +
-            'iv_attack, gender, ' +
+            'cp_multiplier, additional_cp_multiplier, iv_defense, ' +
+            'iv_stamina, iv_attack, gender, ' +
             'form,costume, weather_boosted_condition, shiny, last_seen ' +
             'FROM `gympokemon_old`;')
         db.execute_sql(
@@ -3968,9 +3968,8 @@ def database_migrate(db, old_ver):
 
     if old_ver < 30:
         migrate(
-        # Add `park` column to `gym`
+            # Add `park` column to `gym`
             migrator.add_column('gym', 'park', BooleanField(default=False)))
-
 
     # Always log that we're done.
     log.info('Schema upgrade complete.')
