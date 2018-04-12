@@ -2,21 +2,21 @@ $(function () {
     'use strict'
 
     /* Settings. */
-	const showSearchMarker = false // Show a marker on the map's scan location. Default: false.
+    const showSearchMarker = false // Show a marker on the map's scan location. Default: false.
     const isSearchMarkerMovable = false // Let the user move the scan location marker around. Doesn't do anything without --no-fixed-location. Default: false.
     const showLocationMarker = false // Show a marker on the visitor's location. Default: false.
     const isLocationMarkerMovable = false // Let the user move the visitor marker around. Default: false.
-	
+
     const scaleByRarity = true // Enable scaling by rarity. Default: true.
     const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
-    const map_style = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
+    const mapStyle = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
     const playSound = false // Default: false.
     const playCries = false // Default: false.
     const searchMarkerStyle = 'Hidden' //  default: 'pokesition'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
     const locationMarkerStyle = 'Hidden' // default: 'mobile'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
     const zoomLevel = 16 // default: 16.
-	const useGymSidebar = true
+    const useGymSidebar = true
 
     // Google Analytics property ID. Leave empty to disable.
     // Looks like 'UA-XXXXX-Y'.
@@ -52,8 +52,8 @@ $(function () {
     // Process Pokémon in chunks to improve responsiveness.
     const processPokemonChunkSize = 100 // Default: 100
     const processPokemonIntervalMs = 100 // Default: 100ms
-	const processPokemonChunkSizeMobile = 100 // Default: 100.
-	const processPokemonIntervalMsMobile = 100 // Default: 100ms.
+    const processPokemonChunkSizeMobile = 100 // Default: 100.
+    const processPokemonIntervalMsMobile = 100 // Default: 100ms.
 
     /* Feature detection. */
 
@@ -84,24 +84,24 @@ $(function () {
     Store.set('scaleByRarity', scaleByRarity)
     Store.set('upscalePokemon', upscalePokemon)
     Store.set('upscaledPokemon', upscaledPokemon)
-	Store.set('showSearchMarker', showSearchMarker)
-	Store.set('isSearchMarkerMovable', isSearchMarkerMovable)
+    Store.set('showSearchMarker', showSearchMarker)
+    Store.set('isSearchMarkerMovable', isSearchMarkerMovable)
     Store.set('showLocationMarker', showLocationMarker)
     Store.set('isLocationMarkerMovable', isLocationMarkerMovable)
-    Store.set('map_style', map_style)
+    Store.set('mapStyle', mapStyle)
     Store.set('playSound', playSound)
     Store.set('playCries', playCries)
     Store.set('searchMarkerStyle', searchMarkerStyle)
     Store.set('locationMarkerStyle', locationMarkerStyle)
     Store.set('zoomLevel', zoomLevel)
-	Store.set('useGymSidebar', useGymSidebar)
+    Store.set('useGymSidebar', useGymSidebar)
 
-	
+
     if (typeof window.orientation !== 'undefined' || isMobileDevice()) {
         Store.set('maxClusterZoomLevel', maxClusterZoomLevelMobile)
         Store.set('clusterZoomOnClick', clusterZoomOnClickMobile)
         Store.set('clusterGridSize', clusterGridSizeMobile)
-		Store.set('processPokemonChunkSize', processPokemonChunkSizeMobile)
+        Store.set('processPokemonChunkSize', processPokemonChunkSizeMobile)
         Store.set('processPokemonIntervalMs', processPokemonIntervalMsMobile)
     }
 
