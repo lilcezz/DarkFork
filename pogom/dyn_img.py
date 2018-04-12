@@ -323,8 +323,6 @@ def pokemon_asset_path(pkm, classifier=None, gender=GENDER_UNSET,
         return assets_fullname, target_name
     else:
         if gender == MALE:
-            log.warning("Cannot find PogoAssets file {}".format(
-                assets_fullname))
             # Dummy Pokemon icon
             return (
                 os.path.join(assets_basedir, 'pokemon_icon_000.png'),
