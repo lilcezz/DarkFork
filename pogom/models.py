@@ -36,9 +36,12 @@ from .customLog import printPokemon
 from .account import pokestop_spinnable, spin_pokestop, incubate_eggs, setup_mrmime_account, \
     encounter_pokemon_request, clear_pokemon
 from .proxy import get_new_proxy
-from pgoapi.protos.pogoprotos.map.weather.gameplay_weather_pb2 import *
-from pgoapi.protos.pogoprotos.map.weather.weather_alert_pb2 import *
-from pgoapi.protos.pogoprotos.networking.responses.get_map_objects_response_pb2 import *
+from pgoapi.protos.pogoprotos.map.weather.gameplay_weather_pb2 import (
+    GameplayWeather)
+from pgoapi.protos.pogoprotos.map.weather.weather_alert_pb2 import (
+    WeatherAlert)
+from pgoapi.protos.pogoprotos.networking.responses\
+         .get_map_objects_response_pb2 import GetMapObjectsResponse
 
 log = logging.getLogger(__name__)
 
@@ -48,11 +51,14 @@ cache = TTLCache(maxsize=100, ttl=60 * 5)
 
 db_schema_version = 30
 
-rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Ultra Rare': 4, 'New Spawn': 5}
+rarity_list = {'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3,
+               'Ultra Rare': 4, 'New Spawn': 5}
 rarity_cache = {}
+
 
 class MyRetryDB(RetryOperationalError, PooledMySQLDatabase):
     pass
+
 
 # Reduction of CharField to fit max length inside 767 bytes for utf8mb4 charset
 class Utf8mb4CharField(CharField):
@@ -60,8 +66,10 @@ class Utf8mb4CharField(CharField):
         self.max_length = max_length
         super(CharField, self).__init__(*args, **kwargs)
 
+
 class UBigIntegerField(BigIntegerField):
     db_field = 'bigint unsigned'
+
 
 def init_database(app):
     log.info('Connecting to MySQL database on %s:%i...',
@@ -340,25 +348,24 @@ class Pokemon(LatLongModel):
 
         return list(itertools.chain(*query))
 
-class Rarity(BaseModel):
-    pokemon_id = SmallIntegerField(index=True,primary_key=True)
-    rarity = CharField(null=True)
 
+class Rarity(BaseModel):
+    pokemon_id = SmallIntegerField(index=True, primary_key=True)
+    rarity = CharField(null=True)
 
     @staticmethod
     def update_pokemon_rarity_db(rarity, db_update_queue):
 
         rarities_details = {}
-        for key,val in rarity.items():
+        for key, val in rarity.items():
             rarities_details[key] = {
-            'pokemon_id': key,
-            'rarity': val
+                'pokemon_id': key,
+                'rarity': val
         }
-
 
         db_update_queue.put((Rarity, rarities_details))
 
-        return 
+        return
 
     @staticmethod
     def rarity_by_id(id):
@@ -367,6 +374,7 @@ class Rarity(BaseModel):
             return rarity_cache[id]
         else:
             return "New Spawn"
+
 
 class Pokestop(LatLongModel):
     pokestop_id = Utf8mb4CharField(primary_key=True, max_length=50)
@@ -384,9 +392,11 @@ class Pokestop(LatLongModel):
 
     @staticmethod
     def get_stop_by_cord(lat, long):
-        query = Pokestop.select(Pokestop.pokestop_id, Pokestop.latitude, Pokestop.longitude)
+        query = Pokestop.select(Pokestop.pokestop_id, Pokestop.latitude,
+                                Pokestop.longitude)
         query = (query
-                     .where(((Pokestop.latitude == lat) & (Pokestop.longitude == long))).dicts())
+                 .where(((Pokestop.latitude == lat) & (Pokestop.longitude
+                                                       == long))).dicts())
         pokestops = []
         for p in query:
             if args.china:
@@ -700,7 +710,6 @@ class Gym(LatLongModel):
 
         return result
 
-
     @staticmethod
     def set_gyms_in_park(gyms, park):
         gym_ids = [gym['gym_id'] for gym in gyms]
@@ -714,6 +723,7 @@ class Gym(LatLongModel):
             if gym_by_id:
                 return gym_by_id[0]['park']
         return False
+
 
 class Raid(BaseModel):
     gym_id = Utf8mb4CharField(primary_key=True, max_length=50)
