@@ -3882,7 +3882,7 @@ def database_migrate(db, old_ver):
             'pokemon_id, latitude, longitude, disappear_time, ' +
             'individual_attack, individual_defense, individual_stamina, ' +
             'move_1, move_2, cp, cp_multiplier, weight, height, gender, ' +
-            'form, costume, catch_prob_1, catch_prob_2, +
+            'form, costume, catch_prob_1, catch_prob_2, ' +
             'catch_prob_3, rating_attack, ' +
             'rating_defense, weather_boosted_condition ,last_modified ' +
             'FROM `pokemon_old`;')
@@ -3915,10 +3915,14 @@ def database_migrate(db, old_ver):
             'INSERT INTO `gymmember` ' +
             'SELECT * FROM `gymmember_old`;')
         db.execute_sql(
-            'INSERT INTO `gympokemon` SELECT pokemon_uid, pokemon_id, cp,trainer_name, ' +
-            'num_upgrades ,move_1, move_2, height, weight, stamina, stamina_max, ' +
-            'cp_multiplier, additional_cp_multiplier, iv_defense, iv_stamina, iv_attack, gender, ' +
-            'form,costume, weather_boosted_condition, shiny, last_seen FROM `gympokemon_old`;')
+            'INSERT INTO `gympokemon` SELECT pokemon_uid, pokemon_id, ' +
+            'cp,trainer_name, ' +
+            'num_upgrades ,move_1, move_2, height, weight, stamina, ' +
+            'stamina_max, ' +
+            'cp_multiplier, additional_cp_multiplier, iv_defense, iv_stamina, ' +
+            'iv_attack, gender, ' +
+            'form,costume, weather_boosted_condition, shiny, last_seen ' +
+            'FROM `gympokemon_old`;')
         db.execute_sql(
             'INSERT INTO `scanspawnpoint` SELECT ' +
             'CONV(scannedlocation_id, 16,10) as scannedlocation_id, ' +
@@ -3961,12 +3965,11 @@ def database_migrate(db, old_ver):
         db.execute_sql('ALTER TABLE `spawnpoint` '
                        'ADD CONSTRAINT CONSTRAINT_4 CHECK ' +
                        '(`latest_seen` <= 3600);')
-  
+
     if old_ver < 30:
         migrate(
         # Add `park` column to `gym`
             migrator.add_column('gym', 'park', BooleanField(default=False)))
-
 
 
     # Always log that we're done.
