@@ -35,8 +35,7 @@ from .customLog import printPokemon
 
 from .account import (pokestop_spinnable, spin_pokestop,
                       incubate_eggs, setup_mrmime_account,
-                      encounter_pokemon_request, clear_pokemon
-                     )
+                      encounter_pokemon_request, clear_pokemon)
 from .proxy import get_new_proxy
 from pgoapi.protos.pogoprotos.map.weather.gameplay_weather_pb2 import (
     GameplayWeather)
@@ -362,8 +361,7 @@ class Rarity(BaseModel):
         for key, val in rarity.items():
             rarities_details[key] = {
                 'pokemon_id': key,
-                'rarity': val
-        }
+                'rarity': val}
 
         db_update_queue.put((Rarity, rarities_details))
 
@@ -976,6 +974,7 @@ class ScannedLocation(LatLongModel):
                         'scannedlocation': cell}
                     index += 1
         return scan_spawn_point
+
     # Return list of dicts for upcoming valid band times.
     @staticmethod
     def linked_spawn_points(cell):
@@ -1282,7 +1281,8 @@ class WorkerStatus(LatLongModel):
             else:
                 log.error("Area {} not found.".format(worker_name))
         except Exception as e:
-            log.error("Could not determine center of area {}: {}".format(worker_name, repr(e)))
+            log.error("Could not determine center of area {}: {}".format
+                      (worker_name, repr(e)))
 
         return None
 
@@ -1407,7 +1407,6 @@ class SpawnPoint(LatLongModel):
             del sp['earliest_unseen']
 
         return list(spawnpoints.values())
-
 
     # Confirm if tth has been found.
     @staticmethod
@@ -1916,8 +1915,8 @@ class Weather(BaseModel):
     severity = SmallIntegerField(null=True, index=True)
     warn_weather = SmallIntegerField(null=True, index=True)
     world_time = SmallIntegerField(null=True, index=True)
-    last_updated = DateTimeField(default=datetime.utcnow, null=True, index=True)
-
+    last_updated = DateTimeField(default=datetime.utcnow,
+                                 null=True, index=True)
 
     @staticmethod
     def get_weathers():
@@ -1931,21 +1930,32 @@ class Weather(BaseModel):
 
     @staticmethod
     def get_weather_by_location(swLat, swLng, neLat, neLng, alert):
-        # We can filter by the center of a cell, this deltas can expand the viewport bounds
-        # So cells with center outside the viewport, but close to it can be rendered
-        # otherwise edges of cells that intersects with viewport won't be rendered
+        # We can filter by the center of a cell,
+        # this deltas can expand the viewport bounds
+        # So cells with center outside the viewport,
+        # but close to it can be rendered
+        # otherwise edges of cells that intersects
+        # with viewport won't be rendered
         lat_delta = 0.15
         lng_delta = 0.4
         if not alert:
-            query = Weather.select().where((Weather.latitude >= float(swLat) - lat_delta) &
-                                           (Weather.longitude >= float(swLng) - lng_delta) &
-                                           (Weather.latitude <= float(neLat) + lat_delta) &
-                                           (Weather.longitude <= float(neLng) + lng_delta)).dicts()
+            query = Weather.select().where((Weather.latitude >= float(swLat) -
+                                            lat_delta) &
+                                           (Weather.longitude >= float(swLng) -
+                                            lng_delta) &
+                                           (Weather.latitude <= float(neLat) +
+                                            lat_delta) &
+                                           (Weather.longitude <= float(neLng) +
+                                            lng_delta)).dicts()
         else:
-            query = Weather.select().where((Weather.latitude >= float(swLat) - lat_delta) &
-                                           (Weather.longitude >= float(swLng) - lng_delta) &
-                                           (Weather.latitude <= float(neLat) + lat_delta) &
-                                           (Weather.longitude <= float(neLng) + lng_delta) &
+            query = Weather.select().where((Weather.latitude >= float(swLat) -
+                                            lat_delta) &
+                                           (Weather.longitude >= float(swLng) -
+                                            lng_delta) &
+                                           (Weather.latitude <= float(neLat) +
+                                            lat_delta) &
+                                           (Weather.longitude <= float(neLng) +
+                                            lng_delta) &
                                            (Weather.severity.is_null(False))).dicts()
         weathers = []
         for w in query:
@@ -2014,7 +2024,8 @@ def perform_pgscout(p):
     pkm.spawnpoint_id = int(p.spawn_point_id, 16)
     pkm.latitude = p.latitude
     pkm.longitude = p.longitude
-    pkm.weather_boosted_condition = p.pokemon_data.pokemon_display.weather_boosted_condition
+    pkm.weather_boosted_condition =
+    p.pokemon_data.pokemon_display.weather_boosted_condition
     scout_result = pgscout_encounter(pkm)
     if scout_result['success']:
         log.info(
@@ -2054,7 +2065,6 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
     display_weather = {}
     gameplay_weather = {}
     weather = {}
-    rarity = {}
 
     # Consolidate the individual lists in each cell into two lists of Pokemon
     # and a list of forts.
@@ -2114,8 +2124,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
     if weather_alert:
         for w in weather_alert:
             log.info('Weather Alerts Active: %s, Severity Level: %s',
-                            w.warn_weather,
-                            WeatherAlert.Severity.Name(w.severity))
+                     w.warn_weather,
+                     WeatherAlert.Severity.Name(w.severity))
             severity = w.severity
             warn = w.warn_weather
 
@@ -2140,11 +2150,11 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
         }
         # Weather Information Log
         log.debug('Weather Info: Cloud Level: %s, Rain Level: %s, ' +
-            'Wind Level: %s, Snow Level: %s, Fog Level: %s, ' +
-            'Wind Direction: %s°.', display_weather.cloud_level,
-            display_weather.rain_level, display_weather.wind_level,
-            display_weather.snow_level, display_weather.fog_level,
-            display_weather.wind_direction)
+                  'Wind Level: %s, Snow Level: %s, Fog Level: %s, ' +
+                  'Wind Direction: %s°.', display_weather.cloud_level,
+                  display_weather.rain_level, display_weather.wind_level,
+                  display_weather.snow_level, display_weather.fog_level,
+                  display_weather.wind_direction)
 
         log.info('GamePlay Conditions: %s - %s Bonus.',
                     GetMapObjectsResponse.TimeOfDay.Name(worldtime),
@@ -2153,7 +2163,6 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
     log.debug(weather)
     log.info('Upserted %d weather details.',
              len(weather))
-
 
     # If there are no wild or nearby Pokemon...
     if not wild_pokemon and not nearby_pokemon:
