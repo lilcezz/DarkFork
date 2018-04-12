@@ -887,7 +887,7 @@ function pokemonLabel(item) {
     var hideLabel = excludedPokemon.indexOf(id) < 0 ? "Hide" : "Unhide"
     var notifyLabel = notifiedPokemon.indexOf(id) < 0 ? "Notify" : "Unnotify"
 
-    var pokemon_icon = get_pokemon_raw_icon_url(item)
+    var pokemonIcon = getPokemonRawIconUrl(item)
 
     if (showStats && cp !== null && cpMultiplier !== null) {
         var pokemonLevel = getPokemonLevel(cpMultiplier)
@@ -896,14 +896,14 @@ function pokemonLabel(item) {
             var iv = getIv(atk, def, sta)
         }
 
-        var iv_circle = cssPercentageCircle(`${iv.toFixed(0)}<br>%`, iv, 100, 82, 66, 51)
-        var level_circle = cssPercentageCircle(`Lvl<br>${pokemonLevel}`, pokemonLevel, 35, 30, 20, 10)
+        var ivCircle = cssPercentageCircle(`${iv.toFixed(0)}<br>%`, iv, 100, 82, 66, 51)
+        var levelCircle = cssPercentageCircle(`Lvl<br>${pokemonLevel}`, pokemonLevel, 35, 30, 20, 10)
 
         contentstring += `
           <div class='pokemon container'>
             <div class='pokemon container content-left'>
               <div>
-                <img class='pokemon sprite' src='${pokemon_icon}'>
+                <img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
                   CP <span class='pokemon encounter big'>${cp}</span><br>
 				  GEN: <span class='pokemon encounter big'>${generation}</span>
@@ -929,9 +929,9 @@ function pokemonLabel(item) {
               </div>
               ${weatherBoost}
               <div class='pokemon'>
-                ${iv_circle}
+                ${ivCircle}
                 (A <span class='pokemon encounter'>${atk}</span> &nbsp;&nbsp; D <span class='pokemon encounter'>${def}</span> &nbsp;&nbsp; S <span class='pokemon encounter'>${sta}</span>)
-                ${level_circle}
+                ${levelCircle}
               </div>
               <div class='pokemon'>
                 Moveset: <span class='pokemon encounter'>${pMove1}</span> / <span class='pokemon encounter'>${pMove2}</span>
@@ -952,7 +952,7 @@ function pokemonLabel(item) {
 			  <div class='pokemon container'>
 				<div class='pokemon container content-left'>
 				  <div>
-					<img class='pokemon sprite' src='${pokemon_icon}'>
+					<img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
 				  GEN: <span class='pokemon encounter big'>${generation}</span>
                 </div>
@@ -984,7 +984,7 @@ function pokemonLabel(item) {
 			  <div class='pokemon container'>
 				<div class='pokemon container content-left'>
 				  <div>
-					<img class='pokemon sprite' src='${pokemon_icon}'>
+					<img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
 				  GEN: <span class='pokemon encounter big'>${generation}</span>
                 </div>
@@ -1093,12 +1093,12 @@ function gymLabel(gym, includeMembers = true) {
 
         if (isRaidStarted) {
             // Use Pokémon-specific image.
-            var pokemon_icon = get_pokemon_raw_icon_url(raid)
+            var pokemonIcon = getPokemonRawIconUrl(raid)
             if (raid.pokemon_id !== null) {
                 image = `
                     <div class='raid container'>
                     <div class='raid container content-left'>
-                        <img class='gym sprite' src='${pokemon_icon}'>
+                        <img class='gym sprite' src='${pokemonIcon}'>
                     </div>
                     <div class='raid container content-right'>
                         <div>
@@ -1118,11 +1118,11 @@ function gymLabel(gym, includeMembers = true) {
                 `
             }
         } else {
-            let gym_url = `gym_img?team=${gymTypes[gym.team_id]}&level=${getGymLevel(gym)}&raidlevel=${raid.level}`
+            let gymUrl = `gym_img?team=${gymTypes[gym.team_id]}&level=${getGymLevel(gym)}&raidlevel=${raid.level}`
             if (gym.is_in_battle) {
-                gym_url += '&in_battle=1'
+                gymUrl += '&in_battle=1'
             }
-            image = `<img class='gym sprite' src='${gym_url}'>`
+            image = `<img class='gym sprite' src='${gymUrl}'>`
         }
 
         if (isUpcomingRaid) {
@@ -1135,11 +1135,11 @@ function gymLabel(gym, includeMembers = true) {
                 </div>`
         }
     } else {
-        let gym_url = `gym_img?team=${teamName}&level=${getGymLevel(gym)}`
+        let gymUrl = `gym_img?team=${teamName}&level=${getGymLevel(gym)}`
         if (gym.is_in_battle) {
-            gym_url += '&in_battle=1'
+            gymUrl += '&in_battle=1'
         }
-        image = `<img class='gym sprite' src='${gym_url}'>`
+        image = `<img class='gym sprite' src='${gymUrl}'>`
     }
 
 
@@ -1165,13 +1165,13 @@ function gymLabel(gym, includeMembers = true) {
         memberStr = '<div>'
 
         gym.pokemon.forEach((member) => {
-            var pokemon_icon = generateImages ? `<img class='pokemon-icon' src='${get_pokemon_raw_icon_url(member)}'>` : `<i class='pokemon-sprite n${member.pokemon_id}'></i>`
+            var pokemonIcon = generateImages ? `<img class='pokemon-icon' src='${getPokemonRawIconUrl(member)}'>` : `<i class='pokemon-sprite n${member.pokemon_id}'></i>`
             memberStr += `
             <span class='gym member'>
               <center>
                 <div>
                   <div>
-                    ${pokemon_icon}
+                    ${pokemonIcon}
                   </div>
                   <div>
                     <span class='gym pokemon'>${member.pokemon_name}</span>
@@ -1527,7 +1527,7 @@ function customizePokemonMarker(marker, item, skipNotification) {
     if (isNotifyPoke(item)) {
         if (!skipNotification) {
             playPokemonSound(item['pokemon_id'], cryFileTypes)
-            sendNotification(notifyText.fav_title, notifyText.fav_text, get_pokemon_raw_icon_url(item), item['latitude'], item['longitude'])
+            sendNotification(notifyText.fav_title, notifyText.fav_text, getPokemonRawIconUrl(item), item['latitude'], item['longitude'])
         }
         if (marker.animationDisabled !== true) {
             marker.setAnimation(google.maps.Animation.BOUNCE)
@@ -2709,17 +2709,17 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
         } else if (result.team_id === 0) {
             pokemonHtml = ''
         } else {
-            var pokemon_icon
+            var pokemonIcon
             if (generateImages) {
                 result.pokemon_id = result.guard_pokemon_id
-                pokemon_icon = `<img class='guard-pokemon-icon' src='${get_pokemon_raw_icon_url(result)}'>`
+                pokemonIcon = `<img class='guard-pokemon-icon' src='${getPokemonRawIconUrl(result)}'>`
             } else {
-                pokemon_icon = `<i class="pokemon-large-sprite n${result.guard_pokemon_id}"></i>`
+                pokemonIcon = `<i class="pokemon-large-sprite n${result.guard_pokemon_id}"></i>`
             }
             pokemonHtml = `
                 <center>
                     Gym Leader:<br>
-                    ${pokemon_icon}<br>
+                    ${pokemonIcon}<br>
                     <b>${result.guard_pokemon_name}</b>
 
                     <p style="font-size: .75em; margin: 5px;">
@@ -2769,7 +2769,7 @@ function getSidebarGymMember(pokemon) {
 		absoluteTime = '<div class="gym pokemon">(' + deploymentTime.format('Do MMM HH:mm') + ')</div>'
 	}
 	
-   var pokemon_image = get_pokemon_raw_icon_url(pokemon)
+   var pokemon_image = getPokemonRawIconUrl(pokemon)
     return `
                     <tr onclick=toggleGymPokemonDetails(this)>
                         <td width="30px">
@@ -3185,14 +3185,14 @@ $(function () {
         if (!state.id) {
             return state.text
         }
-        var pokemon_icon
+        var pokemonIcon
         if (generateImages) {
-            pokemon_icon = `<img class='pokemon-select-icon' src='${get_pokemon_raw_icon_url({'pokemon_id': state.element.value.toString()})}'>`
+            pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id': state.element.value.toString()})}'>`
         } else {
-            pokemon_icon = `<i class="pokemon-sprite n${state.element.value.toString()}"></i>`
+            pokemonIcon = `<i class="pokemon-sprite n${state.element.value.toString()}"></i>`
         }
         var $state = $(
-            `<span>${pokemon_icon} ${state.text}</span>`
+            `<span>${pokemonIcon} ${state.text}</span>`
         )
         return $state
     }
@@ -3232,7 +3232,7 @@ $(function () {
                 text: i8ln(value['name']) + ' - #' + key
             })
             if (generateImages) {
-                pokemonIcon = `<img class='pokemon-select-icon' src='${get_pokemon_raw_icon_url({'pokemon_id': key})}'>`
+                pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id': key})}'>`
             } else {
                 pokemonIcon = `<i class="pokemon-sprite n${key}"></i>`
             }
