@@ -2026,7 +2026,7 @@ def perform_pgscout(p):
     pkm.latitude = p.latitude
     pkm.longitude = p.longitude
     pokemon_display = p.pokemon_data.pokemon_display
-    pkm.weather_boosted_condition= pokemon_display.weather_boosted_condition
+    pkm.weather_boosted_condition = pokemon_display.weather_boosted_condition
     scout_result = pgscout_encounter(pkm)
     if scout_result['success']:
         log.info(
@@ -2355,7 +2355,7 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
             if pokemon_id == 201:
                 pokemon[p.encounter_id]['form'] = (p.pokemon_data
                                                     .pokemon_display.form)
-            #Check for Castform skin
+            # Check for Castform skin
             if pokemon_id == 351:
                 pokemon[p.encounter_id]['form'] = (p.pokemon_data
                                                     .pokemon_display.form)
@@ -2401,9 +2401,9 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
 
                     current_weather = weather[s2_cell_id]['gameplay_weather'] \
                         if weather and s2_cell_id in weather else None
-                    
+
                     # Get Pokemon Rarity
-                    pokemon_rarity_wh =  Rarity.rarity_by_id(pokemon_id)
+                    pokemon_rarity_wh = Rarity.rarity_by_id(pokemon_id)
 
                     wh_poke = pokemon[p.encounter_id].copy()
                     wh_poke.update({
@@ -2543,8 +2543,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                         f.id,
                     'team_id':
                         f.owned_by_team,
-                     'park':
-                        park,
+                    'park':
+                    park,
                     'guard_pokemon_id':
                         f.guard_pokemon_id,
                     'gender':
@@ -2605,7 +2605,8 @@ def parse_map(args, map_dict, scan_coords, scan_location, db_update_queue,
                                     'raid' in args.wh_types and
                                     raids[f.id]['pokemon_id'] is not None):
 
-                            current_weather = weather[s2_cell_id]['gameplay_weather'] \
+                            current_weather = weather[s2_cell_id]
+                            ['gameplay_weather'] \
                                 if weather and s2_cell_id in weather else None
                             wh_raid = raids[f.id].copy()
                             wh_raid.update({
@@ -2927,7 +2928,9 @@ def parse_gyms(args, gym_responses, wh_update_queue, db_update_queue):
                 'gender': pokemon.pokemon_display.gender,
                 'form': pokemon.pokemon_display.form,
                 'costume': pokemon.pokemon_display.costume,
-                'weather_boosted_condition': pokemon.pokemon_display.weather_boosted_condition,
+                'weather_boosted_condition': (pokemon
+                                              .pokemon_display
+                                              .weather_boosted_condition),
                 'shiny': pokemon.pokemon_display.shiny,
                 'last_seen': datetime.utcnow(),
             }
