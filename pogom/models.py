@@ -165,7 +165,7 @@ class Pokemon(LatLongModel):
                 Pokemon.pokemon_id,
                 Pokemon.latitude,
                 Pokemon.longitude,
-                Pokemon.disappear,
+                Pokemon.disappear_time,
                 Pokemon.weather_boosted_condition,
                 Pokemon.last_modified
             )
