@@ -41,7 +41,7 @@ $(function () {
     ]
 
     // Clustering! Different zoom levels for desktop vs mobile.
-    const disableClusters = false // Default: false.
+    const disableClusters = true // Default: true.
     const maxClusterZoomLevel = 14 // Default: 14.
     const maxClusterZoomLevelMobile = 14 // Default: 14.
     const clusterZoomOnClick = false // Default: false.
