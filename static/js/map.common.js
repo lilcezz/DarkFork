@@ -884,7 +884,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showRaids': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'showActiveRaidsOnly': {
@@ -904,7 +904,7 @@ var StoreOptions = {
         type: StoreTypes.Number
     },
     'showGyms': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'showParkGymsOnly': {
@@ -912,7 +912,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'useGymSidebar': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'showOpenGymsOnly': {
@@ -1032,7 +1032,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'upscalePokemon': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'upscaledPokemon': {
@@ -1040,11 +1040,11 @@ var StoreOptions = {
         type: StoreTypes.JSON
     },
     'searchMarkerStyle': {
-        default: 'pokesition',
+        default: 'Hidden',
         type: StoreTypes.String
     },
     'locationMarkerStyle': {
-        default: 'mobile',
+        default: 'Hidden',
         type: StoreTypes.String
     },
     'zoomLevel': {
@@ -1080,7 +1080,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showLocationMarker': {
-        default: true,
+        default: false,
         type: StoreTypes.Boolean
     },
     'isLocationMarkerMovable': {
@@ -1088,7 +1088,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showSearchMarker': {
-        default: true,
+        default: false,
         type: StoreTypes.Boolean
     },
     'isSearchMarkerMovable': {
@@ -1108,27 +1108,27 @@ var StoreOptions = {
         type: StoreTypes.JSON
     },
     'rarityCommon': {
-        default: 1,
+        default: 12,
         type: StoreTypes.Number
     },
     'rarityUncommon': {
-        default: 1,
+        default: 20,
         type: StoreTypes.Number
     },
     'rarityRare': {
-        default: 1,
+        default: 100,
         type: StoreTypes.Number
     },
     'rarityVeryRare': {
-        default: 1,
+        default: 147,
         type: StoreTypes.Number
     },
     'rarityUltraRare': {
-        default: 1,
+        default: 149,
         type: StoreTypes.Number
     },
     'rarityNewSpawn': {
-        default: 1,
+        default: 151,
         type: StoreTypes.Number
     }
 }
