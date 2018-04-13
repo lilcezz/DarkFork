@@ -28,6 +28,8 @@ And more to be added!
 
 <img src="http://www.tjielup.nl/features.png">
 
+<img src="http://www.tjielup.nl/raidboss.png">
+
 ## Features:
 
 * Shows Pokémon, PokéStops, raids and gyms with a clean GUI.
