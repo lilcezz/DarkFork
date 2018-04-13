@@ -1,5 +1,5 @@
-/*global showAllZoomLevel cssPercentageCircle getS2CellBounds processWeather processS2Cell processWeatherAlerts updateMainCellWeather getPokemonRawIconUrl getPokemonGen*/
-/* eslint no-unused-vars: "off" */
+/*global showAllZoomLevel cssPercentageCircle getS2CellBounds processWeather processS2Cell processWeatherAlerts updateMainCellWeather getPokemonRawIconUrl getPokemonGen generatePokemonExclude*/
+/* eslint no-unused-vars: "off" "no-extend-native": 2*/
 //
 // Global map.js variables
 //
@@ -3369,7 +3369,7 @@ $(function () {
             var id = img.data('key').toString()
             $('.hidepreset').removeClass('active')
             img.addClass('active')
-            generate_pokemon_exlude(hidepresets[id]['Searchstring'], hidepresets[id]['Invert'])
+            generatePokemonExclude(hidepresets[id]['Searchstring'], hidepresets[id]['Invert'])
         })
 
 
@@ -3598,7 +3598,7 @@ $(function () {
 
     Array.prototype.diff = function (a) {
         return this.filter(function (i) {
-        return a.indexOf(i) === -1
+            return a.indexOf(i) === -1
         })
     }
 
