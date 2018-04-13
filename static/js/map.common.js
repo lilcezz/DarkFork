@@ -1132,7 +1132,7 @@ var StoreOptions = {
         type: StoreTypes.Number
     },
     'hidepresets': {
-        default: "",
+        default: '',
         type: StoreTypes.JSON
     }
 }
