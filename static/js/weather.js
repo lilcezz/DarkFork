@@ -1,3 +1,7 @@
+ /*global alertTexts map jsts weatherImages weatherNames*/
+/* eslint no-unused-vars: "off" */
+// Globales variables
+
 /**
  * Parses info about weather cell and draws icon
  * @param i index from $.each()
@@ -253,6 +257,9 @@ function updateMainCellWeather() {
         windIcon.setAttribute('style', 'height: 25px; vertical-align: middle;')
         // Make It Happen
         $weatherInfo.appendChild(weathericon)
+        $weatherInfo.appendChild(weathertext)
+        $weatherInfo.appendChild(windIcon)
+        $weatherInfo.appendChild(windtext)
     }
 }
 

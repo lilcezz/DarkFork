@@ -29,7 +29,8 @@ from pogom.altitude import get_gmaps_altitude
 from pogom.osm import update_ex_gyms
 from pogom.models import (init_database, create_tables, drop_tables,
                           PlayerLocale, db_updater, clean_db_loop,
-                          verify_table_encoding, verify_database_schema, rarity_cache_update)
+                          verify_table_encoding, verify_database_schema,
+                          rarity_cache_update)
 from pogom.webhook import wh_updater
 
 from pogom.proxy import initialize_proxies
@@ -53,9 +54,8 @@ if not (args.verbose):
     console.setLevel(logging.INFO)
 
 formatter = ColoredFormatter(
-    #'%(asctime)s [%(threadName)16s][%(levelname)8s] %(message)s',
-
-    '%(log_color)s [%(asctime)s] [%(threadName)16s] [%(module)14s] [%(levelname)8s] %(message)s',
+    '%(log_color)s [%(asctime)s] [%(threadName)16s] [%(module)14s]' +
+    ' [%(levelname)8s] %(message)s',
     datefmt='%m-%d %H:%M:%S',
     reset=True,
     log_colors={
@@ -271,6 +271,7 @@ def extract_coordinates(location):
         sys.exit()
     return position
 
+
 def main():
     # Patch threading to make exceptions catchable.
     install_thread_excepthook()
@@ -290,7 +291,7 @@ def main():
 
     args.root_path = os.path.dirname(os.path.abspath(__file__))
     init_args(args)
-  
+
     if args.ex_gyms:
         # Geofence is required.
         if not args.geofence_file:
@@ -302,16 +303,19 @@ def main():
 
     # Initialize Mr. Mime library
     mrmime_cfg = {
-        # We don't want exceptions on captchas because we handle them differently.
+        # We don't want exceptions on captchas because
+        # we handle them differently.
         'exception_on_captcha': False,
         # MrMime shouldn't jitter
         'jitter_gmo': False,
         'pgpool_system_id': args.status_name
     }
-    # Don't clear PGPool URL if it's not given in config but set in MrMime config JSON
+    # Don't clear PGPool URL if it's not given in config
+    # but set in MrMime config JSON
     if args.pgpool_url:
         mrmime_cfg['pgpool_url'] = args.pgpool_url
-    mrmime_config_file = os.path.join(os.path.dirname(__file__), 'config/mrmime_config.json')
+    mrmime_config_file = os.path.join(os.path.dirname(__file__),
+                                      'config/mrmime_config.json')
     init_mr_mime(config_file=mrmime_config_file, user_cfg=mrmime_cfg)
 
     # Abort if only-server and no-server are used together
@@ -338,7 +342,6 @@ def main():
                     'can have negative consequences, and you will not '
                     'receive support running in NoVC mode. '
                     'You have been warned.')
-
 
     position = extract_coordinates(args.location)
     # Use the latitude and longitude to get the local altitude from Google.
@@ -383,7 +386,6 @@ def main():
         app.set_current_location(position)
 
     db = startup_db(app, args.clear_db)
-
 
     # Control the search status (running or not) across threads.
     control_flags = {
@@ -480,7 +482,6 @@ def main():
 
         # Gather the Pokemon!
 
-
         argset = (args, new_location_queue, control_flags,
                   heartbeat, db_updates_queue, wh_updates_queue)
 
@@ -492,13 +493,12 @@ def main():
 
     if args.rarity_cache_timer:
         t = Thread(target=rarity_cache_update,
-                    name='rarity-cache')
+                   name='rarity-cache')
         t.daemon = True
         t.start()
         log.info('Dynamic rarity cache is enabled.')
     else:
         log.info('Dynamic rarity cache is disabled.')
-
 
     if args.no_server:
         # This loop allows for ctrl-c interupts to work since flask won't be

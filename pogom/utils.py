@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import urllib
-import urlparse
 from threading import Thread
 
 import configargparse
@@ -14,7 +12,6 @@ import random
 import time
 import socket
 import struct
-import hashlib
 import psutil
 import subprocess
 import requests
@@ -102,7 +99,8 @@ def get_args():
                               'Defaults to the number of accounts specified.'))
     parser.add_argument('-hw', '--highlvl-workers', type=int,
                         default=0,
-                        help=('Load this many high level workers from PGPool. ' +
+                        help=('Load this many high level ' +
+                              'workers from PGPool. ' +
                               'This requires --pgpool-url to be set.'))
     parser.add_argument('-asi', '--account-search-interval', type=int,
                         default=0,
@@ -432,7 +430,8 @@ def get_args():
                              'Default: 720, 0 to disable.'),
                        type=int, default=720)
     group.add_argument('-DCf', '--db-cleanup-forts',
-                       help=('Clear gyms and pokestops from database X hours ' +
+                       help=('Clear gyms and pokestops ' +
+                             'from database X hours ' +
                              'after last valid scan. ' +
                              'Default: 0, 0 to disable.'),
                        type=int, default=0)
@@ -468,12 +467,12 @@ def get_args():
                               'data on failure.'),
                         type=int, default=3)
     parser.add_argument('-whct', '--wh-connect-timeout',
-                         help=('Connect timeout (in seconds) for webhook' +
-						 ' requests.'),
+                        help=('Connect timeout (in seconds) for webhook' +
+                              'requests.'),
                         type=float, default=1.0)
     parser.add_argument('-whrt', '--wh-read-timeout',
                         help=('Read timeout (in seconds) for webhook' +
-						'requests.'),
+                              'requests.'),
                         type=float, default=1.0)
     parser.add_argument('-whbf', '--wh-backoff-factor',
                         help=('Factor (in seconds) by which the delay ' +
@@ -581,32 +580,40 @@ def get_args():
                         help='Do various things to let map accounts gain XP.',
                         action='store_true', default=False)
     parser.add_argument('-gen', '--generate-images',
-                        help='Use ImageMagick to generate dynamic icons on demand.',
+                        help='Use ImageMagick to generate dynamic' +
+                        'icons on demand.',
                         action='store_true', default=False)
     parser.add_argument('-pgsu', '--pgscout-url', default=None,
                         help='URL to query PGScout for Pokemon IV/CP.')
     parser.add_argument('-lurl', '--lure-url', default=None,
                         help='URL to query lure.')
     parser.add_argument('-pa', '--pogo-assets', default=None,
-                        help='Directory pointing to optional PogoAssets root directory.')
+                        help='Directory pointing to optional ' +
+                        'PogoAssets root directory.')
     parser.add_argument('-uas', '--user-auth-service', default=None,
                         help='Force end users to auth to an external service.')
     parser.add_argument('-skey', '--secret-key', default='SECRET_KEY',
-                        help='Secret Key to encrypt session cookies. Use a secure string.')
+                        help='Secret Key to encrypt session cookies. ' +
+                        'Use a secure string.')
     parser.add_argument('-uascid', '--uas-client-id', default=None,
                         help='Client ID for user external authentication.')
     parser.add_argument('-uascs', '--uas-client-secret', default=None,
                         help='Client Secret for user external authentication.')
     parser.add_argument('-uasho', '--uas-host-override', default=None,
                         help='Host override for user external authentication.')
-    parser.add_argument('-uasdrg', '--uas-discord-required-guilds', default=None,
-                        help='Required Discord Guild(s) for user external authentication.')
+    parser.add_argument('-uasdrg', '--uas-discord-required-guilds',
+                        default=None,
+                        help=('Required Discord Guild(s) for user ' +
+                              'external authentication.'))
     parser.add_argument('-uasdgi', '--uas-discord-guild-invite', default=None,
                         help='Link for users not in required guild.')
-    parser.add_argument('-uasdrr', '--uas-discord-required-roles', default=None,
-                        help='Required Discord Guild Role(s) for user external authentication.')
+    parser.add_argument('-uasdrr', '--uas-discord-required-roles',
+                        default=None,
+                        help=('Required Discord Guild Role(s) ' +
+                              'for user external authentication.'))
     parser.add_argument('-uasdbt', '--uas-discord-bot-token', default=None,
-                        help='Discord Bot Token for user external authentication.')
+                        help=('Discord Bot Token for user ' +
+                              'external authentication.'))
     rarity = parser.add_argument_group('Dynamic Rarity')
     rarity.add_argument('-Rh', '--rarity-hours',
                         help=('Number of hours of Pokemon data to use' +
@@ -619,12 +626,14 @@ def get_args():
                               ' Default: 0. 0 to disable.'),
                         type=float, default=0)
     parser.add_argument('-Rct', '--rarity-cache-timer',
-                        help=('How often (in minutes) the dynamic rarity cache' +
-                              ' should be updated. Only works if at least one instance use -Rf' +
+                        help=('How often (in minutes) the dynamic ' +
+                              'rarity cache should be updated. ' +
+                              'Only works if at least one instance use -Rf' +
                               ' Default: 5.'),
                         type=float, default=5)
     parser.add_argument('-Rfn', '--rarity-filename', type=str,
-                        help=('Filename of rarity json for different databases (without .json)' +
+                        help=('Filename of rarity json for different ' +
+                              'databases (without .json)' +
                               'Default: rarity'),
                         default='rarity')
     statusp = parser.add_argument_group('Status Page')
@@ -643,7 +652,7 @@ def get_args():
     args.log_filename = strftime(args.log_filename)
     args.log_filename = args.log_filename.replace('<sn>', '<SN>')
     args.log_filename = args.log_filename.replace('<SN>', args.status_name)
-    
+
     if args.only_server:
         if args.location is None:
             parser.print_usage()
@@ -790,16 +799,19 @@ def get_args():
             if num_usernames > 1:
                 if num_passwords > 1 and num_usernames != num_passwords:
                     errors.append((
-                        'The number of provided passwords ({}) must match the ' +
+                        'The number of provided ' +
+                        'passwords ({}) must match the ' +
                         'username count ({})').format(num_passwords,
                                                       num_usernames))
                 if num_auths > 1 and num_usernames != num_auths:
                     errors.append((
                         'The number of provided auth ({}) must match the ' +
-                        'username count ({}).').format(num_auths, num_usernames))
+                        'username count ({}).').format(num_auths,
+                                                       num_usernames))
         elif args.workers is None:
             errors.append(
-                'Missing `workers` either as -w/--workers or in config. Required when using PGPool.')
+                'Missing `workers` either as -w/--workers or in config. ' +
+                'Required when using PGPool.')
 
         if args.location is None:
             errors.append(
@@ -820,10 +832,13 @@ def get_args():
         args.accounts_L30 = []
         if args.pgpool_url:
             # Request initial number of workers from PGPool
-            args.pgpool_initial_accounts = pgpool_request_accounts(args, initial=True)
+            args.pgpool_initial_accounts = (
+                pgpool_request_accounts(args, initial=True))
             # Request L30 accounts from PGPool
             if args.highlvl_workers > 0:
-                args.accounts_L30 = pgpool_request_accounts(args, highlvl=True, initial=True)
+                args.accounts_L30 = (
+                    pgpool_request_accounts(args, highlvl=True,
+                                            initial=True))
         else:
             # Fill the pass/auth if set to a single value.
             if num_passwords == 1:
@@ -888,9 +903,11 @@ def get_args():
         if args.pgpool_url is None:
             if len(args.accounts) == 0:
                 print(sys.argv[0] +
-                      ": Error: no accounts specified. Use -a, -u, and -p or " +
-                      "--accountcsv to add accounts. Or use -pgpu/--pgpool-url to " +
-                      "specify the URL of PGPool.")
+                      ': Error: no accounts specified. Use -a, ' +
+                      '-u, and -p or ' +
+                      '--accountcsv to add accounts. Or use ' +
+                      '-pgpu/--pgpool-url to ' +
+                      'specify the URL of PGPool.')
                 sys.exit(1)
 
         # create an empty set
@@ -936,28 +953,36 @@ def init_dynamic_images(args):
         if executable:
             dyn_img.generate_images = True
             dyn_img.imagemagick_executable = executable
-            log.info("Generating icons using ImageMagick executable '{}'.".format(executable))
+            log.info("Generating icons using ImageMagick " +
+                     "executable '{}'.".format(executable))
 
             if args.pogo_assets:
-                decr_assets_dir = os.path.join(args.pogo_assets, 'decrypted_assets')
+                decr_assets_dir = os.path.join(args.pogo_assets,
+                                               'decrypted_assets')
                 if os.path.isdir(decr_assets_dir):
-                    log.info("Using PogoAssets repository at '{}'".format(args.pogo_assets))
+                    log.info("Using PogoAssets repository at '{}'".format(
+                        args.pogo_assets))
                     dyn_img.pogo_assets = args.pogo_assets
                 else:
-                    log.error("Could not find PogoAssets repository at '{}'."
-                              " Clone via 'git clone -depth 1 https://github.com/ZeChrales/PogoAssets.git'".format(args.pogo_assets))
+                    log.error(("Could not find PogoAssets repository at '{}'. "
+                               "Clone via 'git clone -depth 1 "
+                               "https://github.com/ZeChrales/PogoAssets.git'")
+                              .format(args.pogo_assets))
         else:
-            log.error("Could not find ImageMagick executable. Make sure you can execute either 'magick' (ImageMagick 7)"
-                      " or 'convert' (ImageMagick 6) from the commandline. Otherwise you cannot use --generate-images")
+            log.error("Could not find ImageMagick executable. Make sure "
+                      "you can execute either 'magick' (ImageMagick 7)"
+                      " or 'convert' (ImageMagick 6) from the commandline. "
+                      "Otherwise you cannot use --generate-images")
             sys.exit(1)
 
 
 def is_imagemagick_binary(binary):
     try:
-        process = subprocess.Popen([binary, '-version'], stdout=subprocess.PIPE)
+        process = subprocess.Popen([binary, '-version'],
+                                   stdout=subprocess.PIPE)
         out, err = process.communicate()
         return "ImageMagick" in out
-    except:
+    except Exception:
         return False
 
 
@@ -974,21 +999,23 @@ def determine_imagemagick_binary():
 
 def init_args(args):
     """
-    Initialize commandline arguments after parsing. Some things need to happen after parsing.
-
+    Initialize commandline arguments after parsing.
+    Some things need to happen after parsing.
     :param args: The parsed commandline arguments
     """
 
     watchercfg = {}
     # IV/CP scanning.
     if args.enc_whitelist_file:
-        log.info("Watching encounter whitelist file {} for changes.".format(args.enc_whitelist_file))
+        log.info("Watching encounter whitelist file {} for changes.".format(
+            args.enc_whitelist_file))
         watchercfg['enc_whitelist'] = (args.enc_whitelist_file, None)
 
     # Prepare webhook whitelist - empty list means no restrictions
     args.webhook_whitelist = []
     if args.webhook_whitelist_file:
-        log.info("Watching webhook whitelist file {} for changes.".format(args.webhook_whitelist_file))
+        log.info("Watching webhook whitelist file {} for changes.".format(
+            args.webhook_whitelist_file))
         watchercfg['webhook_whitelist'] = (args.webhook_whitelist_file, None)
 
     t = Thread(target=watch_pokemon_lists, args=(args, watchercfg))
@@ -1009,7 +1036,8 @@ def watch_pokemon_lists(args, cfg):
             if current_mtime != tstamp:
                 with open(filename) as f:
                     setattr(args, args_key, read_pokemon_ids_from_file(f))
-                    log.info("File {} changed on disk. Re-read as {}.".format(filename, args_key))
+                    log.info("File {} changed on disk. Re-read as {}.".format(
+                        filename, args_key))
                 cfg[args_key] = (filename, current_mtime)
 
         time.sleep(5)
@@ -1530,7 +1558,8 @@ def dynamic_rarity_refresher(db_updates_queue):
     hours = args.rarity_hours
     root_path = args.root_path
 
-    rarities_path = os.path.join(root_path, 'static/dist/data/' + args.rarity_filename + '.json')
+    rarities_path = os.path.join(
+        root_path, 'static/dist/data/' + args.rarity_filename + '.json')
 
     update_frequency_mins = args.rarity_update_frequency
     refresh_time_sec = update_frequency_mins * 60
@@ -1548,10 +1577,9 @@ def dynamic_rarity_refresher(db_updates_queue):
 
         for poke in pokemon:
             rarities[poke['pokemon_id']] = get_pokemon_rarity(total,
-                                                                poke['count'])
+                                                              poke['count'])
 
-
-        Rarity.update_pokemon_rarity_db(rarities, db_updates_queue) 
+        Rarity.update_pokemon_rarity_db(rarities, db_updates_queue)
 
         # Save to file.
         with open(rarities_path, 'w') as outfile:
@@ -1559,13 +1587,14 @@ def dynamic_rarity_refresher(db_updates_queue):
 
         duration = default_timer() - start
         log.info('Updated dynamic rarity. It took %.2fs for %d entries.',
-                    duration,
-                    total)
+                 duration,
+                 total)
 
         # Wait x seconds before next refresh.
         log.debug('Waiting %d minutes before next dynamic rarity update.',
-                    refresh_time_sec / 60)
+                  refresh_time_sec / 60)
         time.sleep(refresh_time_sec)
+
 
 # Translate peewee model class attribute to database column name.
 def peewee_attr_to_col(cls, field):

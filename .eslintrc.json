@@ -54,6 +54,7 @@
     "centerLng": true,
     "clusterImagePath": true,
     "showConfig": true,
+    "rarityFileName": true,
 
     "pageLoaded": true,
     "countMarkers": true,
@@ -64,6 +65,7 @@
     "updatePokemonLabel": true,
     "updatePokemonLabels": true,
     "getPokemonRarity": true,
-    "updatePokemonRarities": true
+    "updatePokemonRarities": true,
+    "generateImages": true
   }
 }
