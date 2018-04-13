@@ -3595,9 +3595,9 @@ $(function () {
             }
         }
     }
-    
-    function compareArray () {
-        compareArray.prototype.diff = function (a) {	
+
+    function compareArray() {
+        compareArray.prototype.diff = function (a) {
             return this.filter(function (i) {
                 return a.indexOf(i) === -1
             })
