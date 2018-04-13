@@ -159,16 +159,17 @@ class Pokemon(LatLongModel):
         now_date = datetime.utcnow()
 
         if args.hide_encounters:
-            query = Pokemon.select(
-                Pokemon.encounter_id,
-                Pokemon.spawnpoint_id,
-                Pokemon.pokemon_id,
-                Pokemon.latitude,
-                Pokemon.longitude,
-                Pokemon.disappear,
-                Pokemon.weather_boosted_condition,
-                Pokemon.last_modified
-            )
+		log.info('Encounter stats disabled on front-end.')
+		query = Pokemon.select(
+		Pokemon.encounter_id,
+        Pokemon.spawnpoint_id,
+        Pokemon.pokemon_id,
+        Pokemon.latitude,
+        Pokemon.longitude,
+        Pokemon.disappear_time,
+        Pokemon.weather_boosted_condition,
+        Pokemon.last_modified
+        )
 
         else:
             query = Pokemon.select()
