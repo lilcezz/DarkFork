@@ -3215,6 +3215,46 @@ $(function () {
         )
         return $state
     }
+
+    function formatRarityState(state) {
+        if (!state.id) {
+            return state.text
+        }
+        var pokemonId
+        switch (state.element.value.toString()) {
+            case i8ln('Common'):
+                pokemonId = Store.get('rarityCommon')
+                break
+            case i8ln('Uncommon'):
+                pokemonId = Store.get('rarityUncommon')
+                break
+            case i8ln('Rare'):
+                pokemonId = Store.get('rarityRare')
+                break
+            case i8ln('Very Rare'):
+                pokemonId = Store.get('rarityVeryRare')
+                break
+            case i8ln('Ultra Rare'):
+                pokemonId = Store.get('rarityUltraRare')
+                break
+            case i8ln('New Spawn'):
+                pokemonId = Store.get('rarityNewSpawn')
+                break
+            default:
+                pokemonId = 1
+        }
+        var pokemonIcon
+        if (generateImages) {
+            pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id': pokemonId})}'>`
+        } else {
+            pokemonIcon = `<i class="pokemon-sprite n${pokemonId}"></i>`
+        }
+        var $state = $(
+            `<span>${pokemonIcon} ${state.text}</span>`
+        )
+        return $state
+    }
+
     if (Store.get('startAtUserLocation') && getParameterByName('lat') == null && getParameterByName('lon') == null) {
         centerMapOnLocation()
     }
@@ -3269,7 +3309,8 @@ $(function () {
         // setup the filter lists
         $selectRarityNotify.select2({
             placeholder: i8ln('Select Rarity'),
-            data: [i8ln('Common'), i8ln('Uncommon'), i8ln('Rare'), i8ln('Very Rare'), i8ln('Ultra Rare'), i8ln('New Spawn')]
+            data: [i8ln('Common'), i8ln('Uncommon'), i8ln('Rare'), i8ln('Very Rare'), i8ln('Ultra Rare'), i8ln('New Spawn')],
+            templateResult: formatRarityState
         })
 
         $('.list').on('click', '.pokemon-icon-sprite', function () {
