@@ -2,13 +2,13 @@ $(function () {
     'use strict'
 
     /* Settings. */
-	const showSearchMarker = true // Show a marker on the map's scan location. Default: false.
+	const showSearchMarker = false // Show a marker on the map's scan location. Default: false.
     const isSearchMarkerMovable = false // Let the user move the scan location marker around. Doesn't do anything without --no-fixed-location. Default: false.
-    const showLocationMarker = true // Show a marker on the visitor's location. Default: false.
+    const showLocationMarker = false // Show a marker on the visitor's location. Default: false.
     const isLocationMarkerMovable = false // Let the user move the visitor marker around. Default: false.
 	
     const scaleByRarity = true // Enable scaling by rarity. Default: true.
-    const upscalePokemon = false // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
+    const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: true.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
 
     // Add predefined buttons for favorite location. Default: [].
