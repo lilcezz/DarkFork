@@ -26,6 +26,8 @@ Download the latest version of DarkFork [here](https://github.com/darkelement198
 
 And more to be added!
 
+<img src="http://www.tjielup.nl/features.png">
+
 ## Features:
 
 * Shows Pokémon, PokéStops, raids and gyms with a clean GUI.
