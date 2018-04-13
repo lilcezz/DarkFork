@@ -18,6 +18,14 @@ $(function () {
     const zoomLevel = 16 // default: 16.
     const useGymSidebar = true
 
+    // Rarities Sprites
+    const rarityCommon = 12 // Default: 1. 
+    const rarityUncommon = 20 // Default: 1. 
+    const rarityRare = 100 // Default: 1. 
+    const rarityVeryRare = 147 // Default: 1. 
+    const rarityUltraRare = 149 // Default: 1. 
+    const rarityNewSpawn = 151 // Default: 1.
+
     // Google Analytics property ID. Leave empty to disable.
     // Looks like 'UA-XXXXX-Y'.
     const analyticsKey = ''
@@ -96,6 +104,13 @@ $(function () {
     Store.set('zoomLevel', zoomLevel)
     Store.set('useGymSidebar', useGymSidebar)
 
+    // Set rarities sprites
+    Store.set('rarityCommon', rarityCommon)
+    Store.set('rarityUncommon', rarityUncommon)
+    Store.set('rarityRare', rarityRare)
+    Store.set('rarityVeryRare', rarityVeryRare)
+    Store.set('rarityUltraRare', rarityUltraRare)
+    Store.set('rarityNewSpawn', rarityNewSpawn)
 
     if (typeof window.orientation !== 'undefined' || isMobileDevice()) {
         Store.set('maxClusterZoomLevel', maxClusterZoomLevelMobile)
