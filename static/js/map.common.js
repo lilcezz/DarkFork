@@ -1130,6 +1130,10 @@ var StoreOptions = {
     'rarityNewSpawn': {
         default: 151,
         type: StoreTypes.Number
+    },
+    'hidepresets': {
+        default: "",
+        type: StoreTypes.JSON
     }
 }
 
