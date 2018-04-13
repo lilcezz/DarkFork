@@ -884,7 +884,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showRaids': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'showActiveRaidsOnly': {
@@ -904,7 +904,7 @@ var StoreOptions = {
         type: StoreTypes.Number
     },
     'showGyms': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'showParkGymsOnly': {
@@ -1032,7 +1032,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'upscalePokemon': {
-        default: false,
+        default: true,
         type: StoreTypes.Boolean
     },
     'upscaledPokemon': {
@@ -1040,11 +1040,11 @@ var StoreOptions = {
         type: StoreTypes.JSON
     },
     'searchMarkerStyle': {
-        default: 'pokesition',
+        default: 'hidden',
         type: StoreTypes.String
     },
     'locationMarkerStyle': {
-        default: 'mobile',
+        default: 'hidden',
         type: StoreTypes.String
     },
     'zoomLevel': {
@@ -1080,7 +1080,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showLocationMarker': {
-        default: true,
+        default: false,
         type: StoreTypes.Boolean
     },
     'isLocationMarkerMovable': {
@@ -1088,7 +1088,7 @@ var StoreOptions = {
         type: StoreTypes.Boolean
     },
     'showSearchMarker': {
-        default: true,
+        default: false,
         type: StoreTypes.Boolean
     },
     'isSearchMarkerMovable': {
