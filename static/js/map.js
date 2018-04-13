@@ -233,8 +233,8 @@ function loadDefaultImages() {
     $('label[for="exclude-pokemon"] .list .pokemon-icon-sprite').each(function () {
         if (ep.indexOf($(this).data('value')) !== -1) {
             $(this).addClass('active')
-            $(".hidefilteractiv").css('color', 'red')
-            $(".hidefilteractiv").text('*** active Filter  ***')
+            $('.hidefilteractiv').css('color', 'red')
+            $('.hidefilteractiv').text('*** active Filter  ***')
         }
     })
     $('label[for="notify-pokemon"] .list .pokemon-icon-sprite').removeClass('active')
@@ -3276,23 +3276,21 @@ $(function () {
 
     $('.list').before('<input type="search" class="search" placeholder="Search for Name, ID or Type...">')
 
-    const hidepresets  = Store.get('hidepresets')
+    const hidepresets = Store.get('hidepresets')
 
     $.each(hidepresets, function (key, value) {
         var pokemonIcon
-        var iconid =  value['PokemonID']
+        var iconid = value['PokemonID']
         if (generateImages) {
             pokemonIcon = `<img class='pokemon-select-icon' src='${getPokemonRawIconUrl({'pokemon_id': iconid})}'>`
         } else {
             pokemonIcon = `<i class="pokemon-sprite n${iconid}"></i>`
         }
-
-    $('.exclude_templates').append('<div class="hidepreset" data-key=' + key + '><div class="hideicon">' + pokemonIcon  + '</div>' + value['Name'] + '</div>') 
-
+        $('.exclude_templates').append('<div class="hidepreset" data-key=' + key + '><div class="hideicon">' + pokemonIcon + '</div>' + value['Name'] + '</div>')
     })
 
-    function load_pokemon_json(callback){
-        $.getJSON('static/dist/data/pokemon.min.json', function( data ) {
+    function loadPokemonJson(callback) {
+        $.getJSON('static/dist/data/pokemon.min.json', function (data) {
            callback(data);
         })
     }
