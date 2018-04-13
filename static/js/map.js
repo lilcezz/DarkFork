@@ -1,5 +1,5 @@
 /*global showAllZoomLevel cssPercentageCircle getS2CellBounds processWeather processS2Cell processWeatherAlerts updateMainCellWeather getPokemonRawIconUrl getPokemonGen generatePokemonExclude*/
-/* eslint no-unused-vars: "off", "no-extend-native": 2*/
+/* eslint no-unused-vars: "off"*/
 //
 // Global map.js variables
 //
