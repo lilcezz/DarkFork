@@ -10,7 +10,7 @@ $(function () {
     const scaleByRarity = true // Enable scaling by rarity. Default: true.
     const upscalePokemon = true // Enable upscaling of certain Pokemon (upscaledPokemon and notify list). Default: false.
     const upscaledPokemon = [] // Add Pokémon IDs separated by commas (e.g. [1, 2, 3]) to upscale icons. Default: [].
-    const mapStyle = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
+    const map_style = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
     const playSound = false // Default: false.
     const playCries = false // Default: false.
     const searchMarkerStyle = 'Hidden' //  default: 'pokesition'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
@@ -19,11 +19,11 @@ $(function () {
     const useGymSidebar = true
 
     // Rarities Sprites
-    const rarityCommon = 12 // Default: 1. 
-    const rarityUncommon = 20 // Default: 1. 
-    const rarityRare = 100 // Default: 1. 
-    const rarityVeryRare = 147 // Default: 1. 
-    const rarityUltraRare = 149 // Default: 1. 
+    const rarityCommon = 12 // Default: 1.
+    const rarityUncommon = 20 // Default: 1.
+    const rarityRare = 100 // Default: 1.
+    const rarityVeryRare = 147 // Default: 1.
+    const rarityUltraRare = 149 // Default: 1.
     const rarityNewSpawn = 151 // Default: 1.
 
     // Google Analytics property ID. Leave empty to disable.
