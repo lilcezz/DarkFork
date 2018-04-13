@@ -96,7 +96,7 @@ $(function () {
     Store.set('isSearchMarkerMovable', isSearchMarkerMovable)
     Store.set('showLocationMarker', showLocationMarker)
     Store.set('isLocationMarkerMovable', isLocationMarkerMovable)
-    Store.set('mapStyle', mapStyle)
+    Store.set('map_style', map_style)
     Store.set('playSound', playSound)
     Store.set('playCries', playCries)
     Store.set('searchMarkerStyle', searchMarkerStyle)
