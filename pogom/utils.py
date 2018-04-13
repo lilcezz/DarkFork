@@ -1013,6 +1013,10 @@ def init_args(args):
         log.info("Watching encounter whitelist file {} for changes.".format(
             args.enc_whitelist_file))
         watchercfg['enc_whitelist'] = (args.enc_whitelist_file, None)
+        
+    # Add logging when hide-encounters is enabled in config.ini
+    if args.hide_encounters:
+        log.info('Encounter stats disabled on front-end.')
 
     # Prepare webhook whitelist - empty list means no restrictions
     args.webhook_whitelist = []
