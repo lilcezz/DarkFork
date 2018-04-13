@@ -12,8 +12,8 @@ $(function () {
     const map_style = 'roadmap' //  default: 'roadmap'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/mapstyle.json
     const playSound = false // Default: false.
     const playCries = false // Default: false.
-    const searchMarkerStyle = 'Hidden' //  default: 'pokesition'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
-    const locationMarkerStyle = 'Hidden' // default: 'mobile'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
+    const searchMarkerStyle = 'Hidden' //  default: 'Hidden'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
+    const locationMarkerStyle = 'Hidden' // default: 'Hidden'. Options - look at https://github.com/RocketMap/RocketMap/blob/develop/static/data/searchmarkerstyle.json
     const zoomLevel = 16 // default: 16.
 	const useGymSidebar = true
 
