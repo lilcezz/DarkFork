@@ -242,7 +242,7 @@ function loadDefaultImages() {
         if (ep.indexOf($(this).data('value')) !== -1) {
             $(this).addClass('active')
             $('.hidefilteractiv').css('color', 'red')
-            $('.hidefilteractiv').text('Preset activated')
+            $('.hidefilteractiv').text('Filter/preset activated')
         }
     })
     $('label[for="notify-pokemon"] .list .pokemon-icon-sprite').removeClass('active')
@@ -3470,7 +3470,7 @@ $(function () {
                 $('.hidefilteractiv').text('')
                 $('.hidefilteractiv').css('color', 'black')
             } else {
-                $('.hidefilteractiv').text('Preset activated')
+                $('.hidefilteractiv').text('Filter/preset activated')
                 $('.hidefilteractiv').css('color', 'red')
             }
             Store.set('remember_select_exclude', excludedPokemon)
