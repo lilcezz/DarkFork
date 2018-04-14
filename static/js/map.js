@@ -26,6 +26,14 @@ var $selectSearchIconMarker
 var $selectLocationIconMarker
 var $switchGymSidebar
 var $selectExcludeRarity
+var pokemonGen = new Array(808)
+pokemonGen.fill(1, 1, 152)
+pokemonGen.fill(2, 152, 252)
+pokemonGen.fill(3, 252, 387)
+pokemonGen.fill(4, 387, 494)
+pokemonGen.fill(5, 494, 650)
+pokemonGen.fill(6, 650, 722)
+pokemonGen.fill(7, 722, 808)
 
 const language = document.documentElement.lang === '' ? 'en' : document.documentElement.lang
 var idToPokemon = {}
@@ -857,6 +865,7 @@ function pokemonLabel(item) {
     var ratingDefense = item['rating_defense']
     var encounterIdLong = encounterId
     var weatherBoostedCondition = item['weatherBoostedCondition']
+    var gen = getPokemonGen(id)
 
     $.each(types, function (index, type) {
         typesDisplay += getTypeSpan(type)
@@ -926,7 +935,7 @@ function pokemonLabel(item) {
                 <img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
                   CP <span class='pokemon encounter big'>${cp}</span><br>
-				  GEN: <span class='pokemon encounter big'>${generation}</span>
+				  GEN: <span class='pokemon encounter big'>${gen}</span>
                 </div>
                 <div class='pokemon links'>
                   <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
@@ -974,7 +983,7 @@ function pokemonLabel(item) {
 				  <div>
 					<img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
-				  GEN: <span class='pokemon encounter big'>${generation}</span>
+				  GEN: <span class='pokemon encounter big'>${gen}</span>
                 </div>
 					<div class='pokemon links'>
 					  <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
@@ -1006,7 +1015,7 @@ function pokemonLabel(item) {
 				  <div>
 					<img class='pokemon sprite' src='${pokemonIcon}'>
                 <div class='pokemon cp big'>
-				  GEN: <span class='pokemon encounter big'>${generation}</span>
+				  GEN: <span class='pokemon encounter big'>${gen}</span>
                 </div>
 					<div class='pokemon links'>
 					  <i class='fa fa-lg fa-fw fa-eye-slash'></i> <a href='javascript:excludePokemon(${id}, "${encounterId}")'>${hideLabel}</a>
@@ -2045,6 +2054,10 @@ function processPokemons(pokemon) {
     // allow redraws in between. We enable redraw in addMarkers, which doesn't
     // repaint/reset all previous markers but only draws new ones.
     processPokemonChunked(pokemon, Store.get('processPokemonChunkSize'))
+}
+
+function getPokemonGen(p) {
+    return pokemonGen[p] || '?'
 }
 
 function processPokemonChunked(pokemon, chunkSize) {
