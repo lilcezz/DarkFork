@@ -3017,9 +3017,9 @@ $(function () {
         $('.exclude_templates').append('<div class="hidepreset" data-key=' + key + '><div class="hideicon">' + pokemonIcon + '</div>' + value['Name'] + '</div>')
     })
 
-    function load_pokemon_json(callback){
-        $.getJSON('static/dist/data/pokemon.min.json', function( data ) {
-           callback(data);
+    function loadPokemonJson(callback) {
+        $.getJSON('static/dist/data/pokemon.min.json', function (data) {
+            callback(data)
         })
     }
 
@@ -3067,7 +3067,6 @@ $(function () {
         })
 
 
-
         $selectRarityNotify.select2({
             placeholder: i8ln('Select Rarity'),
             data: [i8ln('Common'), i8ln('Uncommon'), i8ln('Rare'), i8ln('Very Rare'), i8ln('Ultra Rare'), i8ln('New Spawn')],
@@ -3093,7 +3092,7 @@ $(function () {
         })
 
         $('.exclude_templates').on('click', '.hidepreset', function () {
-            const hidepresets  = Store.get('hidepresets')
+            const hidepresets = Store.get('hidepresets')
             var img = $(this)
             var id = img.data('key').toString()
             $('.hidepreset').removeClass('active')
