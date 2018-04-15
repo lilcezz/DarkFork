@@ -3096,7 +3096,7 @@ $(function () {
             var id = img.data('key').toString()
             $('.hidepreset').removeClass('active')
             img.addClass('active')
-            generate_pokemon_exlude(hidepresets[id]['Searchstring'], hidepresets[id]['Invert'])
+            generatePokemonExlude(hidepresets[id]['Searchstring'], hidepresets[id]['Invert'])
         })
 
 
@@ -3117,7 +3117,7 @@ $(function () {
                 $.each(searchsplit, function (k, searchstring) {
                     if (searchstring !== '') {
                         $.each(pokeSearchList, function (i, item) {
-                            if ((item['pkm'].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1) || (item['type1'].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1) || (item['gen'].toString() ===searchstring.toLowerCase()) || (item['value'].toString() === searchstring.toString())) {
+                            if ((item['pkm'].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1) || (item['type1'].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1) || (item['gen'].toString() === searchstring.toLowerCase()) || (item['value'].toString() === searchstring.toString())) {
                                 foundpokemon.push(item['value'])
                             }
                         })
