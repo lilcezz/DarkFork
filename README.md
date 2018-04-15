@@ -1,4 +1,4 @@
-  
+<img src="https://travis-ci.org/darkelement1987/DarkFork.svg?branch=MIX_MEWTWO">  
 # DarkFork
 
 Live visualization of all the Pokémon (with option to show gyms, raids and PokéStops) in your area. This is a proof of concept that we can load all the Pokémon visible nearby given a location. Currently runs on a Flask server displaying Google Maps with markers on it.
@@ -26,7 +26,7 @@ Download the latest version of DarkFork [here](https://github.com/darkelement198
 
 And more to be added!
 
-<img src="http://www.tjielup.nl/features.png">
+
 
 <img src="http://www.tjielup.nl/raidboss.png">
 
