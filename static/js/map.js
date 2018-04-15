@@ -5,6 +5,7 @@
 //
 
 var $selectExclude
+
 var $selectPokemonNotify
 var $selectRarityNotify
 var $textPerfectionNotify
