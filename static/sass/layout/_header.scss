@@ -67,13 +67,13 @@
         }
       }
 
-      & + a.checkCustomLinkButton:last-child {
+      & + a[href="#stats"]:last-child {
         border-left: solid 1px _palette(accent2, border);
         padding-left: 1.25em;
         margin-left: 0.5em;
       }
 
-      &.checkCustomLinkButton {
+      &[href="status"] {
         @include icon('\f059');
         -webkit-tap-highlight-color: rgba(0,0,0,0);
 
@@ -95,7 +95,7 @@
           margin-left: 0.25em;
         }
 
-      &[href="http://www.test.com"] {
+      &.checkCustomLinkButton {
         @include icon('\f0e4');
         -webkit-tap-highlight-color: rgba(0,0,0,0);
 
@@ -104,7 +104,7 @@
         }
       }
 
-      & + a[href="http://www.test.com"]:last-child {
+      & + a.checkCustomLinkButton:last-child {
         border-left: solid 1px _palette(accent2, border);
         padding-left: 1.25em;
         margin-left: 0.5em;
