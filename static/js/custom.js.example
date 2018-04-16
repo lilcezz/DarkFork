@@ -33,10 +33,10 @@ $(function () {
         '/mobile'
     ]
     
-    // Worldopole Button Settings
-    const worldopoleButtonEnabled = false // Default: False.
-    const worldopoleTitle = 'Test' // Default: ''
-    const worldopoleUrl = 'http://www.test.com' // Default: ''
+    // customLink Button Settings
+    const customLinkButtonEnabled = false // Default: False.
+    const customLinkTitle = 'Test' // Default: ''
+    const customLinkUrl = 'http://www.test.com' // Default: ''
 
     // Clustering! Different zoom levels for desktop vs mobile.
     const disableClusters = false // Default: false.
@@ -129,10 +129,11 @@ $(function () {
         ga('send', 'pageview')
     }
 
-    // Worldopole Button
-	var htmlcode = '<a href=\"' + worldopoleUrl + '" id=\"worldopoleButton\" style=\"float: right;\"><span class=\"label\">' + worldopoleTitle + '</span></a>'
-	if (worldopoleButtonEnabled===true) {
-document.getElementById('checkWorldopoleButton').innerHTML = htmlcode
+    // customLink Button
+
+	if (customLinkButtonEnabled === true) {
+	var htmlCode = '<a href=\"' + customLinkUrl + '" id=\"customLinkButton\" style=\"float: right;\">' + customLinkTitle + '</a>'
+	document.getElementById('checkCustomLinkButton').innerHTML = htmlCode
 	}
 
     // Show MOTD.
