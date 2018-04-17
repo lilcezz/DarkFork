@@ -132,8 +132,8 @@ $(function () {
     // customLink Button
 
 	if (customLinkButtonEnabled === true) {
-    var htmlCode = '<a href="' + customLinkUrl + '" id="customLinkButton" style="float: right;"><span class="label">' + customLinkTitle + '</span></a>'
-document.getElementsByTagName('a')[1].insertAdjacentHTML('afterend', htmlCode);
+	var htmlCode = '<a href="' + customLinkUrl + '" id="customLinkButton" style="float: right;"><span class="label">' + customLinkTitle + '</span></a>'
+document.getElementById('statsToggle').insertAdjacentHTML('afterend', htmlCode);
 	}
 
     // Show MOTD.
