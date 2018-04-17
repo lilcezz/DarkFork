@@ -132,7 +132,7 @@ $(function () {
     // customLink Button
 
 	if (customLinkButtonEnabled === true) {
-    var htmlCode = '<a href="www.bla.com" id="customLinkButton" style="float: right;"><span class="label">test</span></a>'
+    var htmlCode = '<a href="' + customLinkUrl + '" id="customLinkButton" style="float: right;"><span class="label">' + customLinkTitle + '</span></a>'
 document.getElementsByTagName('a')[1].insertAdjacentHTML('afterend', htmlCode);
 	}
 
