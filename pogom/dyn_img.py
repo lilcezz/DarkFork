@@ -2,6 +2,7 @@ import logging
 import os
 import subprocess
 from string import join
+
 from pgoapi.protos.pogoprotos.enums.costume_pb2 import Costume
 from pgoapi.protos.pogoprotos.enums.form_pb2 import Form
 from pgoapi.protos.pogoprotos.enums.gender_pb2 import (
