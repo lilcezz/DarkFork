@@ -90,8 +90,6 @@ def get_pokemon_raw_icon(pkm, gender=None, form=None,
         im_lines = ['-fuzz 0.5% -trim +repage'
                     ' -scale "96x96>" -unsharp 0x1'
                     ' -background none -gravity center -extent 96x96'
-                    ' -quality 50%'
-                    '-adaptive-resize 50%'
                     ]
         return run_imagemagick(source, im_lines, target)
     else:
@@ -115,8 +113,6 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
             ' -background black -alpha background'
             ' -channel A -blur 0x1 -level 0,10%'
             ' -adaptive-resize {size}x{size}'
-            ' -quality 50%'
-            '-adaptive-resize 50%'
             ' -modulate 100,110'.format(size=target_size)
         )
     else:
@@ -133,9 +129,8 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         pkm_idx = pkm - 1
         x = (pkm_idx % pkm_sprites_cols) * pkm_sprites_size
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
-        im_lines.append('-quality 50% -adaptive-resize 50% -crop ' +
-                        '{size}x{size}+{x}+{y} +repage'.format(
-                            size=target_size, x=x, y=y))
+        im_lines.append('-crop {size}x{size}+{x}+{y} +repage'.format(
+            size=target_size, x=x, y=y))
 
     if weather:
         radius = 20
@@ -144,8 +139,6 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         y2 = 1
         im_lines.append(
             '-gravity northeast'
-            ' -quality 50%'
-            '-adaptive-resize 50%'
             ' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"'
             ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(
                 x=x, y=y, y2=y2, weather_img=weather_images[weather])
@@ -160,8 +153,7 @@ def get_gym_icon(team, level, raidlevel, pkm, is_in_battle):
     if not generate_images:
         return default_gym_image(team, level, raidlevel, pkm)
 
-    im_lines = ['-font "{}" -quality 50% -adaptive-resize 50% ' +
-                '-pointsize {}'.format(font, font_pointsize)]
+    im_lines = ['-font "{}" -pointsize {}'.format(font, font_pointsize)]
     if pkm and pkm != 'null':
         # Gym with ongoing raid
         out_filename = os.path.join(
@@ -232,8 +224,7 @@ def draw_battle_indicator():
 
 def battle_indicator_boom():
     # BOOM! Sticker
-    return [('-gravity center ( "{}" -quality 50% ' +
-             '-adaptive-resize 50% -resize 84x84 ) ' +
+    return [('-gravity center ( "{}" -resize 84x84 ) ' +
              '-geometry +0+0 -composite').format(
         os.path.join(path_gym, 'boom.png'))]
 
@@ -243,8 +234,7 @@ def battle_indicator_fist():
     x = gym_icon_size - (gym_badge_padding + gym_badge_radius)
     y = gym_icon_size / 2
     return [
-        '-fill white -quality 50% -adaptive-resize 50% ' +
-        '-stroke black -draw "circle {},{} {},{}"'.format(
+        '-fill white -stroke black -draw "circle {},{} {},{}"'.format(
             x, y, x - gym_badge_radius, y),
         '-gravity east ( "{}" -resize 24x24 ) -geometry ' +
         '+4+0 -composite'.format(os.path.join(path_gym, 'fist.png'))
@@ -254,8 +244,7 @@ def battle_indicator_fist():
 def battle_indicator_flame():
     # Flame Badge
     return [
-        '-gravity east ( "{}" -quality 50% -adaptive-resize 50% ' +
-        '-resize 32x32 ) -geometry ' +
+        '-gravity east ( "{}" -resize 32x32 ) -geometry ' +
         '+0+0 -composite'.format(os.path.join(path_gym, 'flame.png'))
     ]
 
@@ -265,8 +254,7 @@ def battle_indicator_swords():
     x = gym_icon_size - (gym_badge_padding + gym_badge_radius)
     y = gym_icon_size / 2
     return [
-        '-fill white -quality 50% -adaptive-resize 50% ' +
-        '-stroke black -draw "circle {},{} {},{}"'.format(
+        '-fill white -stroke black -draw "circle {},{} {},{}"'.format(
             x, y, x - gym_badge_radius, y),
         '-gravity east ( "{}" -resize 24x24 ) -geometry +4+0 ' +
         '-composite'.format(os.path.join(path_gym, 'swords.png'))
@@ -346,12 +334,9 @@ def pokemon_asset_path(pkm, classifier=None, gender=GENDER_UNSET,
 
 
 def draw_gym_subject(image, size, gravity='north', trim=False):
-    trim_cmd = [
-        ' -quality 50% -adaptive-resize 50% ' +
-        '-fuzz 0.5% -trim +repage'] if trim else ''
+    trim_cmd = ' -fuzz 0.5% -trim +repage' if trim else ''
     lines = [
-        '-gravity {} ( "{}"{} -quality 50% -adaptive-resize 50% ' +
-        '-scale {}x{} -unsharp 0x1 ( +clone ' +
+        '-gravity {} ( "{}"{} -scale {}x{} -unsharp 0x1 ( +clone ' +
         '-background black -shadow 80x3+5+5 ) +swap -background ' +
         'none -layers merge +repage ) -geometry +0+0 -composite'.format(
             gravity, image, trim_cmd, size, size)
