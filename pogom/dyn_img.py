@@ -149,8 +149,7 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
             ' -quality 50%' +
             '-adaptive-resize 50%' +
             ' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"' +
-            ' -draw "image over 1,1 42,42 \' +
-            '{weather_img}\'"'.format(
+            ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(
                 x=x, y=y, y2=y2, weather_img=weather_images[weather])
         )
 
