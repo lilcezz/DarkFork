@@ -133,9 +133,11 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         pkm_idx = pkm - 1
         x = (pkm_idx % pkm_sprites_cols) * pkm_sprites_size
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
-        im_lines.append('-quality 50% -adaptive-resize 50% ' +
-                        '-crop {size}x{size}+{x}+{y} +repage' +
-                        .format(size=target_size, x=x, y=y))
+        im_lines.append(
+            '-quality 50% -adaptive-resize 50% ' +
+            '-crop {size}x{size}+{x}+{y} ' +
+            '+repage'.format(size=target_size, x=x, y=y)
+        )
 
     if weather:
         radius = 20
