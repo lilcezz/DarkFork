@@ -2,7 +2,6 @@ import logging
 import os
 import subprocess
 from string import join
-
 from pgoapi.protos.pogoprotos.enums.costume_pb2 import Costume
 from pgoapi.protos.pogoprotos.enums.form_pb2 import Form
 from pgoapi.protos.pogoprotos.enums.gender_pb2 import (
@@ -134,8 +133,8 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         x = (pkm_idx % pkm_sprites_cols) * pkm_sprites_size
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
         im_lines.append('-quality 50% -adaptive-resize 50% ' +
-                        '-crop {size}x{size}+{x}+{y} +repage'.format(' +
-                        'size=target_size, x=x, y=y))'
+                        '-crop '{size}x{size}+{x}+{y} '+repage' +
+                        .format(size=target_size, x=x, y=y))
 
     if weather:
         radius = 20
