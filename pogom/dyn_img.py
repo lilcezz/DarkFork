@@ -133,9 +133,9 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         pkm_idx = pkm - 1
         x = (pkm_idx % pkm_sprites_cols) * pkm_sprites_size
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
-        im_lines.append('-quality 50% -adaptive-resize 50%
-                        -crop {size}x{size}+{x}+{y} +repage'.format(
-                        size=target_size, x=x, y=y))
+        im_lines.append('-quality 50% -adaptive-resize 50% ' +
+                        '-crop {size}x{size}+{x}+{y} +repage'.format(' +
+                        'size=target_size, x=x, y=y))'
 
     if weather:
         radius = 20
@@ -143,12 +143,12 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         y = radius + 1
         y2 = 1
         im_lines.append(
-            '-gravity northeast'
-            ' -quality 50%'
-			'-adaptive-resize 50%'
-			' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"'
-            ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(
-                x=x, y=y, y2=y2, weather_img=weather_images[weather])
+            '-gravity northeast' +
+            ' -quality 50%' +
+            '-adaptive-resize 50%' +
+            ' -fill "#FFFD" -stroke black -draw "circle {x},{y} {x},{y2}"' +
+            ' -draw "image over 1,1 42,42 \'{weather_img}\'"'.format(' +
+            'x=x, y=y, y2=y2, weather_img=weather_images[weather])'
         )
 
     return run_imagemagick(source, im_lines, target)
@@ -160,8 +160,10 @@ def get_gym_icon(team, level, raidlevel, pkm, is_in_battle):
     if not generate_images:
         return default_gym_image(team, level, raidlevel, pkm)
 
-    im_lines = ['-font "{}" -quality 50% -adaptive-resize 50%
-                -pointsize {}'.format(font, font_pointsize)]
+    im_lines = [
+        '-font "{}" -quality 50% -adaptive-resize 50% ' +
+        '-pointsize {}'.format(font, font_pointsize)
+    ]
     if pkm and pkm != 'null':
         # Gym with ongoing raid
         out_filename = os.path.join(
@@ -347,7 +349,7 @@ def pokemon_asset_path(pkm, classifier=None, gender=GENDER_UNSET,
 
 def draw_gym_subject(image, size, gravity='north', trim=False):
     trim_cmd = ' -quality 50% -adaptive-resize 50% -fuzz 0.5% ' +
-                '-trim +repage' if trim else ''
+            '-trim +repage' if trim else ''
     lines = [
         '-gravity {} ( "{}"{} -quality 50% -adaptive-resize 50% -scale ' +
         '{}x{} -unsharp 0x1 ( +clone ' +
