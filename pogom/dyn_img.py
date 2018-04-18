@@ -135,7 +135,7 @@ def get_pokemon_map_icon(pkm, weather=None, gender=None,
         y = (pkm_idx / pkm_sprites_cols) * pkm_sprites_size
         im_lines.append('-quality 50% -adaptive-resize 50% -crop ' +
                         '{size}x{size}+{x}+{y} +repage'.format(
-            size=target_size, x=x, y=y))
+                            size=target_size, x=x, y=y))
 
     if weather:
         radius = 20
@@ -347,7 +347,7 @@ def pokemon_asset_path(pkm, classifier=None, gender=GENDER_UNSET,
 
 def draw_gym_subject(image, size, gravity='north', trim=False):
     trim_cmd = ' -quality 50% -adaptive-resize 50% ' +
-    '-fuzz 0.5% -trim +repage' if trim else ''
+	'-fuzz 0.5% -trim +repage' if trim else ''
     lines = [
         '-gravity {} ( "{}"{} -quality 50% -adaptive-resize 50% ' +
         '-scale {}x{} -unsharp 0x1 ( +clone ' +
