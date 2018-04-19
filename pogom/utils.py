@@ -176,6 +176,11 @@ def get_args():
     parser.add_argument('-mpm', '--medalpokemon',
                         help='Show notify for tiny rattata and big magikarp.',
                         action='store_true', default=False)
+    parser.add_argument('-mr', '--manualraids',
+                        help='Enable or disable manual adding ' +
+                        'raids on front-end.',
+                        action='store_false', dest='manual_raids',
+                        default=False)
     parser.add_argument('-cs', '--captcha-solving',
                         help='Enables captcha solving.',
                         action='store_true', default=False)
