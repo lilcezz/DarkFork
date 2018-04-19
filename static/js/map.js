@@ -2545,6 +2545,7 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
                     Gym Leader:<br>
                     ${pokemonIcon}<br>
                     <b>${result.guard_pokemon_name}</b>
+
                     <p style="font-size: .75em; margin: 5px;">
                         No additional gym information is available for this gym. Make sure you are collecting <a href="https://rocketmap.readthedocs.io/en/develop/extras/gyminfo.html">detailed gym info.</a>
                         If you have detailed gym info collection running, this gym's Pokemon information may be out of date.
@@ -2554,7 +2555,51 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
         }
 
         var topPart = gymLabel(result, false)
-        sidebar.innerHTML = `${topPart}${pokemonHtml}`
+        sidebar.innerHTML = `
+		${topPart}
+		<div><center>
+	<h3>Select Raid/Egg:</h3>
+	<p><select>
+	<option value="egg1">Egg Level 1</option>
+	<option value="egg2">Egg Level 2</option>
+	<option value="egg3">Egg Level 3</option>
+	<option value="egg4">Egg Level 4</option>
+	<option value="egg5">Egg Level 5</option>
+	<option value="boss1">Shuppet</option>
+	<option value="boss2">Duskull</option>
+	<option value="boss3">Magikarp</option>
+	<option value="boss4">Snorunt</option>
+	<option value="boss5">Swablu</option>
+	<option value="boss6">Misdreavus</option>
+	<option value="boss7">Sneasel</option>
+	<option value="boss8">Exeggutor</option>
+	<option value="boss9">Sableye</option>
+	<option value="boss10">Mawile</option>
+	<option value="boss11">Pinser</option>
+	<option value="boss12">Granbull</option>
+	<option value="boss13">Machamp</option>
+	<option value="boss14">Gengar</option>
+	<option value="boss15">Jynx</option>
+	<option value="boss16">Aerodactyl</option>
+	<option value="boss17">Piloswine</option>
+	<option value="boss18">Houndoom</option>
+	<option value="boss19">Walrein</option>
+	<option value="boss20">Aggron</option>
+	<option value="boss21">Snorlax</option>
+	<option value="boss22">Tyranitar</option>
+	<option value="boss23">Absol</option>
+	<option value="boss24">Latios</option>
+	<option value="boss25">Latias</option>
+	<option value="boss26">Mewtwo</option>
+	</select></p>
+	<div class="switch-container">
+	<h5 style="margin-bottom: 2px;">Hatch/expiry (mm:ss):</h5>
+	<input type="number" name="mins" id="" size="2" maxlength="2" value="45" required="" style="display:inline;width:50px;text-align:center;">:
+	<input required="" type="number" name="secs" id="" size="2" value="00" maxlength="2" style="display:inline;width:50px;text-align:center;">
+	</div>
+	<p><button class="submit-raid-button" type="button"><i class="fa fa-binoculars" style="margin-right:10px;"></i>Submit Raid</button></p>
+	</center></div>
+		${pokemonHtml}`
 
         sidebarClose = document.createElement('a')
         sidebarClose.href = '#'
